@@ -52,11 +52,10 @@
 
                     <ImageView
                         style="@style/AppTheme.Components.ImageView.Button"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
 
                         android:layout_gravity="end"
-                        android:layout_marginEnd="16dp"
                         android:background="@drawable/backbround_button_image"
                         android:onClick="addToPLan"
                         android:scaleType="center"
@@ -68,9 +67,10 @@
 
                     <ImageView
                         android:id="@+id/iv_favorite_image_button"
-                        android:layout_width="30dp"
-                        android:layout_height="30dp"
+                        style="@style/AppTheme.Components.ImageView.Button"
+                        android:layout_width="wrap_content"
 
+                        android:layout_height="wrap_content"
                         android:layout_gravity="end"
                         android:layout_marginEnd="16dp"
                         android:background="@drawable/backbround_button_image"
@@ -84,10 +84,11 @@
 
                     <ImageView
                         android:id="@+id/imageView"
+                        style="@style/AppTheme.Components.ImageView.Button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="end"
 
+                        android:layout_gravity="end"
                         android:layout_marginStart="16dp"
                         android:background="@drawable/backbround_button_image"
                         android:clickable="true"

@@ -51,7 +51,7 @@
             android:id="@+id/iv_random_imgae_meal"
             android:layout_width="196dp"
             android:layout_height="194dp"
-            android:src="@mipmap/example"
+            android:src="@drawable/example4"
             android:visibility="visible" />
 
     </androidx.cardview.widget.CardView>

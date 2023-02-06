@@ -9,7 +9,6 @@
         <item name="colorSecondary">@color/secondaryColor</item>
         <item name="colorSecondaryVariant">@color/secondaryDarkColor</item>
         <item name="colorOnSecondary">@color/secondaryTextColor</item>
-        <item name="shapeAppearanceMediumComponent">@style/ShapeAppearance.App.MediumComponent</item>
         <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
 
     </style>
@@ -21,10 +20,7 @@
         <item name="colorPrimary">@color/primaryColor</item>
 
     </style>
-    <style name="ShapeAppearance.App.MediumComponent" parent="ShapeAppearance.MaterialComponents.MediumComponent">
-        <item name="cornerFamily">cut</item>
-        <item name="cornerSize">8dp</item>
-    </style>
+
 
 
     <style name="AppTheme.Components.ImageView.Button" parent="Theme.FoodPlanner">
