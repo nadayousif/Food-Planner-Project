@@ -16,6 +16,7 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
+import com.example.foodplanner.DBConnection.ConcreteLocalData;
 import com.example.foodplanner.Helper.Tags;
 import com.example.foodplanner.databinding.ActivityMainBinding;
 import com.example.foodplanner.meal.MealActivity;
