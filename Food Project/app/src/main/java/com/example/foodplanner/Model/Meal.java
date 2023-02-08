@@ -43,6 +43,7 @@ public class Meal {
         ArrayList<String> list = new ArrayList<>();
         if (strIngredient1 != null && !strIngredient1.isEmpty())
             list.add(strIngredient1);
+
         if (strIngredient2 != null && !strIngredient2.isEmpty())
             list.add(strIngredient2);
         if (strIngredient3 != null && !strIngredient3.isEmpty())

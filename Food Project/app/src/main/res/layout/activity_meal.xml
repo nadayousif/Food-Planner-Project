@@ -52,10 +52,12 @@
 
                     <ImageView
                         style="@style/AppTheme.Components.ImageView.Button"
+
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
                         android:layout_gravity="end"
+
                         android:background="@drawable/backbround_button_image"
                         android:onClick="addToPLan"
                         android:scaleType="center"
@@ -84,11 +86,13 @@
 
                     <ImageView
                         android:id="@+id/imageView"
+
                         style="@style/AppTheme.Components.ImageView.Button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
                         android:layout_gravity="end"
+
                         android:layout_marginStart="16dp"
                         android:background="@drawable/backbround_button_image"
                         android:clickable="true"

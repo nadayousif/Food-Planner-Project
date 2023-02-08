@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/background"
+    android:backgroundTintMode="src_over"
+    tools:context=".Welcome.WelcomeActivity">
+
+    <Button
+        android:id="@+id/signup"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="300dp"
+        android:text="@string/Signup"
+        android:textColor="#F6F4F4"
+        app:iconTint="@color/secondaryTextColor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/google"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="375dp"
+        android:backgroundTint="@color/secondaryTextColor"
+        android:text="@string/Google"
+        android:textColor="#020202"
+        app:icon="@drawable/img"
+        app:iconTint="#201E1E"
+        app:iconTintMode="add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/facebook"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="25dp"
+        android:backgroundTint="@color/secondaryTextColor"
+        android:text="@string/Facebook"
+        android:textColor="#040303"
+        app:icon="@drawable/img_1"
+        app:iconTint="#131313"
+        app:iconTintMode="add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/google" />
+
+    <Button
+        android:id="@+id/guest"
+        android:layout_width="300dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="25dp"
+        android:backgroundTint="@color/secondaryTextColor"
+        android:text="@string/Guest"
+        android:textColor="#090909"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/facebook" />
+
+    <TextView
+        android:id="@+id/haveAccount"
+        android:layout_width="300dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="20dp"
+        android:gravity="center"
+        android:text="@string/Account"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/guest" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,9 +2,11 @@ package com.example.foodplanner;
 
 import android.content.Intent;
 import android.os.Bundle;
+
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
+
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -37,6 +39,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
+
     }
     public void goToMeal(View view) {
         Intent intent=new Intent(this, MealActivity.class);
@@ -44,10 +47,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
 
     }
-    public void addToPlan(View view) {
-//       navController.navigate(R.id.action_navigation_plan_to_navigation_search);
-        navController.navigate(R.id.navigation_search);
 
+    public void addToPlan(View view) {
+        navController.navigate(R.id.navigation_search);
+        new Thread(()->{   ConcreteLocalData db;
+            db=ConcreteLocalData.getInstance(this);}).start();
 
     }
 
