@@ -1,5 +1,6 @@
 package com.example.foodplanner.home;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,12 +22,13 @@ import com.example.foodplanner.databinding.FragmentHomeBinding;
 import java.util.Random;
 
 public class HomeFragment extends Fragment {
-    private static boolean isView = false;
     private static RandomMeal randomMeal;
     private FragmentHomeBinding binding;
 
+
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
+
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
@@ -34,6 +36,7 @@ public class HomeFragment extends Fragment {
         binding.cardView.setTag(randomMeal.getIdMeal());
         return root;
     }
+
 
     @Override
     public void onDestroyView() {

@@ -4,19 +4,244 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".plan.PlanFragment">
+    android:orientation="vertical"
+    android:padding="@dimen/activity_horizontal_margin"
+    tools:context=".plan.PlanFragment"
+    >
 
-    <TextView
-        android:id="@+id/text_notifications"
-        android:layout_width="match_parent"
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:textAlignment="center"
-        android:textSize="20sp"
+        android:text="Add To plan"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/nestedScrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:backgroundTint="#121212"
+        android:fillViewport="true"
+        app:layout_constraintBottom_toTopOf="@+id/button2"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+
+            <TextView
+                android:id="@+id/textView25"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Saturday"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_conversion_absoluteHeight="32dp"
+                tools:layout_conversion_absoluteWidth="94dp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="-965dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rec_plan_saturday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6"
+                tools:layout_conversion_absoluteHeight="194dp"
+                tools:layout_conversion_absoluteWidth="40dp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="-925dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/textView24"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Sunday"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_conversion_absoluteHeight="32dp"
+                tools:layout_conversion_absoluteWidth="79dp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="-722dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rec_plan_sunday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6"
+                tools:layout_conversion_absoluteHeight="194dp"
+                tools:layout_conversion_absoluteWidth="40dp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="-682dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/textView23"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Monday"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_conversion_absoluteHeight="32dp"
+                tools:layout_conversion_absoluteWidth="86dp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="-480dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rec_plan_monday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6"
+                tools:layout_conversion_absoluteHeight="194dp"
+                tools:layout_conversion_absoluteWidth="40dp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="-439dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/textView22"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Tuesday"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_conversion_absoluteHeight="32dp"
+                tools:layout_conversion_absoluteWidth="90dp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="-237dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rec_plan_tuesday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6"
+                tools:layout_conversion_absoluteHeight="194dp"
+                tools:layout_conversion_absoluteWidth="40dp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="-197dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/textView21"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Wednesday"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_conversion_absoluteHeight="32dp"
+                tools:layout_conversion_absoluteWidth="124dp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="6dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rec_plan_wednesday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6"
+                tools:layout_conversion_absoluteHeight="194dp"
+                tools:layout_conversion_absoluteWidth="40dp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="46dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="Thursday"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_conversion_absoluteHeight="32dp"
+                tools:layout_conversion_absoluteWidth="100dp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="248dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rec_plan_thursday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6"
+                tools:layout_conversion_absoluteHeight="194dp"
+                tools:layout_conversion_absoluteWidth="40dp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="289dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+            <TextView
+                android:id="@+id/textView26"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Friday"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="24sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:layout_conversion_absoluteHeight="32dp"
+                tools:layout_conversion_absoluteWidth="65dp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="491dp"
+                android:layout_marginTop="8dp" />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rec_plan_friday"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView6"
+                tools:layout_conversion_absoluteHeight="194dp"
+                tools:layout_conversion_absoluteWidth="40dp"
+                tools:layout_editor_absoluteX="16dp"
+                tools:layout_editor_absoluteY="531dp">
+
+            </androidx.recyclerview.widget.RecyclerView>
+
+        </LinearLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>
