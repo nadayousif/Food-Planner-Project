@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodplanner.Model.RandomMeal;
 import com.example.foodplanner.R;
-import com.example.foodplanner.meal.AdapterIngredientMeasure;
-import com.example.foodplanner.serach.AdapterSearch;
 
 import java.util.ArrayList;
 

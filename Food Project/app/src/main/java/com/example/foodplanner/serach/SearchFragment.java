@@ -5,13 +5,16 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.example.foodplanner.searchresult.SearchResultActivity;
 import com.example.foodplanner.databinding.FragmentSearchBinding;
+import com.google.android.material.tabs.TabLayout;
 
 
 public class SearchFragment extends Fragment implements OnClickItem {
@@ -24,14 +27,27 @@ public class SearchFragment extends Fragment implements OnClickItem {
 
         binding = FragmentSearchBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        binding.recSearchCountries.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-        binding.recSearchCountries.setAdapter(new AdapterSearch(this,new String[]{"Beef","Breakfast","Chicken","Dessert","Beef","Breakfast","Chicken","Dessert","Beef","Breakfast","Chicken","Dessert","Beef","Breakfast","Chicken","Dessert"}));
-        binding.recSearchIngredients.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-        binding.recSearchIngredients.setAdapter(new AdapterSearch(this,new String[]{"Beef","Breakfast","Chicken","Dessert","Beef","Breakfast","Chicken","Dessert","Beef","Breakfast","Chicken","Dessert","Beef","Breakfast","Chicken","Dessert"}));
-        binding.recSearchCuisines.setLayoutManager(new StaggeredGridLayoutManager(3, StaggeredGridLayoutManager.VERTICAL));
-        binding.recSearchCuisines.setAdapter(new AdapterSearch(this,new String[]{"Beef","Breakfast","Chicken","Dessert","Beef","Breakfast","Chicken","Dessert","Beef","Breakfast","Chicken","Dessert","Beef","Breakfast","Chicken","Dessert"}));
+        binding.recCatogryItems.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        AdapterCategory adapterCategory =new AdapterCategory(this);
+        binding.recCatogryItems.setAdapter(adapterCategory);
+        adapterCategory.setStrings(new String[]{"Beef","Breakfast","Chicken","Dessert","Beef","Breakfast","Chicken","Dessert","Beef","Breakfast","Chicken","Dessert","Beef","Breakfast","Chicken","Dessert"});
+        adapterCategory.notifyDataSetChanged();
+        binding.tablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                Toast.makeText(getContext(), tab.getText(), Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
 
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
         return root;
     }
 

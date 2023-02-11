@@ -11,28 +11,28 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodplanner.R;
 
-public class AdapterSearch  extends RecyclerView.Adapter<AdapterSearch.ViewHolder> {
+public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHolder> {
     private String[] strings;
-    private boolean isRight=false;
     private OnClickItem onclickItem;
 
-    public AdapterSearch(OnClickItem onclickItem, String[] arr) {
-        this.strings = arr;
+    public AdapterCategory(OnClickItem onclickItem) {
+        this.strings = new String[0];
         this.onclickItem=onclickItem;
     }
-
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rec_search, parent, false));
     }
-
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.item.setText(strings[position]);
         holder.cardView.setOnClickListener((i)->{onclickItem.onClick(strings[position]);});
 
+    }
+
+    public void setStrings(String[] strings) {
+        this.strings = strings;
     }
 
     @Override

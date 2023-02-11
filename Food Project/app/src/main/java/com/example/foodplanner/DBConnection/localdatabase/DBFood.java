@@ -6,8 +6,8 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.example.foodplanner.DBModel.FavoriteMeal;
-import com.example.foodplanner.DBModel.PlanMeal;
+import com.example.foodplanner.DBConnection.DBModel.FavoriteMeal;
+import com.example.foodplanner.DBConnection.DBModel.PlanMeal;
 
 @Database(entities = {FavoriteMeal.class, PlanMeal.class}, version = 1)
 public abstract class DBFood extends RoomDatabase {
