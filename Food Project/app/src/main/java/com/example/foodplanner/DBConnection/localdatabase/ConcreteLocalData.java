@@ -1,10 +1,10 @@
-package com.example.foodplanner.DBConnection;
+package com.example.foodplanner.DBConnection.localdatabase;
 
 import android.content.Context;
 
 import androidx.lifecycle.LiveData;
 
-import com.example.foodplanner.DBModel.FavoriteMeal;
+import com.example.foodplanner.DBConnection.DBModel.FavoriteMeal;
 
 import java.util.List;
 

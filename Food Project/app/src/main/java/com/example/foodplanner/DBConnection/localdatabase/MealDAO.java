@@ -1,12 +1,11 @@
-package com.example.foodplanner.DBConnection;
+package com.example.foodplanner.DBConnection.localdatabase;
 
-import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.example.foodplanner.DBModel.FavoriteMeal;
+import com.example.foodplanner.DBConnection.DBModel.FavoriteMeal;
 
 import java.util.List;
 @Dao
