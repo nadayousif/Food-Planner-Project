@@ -1,4 +1,4 @@
-package com.example.foodplanner.DBConnection;
+package com.example.foodplanner.DBConnection.localdatabase;
 
 import androidx.lifecycle.LiveData;
 import androidx.room.Dao;

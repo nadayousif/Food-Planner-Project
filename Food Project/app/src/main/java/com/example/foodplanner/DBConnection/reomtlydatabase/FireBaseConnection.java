@@ -1,5 +1,7 @@
-package com.example.foodplanner.reomtlydatabase;
+package com.example.foodplanner.DBConnection.reomtlydatabase;
 
+
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -20,6 +22,8 @@ public class FireBaseConnection implements DatabaseConnection {
     @Override
     public void login(String email, String password, NetworkDelegate networkDelegate) {
         firebaseAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+
+
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
@@ -31,5 +35,20 @@ public class FireBaseConnection implements DatabaseConnection {
             }
         });
 
+    }
+
+    @Override
+    public void signup(String email, String password, NetworkDelegate networkDelegate) {
+            firebaseAuth.createUserWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                    if (task.isSuccessful()) {
+                        networkDelegate.onSuccessful();
+                    } else {
+                        networkDelegate.onFailure(task.getException().toString());
+                    }
+
+                }
+            });
     }
 }

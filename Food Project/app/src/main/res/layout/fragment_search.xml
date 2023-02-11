@@ -10,34 +10,49 @@
     android:paddingEnd="8dp"
     tools:context=".serach.SearchFragment">
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Button"
+        app:layout_constraintTop_toBottomOf="@+id/searchView"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <SearchView
+        android:id="@+id/searchView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="10dp"
-        app:cardCornerRadius="34dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="8dp"
+        android:alwaysDrawnWithCache="true"
+        android:animateLayoutChanges="true"
+        android:animationCache="true"
+        android:background="@color/secondaryLightColor"
+        android:clickable="true"
+        android:clipToPadding="true"
+        android:contextClickable="true"
+        android:drawingCacheQuality="auto"
+        android:elevation="4dp"
+        android:focusableInTouchMode="true"
+        android:imeOptions="actionSearch"
+        app:circularflow_defaultRadius="8dp"
+        app:iconifiedByDefault="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <SearchView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="4dp"
-            android:elevation="4dp"
-            app:iconifiedByDefault="false" />
-
-    </androidx.cardview.widget.CardView>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.core.widget.NestedScrollView
         android:id="@+id/nestedScrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="8dp"
         android:fillViewport="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardView2">
+        app:layout_constraintTop_toBottomOf="@+id/searchView">
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -47,7 +62,7 @@
                 android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="50dp"
                 android:text="Countries"
                 android:textColor="@color/secondaryTextColor"
                 android:textSize="24sp"

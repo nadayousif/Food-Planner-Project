@@ -3,24 +3,18 @@ package com.example.foodplanner;
 import android.content.Intent;
 import android.os.Bundle;
 
-import android.util.Log;
 import android.view.View;
-import android.widget.Toast;
-
 
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.foodplanner.DBConnection.ConcreteLocalData;
+import com.example.foodplanner.DBConnection.localdatabase.ConcreteLocalData;
 import com.example.foodplanner.Helper.Tags;
 import com.example.foodplanner.databinding.ActivityMainBinding;
 import com.example.foodplanner.meal.MealActivity;
-import com.example.foodplanner.serach.SearchFragment;
 
 public class MainActivity extends AppCompatActivity {
     NavController navController;

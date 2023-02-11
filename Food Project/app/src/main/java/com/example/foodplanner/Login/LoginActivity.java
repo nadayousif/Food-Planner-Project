@@ -5,11 +5,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,7 +14,7 @@ import com.example.foodplanner.Helper.CheckConnection;
 import com.example.foodplanner.MainActivity;
 import com.example.foodplanner.R;
 import com.example.foodplanner.SignUp.SignUpActivity;
-import com.example.foodplanner.reomtlydatabase.FireBaseConnection;
+import com.example.foodplanner.DBConnection.reomtlydatabase.FireBaseConnection;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -55,7 +52,7 @@ public class LoginActivity extends AppCompatActivity implements Communication {
             password.setError("must be 6 characters");
             password.requestFocus();
         } else if (!patternMatches(email.getText().toString())) {
-            email.setError("name");
+            email.setError("invalid email");
             email.requestFocus();
 
         } else {
