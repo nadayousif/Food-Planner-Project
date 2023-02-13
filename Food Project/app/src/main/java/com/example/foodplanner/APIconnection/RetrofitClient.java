@@ -42,7 +42,7 @@ public class RetrofitClient implements RemoteDataSource{
 
     private void getCuisines(NetworkDelegate notifyApi){
         getService().getCuisines().subscribeOn(Schedulers.io()).map(i->i.getList()).flatMap(i->Observable.fromIterable(i)).
-                map(i->i.getStrMeal()).subscribe(new Observer<String>() {
+                map(i->i.getStrCategory()).subscribe(new Observer<String>() {
                     List<String> names=new ArrayList<>();
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {

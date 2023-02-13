@@ -57,4 +57,14 @@ dependencies {
     implementation 'io.reactivex.rxjava3:rxandroid:3.0.2'
     implementation "com.github.akarnokd:rxjava3-retrofit-adapter:3.0.0"
     implementation "androidx.room:room-rxjava3:2.5.0"
+    implementation platform('com.google.firebase:firebase-bom:31.2.0')
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.android.material:material:1.8.0'
+    implementation 'com.google.android.gms:play-services-auth:20.4.1'
+      //implementation 'com.firebaseui:firebase-ui-auth:4.3.1'
+
+
+
+
+
 }

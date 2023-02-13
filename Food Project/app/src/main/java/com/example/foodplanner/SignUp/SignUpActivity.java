@@ -49,7 +49,7 @@ public class SignUpActivity extends AppCompatActivity implements Communication {
         if (password.getText().toString().length() < 6) {
             password.setError("must be 6 characters");
             password.requestFocus();
-        } else if (password.getText().toString().equals(confirmPassword.getText().toString())) {
+        } else if (!password.getText().toString().equals(confirmPassword.getText().toString())) {
             confirmPassword.setError("password must match");
             confirmPassword.requestFocus();
 

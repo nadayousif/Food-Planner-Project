@@ -1,5 +1,6 @@
 package com.example.foodplanner.profile;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -10,6 +11,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.example.foodplanner.R;
+import com.example.foodplanner.Welcome.WelcomeActivity;
+import com.google.android.gms.auth.api.signin.GoogleSignIn;
+import com.google.android.gms.auth.api.signin.GoogleSignInClient;
+import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -27,6 +34,8 @@ public class ProfileFragment extends Fragment {
     // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
+    GoogleSignInClient gsc;
+    GoogleSignInOptions gso;
 
     public ProfileFragment() {
         // Required empty public constructor
@@ -66,10 +75,13 @@ public class ProfileFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_profile,
                 container, false);
+        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+        gsc = GoogleSignIn.getClient(getContext(),gso);
         logout=(Button)view.findViewById(R.id.logOut);
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                signOut();
                 getActivity().moveTaskToBack(true);
                 getActivity().finish();
             }
@@ -77,6 +89,15 @@ public class ProfileFragment extends Fragment {
         return view;
 
 
+    }
+    void signOut(){
+        gsc.signOut().addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(Task<Void> task) {
+                //finish();
+                startActivity(new Intent(getContext(), WelcomeActivity.class));
+            }
+        });
     }
 
 }
