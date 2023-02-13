@@ -1,4 +1,4 @@
-package com.example.foodplanner.serach;
+package com.example.foodplanner.serach.historyserach;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,23 +11,31 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodplanner.R;
 
-public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHolder> {
-    private String[] strings;
-    private OnClickItem onclickItem;
+import java.util.ArrayList;
+import java.util.List;
 
-    public AdapterCategory(OnClickItem onclickItem) {
-        this.strings = new String[0];
-        this.onclickItem=onclickItem;
+public class AdapterHistory extends RecyclerView.Adapter<AdapterHistory.ViewHolder> {
+    private String[] strings;
+    private OnClickItemHistory onClickItemHistory;
+
+    public AdapterHistory(OnClickItemHistory onClickItemHistory) {
+        this.strings =new String[0];
+        this.onClickItemHistory = onClickItemHistory;
     }
+
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rec_search, parent, false));
+        return new ViewHolder(LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rec_search_histroy, parent, false));
     }
+
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.item.setText(strings[position]);
-        holder.cardView.setOnClickListener((i)->{onclickItem.onClick(strings[position]);});
+        holder.item.setOnClickListener((i) -> {
+           onClickItemHistory.onClickHistory(strings[position]);
+
+        });
 
     }
 
@@ -42,11 +50,11 @@ public class AdapterCategory extends RecyclerView.Adapter<AdapterCategory.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView item;
-        CardView cardView;
+
+
         public ViewHolder(View view) {
             super(view);
-            item = view.findViewById(R.id.tv_search_item_rec);
-            cardView=view.findViewById(R.id.cv_search_item);
+            item = view.findViewById(R.id.tv_search_histroy);
         }
     }
 }

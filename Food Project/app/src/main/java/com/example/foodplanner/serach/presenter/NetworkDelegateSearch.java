@@ -1,12 +1,12 @@
-package com.example.foodplanner.APIconnection;
+package com.example.foodplanner.serach.presenter;
 
 import com.example.foodplanner.Model.Meal;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public interface NetworkDelegate {
+public interface NetworkDelegateSearch {
     void onResponse(List<String> names);
     void onFailure(String msg);
+    void onResponseSearch(String[] meals);
 
 }
