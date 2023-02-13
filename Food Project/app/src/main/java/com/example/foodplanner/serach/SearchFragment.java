@@ -33,7 +33,9 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class SearchFragment extends Fragment implements OnClickItemCategory, CommunicationSearch, OnClickItemHistory {
@@ -182,9 +184,13 @@ public class SearchFragment extends Fragment implements OnClickItemCategory, Com
         SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         String s = sharedPref.getString(getString(R.string.historySearch), "");
         if (!s.isEmpty()) {
-            arr =  Arrays.stream(s.split(",")).filter(i -> !i.isEmpty()).toArray(String[]::new);
-        }
+            List<String> list = Arrays.stream(s.split(",")).filter(i -> !i.isEmpty()).collect(Collectors.toList());
+            Collections.reverse(list);
+            if (list.size() > 10)
+                list=list.subList(0, 10);
+            arr = list.stream().toArray(String[]::new);
 
+        }
         adapterHistory.setStrings(arr);
         adapterHistory.notifyDataSetChanged();
     }
@@ -200,7 +206,7 @@ public class SearchFragment extends Fragment implements OnClickItemCategory, Com
     @Override
     public void onClickHistory(String name) {
         saveIntoShare(name);
-        Intent intent = new Intent(getContext(), MealActivity.class);
+        Intent intent = new Intent(getContext(), SearchResultActivity.class);
         intent.putExtra(getString(R.string.resultSearch), name);
         intent.putExtra(getString(R.string.typeOfSearch), getString(R.string.searchByName));
         startActivity(intent);
@@ -210,8 +216,16 @@ public class SearchFragment extends Fragment implements OnClickItemCategory, Com
         SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         String s = sharedPref.getString(getString(R.string.historySearch), "");
-        s += name + ",";
+        boolean status = !Arrays.stream(s.split(",")).filter(i -> !i.isEmpty()).anyMatch(i -> i.equals(name));
+        if (status)
+            s += name + ",";
         editor.putString(getString(R.string.historySearch), s);
         editor.apply();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        presenterSearch.clear();
     }
 }

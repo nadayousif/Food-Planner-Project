@@ -5,16 +5,15 @@
     android:id="@+id/cv_search_result"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="12dp"
-    android:backgroundTint="@color/secondaryColor"
-    android:elevation="4dp"
-    app:cardCornerRadius="4dp"
+    android:layout_marginBottom="22dp"
+    app:cardCornerRadius="24dp"
     app:cardElevation="4dp"
     app:cardPreventCornerOverlap="false">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#121212">
 
         <ImageView
             android:id="@+id/iv_search_result"
@@ -39,9 +38,12 @@
 
         <TextView
             android:id="@+id/tv_search_result_name_content"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             android:text="BeaverTails"
+            android:textAlignment="center"
             android:textColor="@color/secondaryTextColor"
             android:textSize="20sp"
             app:autoSizeMaxTextSize="20sp"
