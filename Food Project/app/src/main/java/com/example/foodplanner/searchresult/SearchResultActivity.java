@@ -34,6 +34,7 @@ public class SearchResultActivity extends AppCompatActivity implements OnClickIt
             PresenterSearchResult presenterSearchResult = new PresenterSearchResult(RetrofitClient.getInstance(), this);
             String name = getIntent().getStringExtra(getString(R.string.resultSearch));
             String typeOfSearch = getIntent().getStringExtra(getString(R.string.typeOfSearch));
+            binding.tvSearchResultName.setText(name);
             if (typeOfSearch.equals(getString(R.string.searchByName)))
                 presenterSearchResult.getList(name);
             else if (typeOfSearch.equals(getString(R.string.searchByCountry)))
@@ -63,6 +64,7 @@ public class SearchResultActivity extends AppCompatActivity implements OnClickIt
     @Override
     public void setList(List<Meal> list) {
         adapterSearchResult.setArr(list);
+        adapterSearchResult.notifyDataSetChanged();
     }
 
     @Override
