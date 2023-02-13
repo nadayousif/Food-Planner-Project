@@ -7,11 +7,13 @@
     android:background="@drawable/background"
     tools:context=".Login.LoginActivity">
 
-    <EditText
-        android:id="@+id/editTextTextEmailAddress"
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/ti_email"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_marginTop="400dp"
+        android:autoLink="email"
+        android:autoText="true"
         android:ems="10"
         android:hint="@string/Email"
         android:inputType="textEmailAddress"
@@ -20,8 +22,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextTextPassword"
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/ti_passwrod"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_marginTop="480dp"
@@ -41,6 +43,7 @@
         android:text="@string/Login"
         android:textColor="#FAF7F7"
         android:textSize="24sp"
+        android:onClick="onClick"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

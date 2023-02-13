@@ -36,13 +36,15 @@
 
     <TextView
         android:id="@+id/tv_search_result_name"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:background="@color/secondaryColor"
         android:text="Breakfast"
+        android:textAlignment="center"
         android:textColor="@color/secondaryTextColor"
         android:textSize="34sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/guideline6"
+        app:layout_constraintStart_toStartOf="@+id/guideline3"
         app:layout_constraintTop_toTopOf="@+id/guideline8" />
 
     <androidx.recyclerview.widget.RecyclerView

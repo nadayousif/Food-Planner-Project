@@ -1,4 +1,4 @@
-package com.example.foodplanner.DBModel;
+package com.example.foodplanner.DBConnection.DBModel;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

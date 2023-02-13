@@ -3,13 +3,12 @@
     xmlns:tools="http://schemas.android.com/tools">
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@mipmap/ic_launcher_new"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/Theme.FoodPlanner"
@@ -33,6 +32,7 @@
         <activity
             android:name=".meal.MealActivity"
             android:exported="false" />
+
         <activity
 
             android:name=".Splash.SplashActivity"
@@ -42,11 +42,19 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+
+
         <activity
             android:name=".MainActivity"
             android:exported="false"
-            android:label="@string/title_activity_main" />
+            android:label="@string/title_activity_main">
+
+
+        </activity>
+
+
     </application>
 
 </manifest>

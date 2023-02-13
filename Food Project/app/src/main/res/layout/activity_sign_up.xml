@@ -7,21 +7,8 @@
     android:background="@drawable/background"
     tools:context=".SignUp.SignUpActivity">
 
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="250dp"
-        android:ems="10"
-        android:hint="@string/Name"
-        android:inputType="textPersonName"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <EditText
-        android:id="@+id/editTextTextEmailAddress2"
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/ti_email_signup"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_marginTop="325dp"
@@ -33,8 +20,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextTextPassword2"
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/ti_password_signup"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_marginTop="400dp"
@@ -46,8 +33,8 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <EditText
-        android:id="@+id/editTextTextPassword3"
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/ti_confirm_password"
         android:layout_width="300dp"
         android:layout_height="60dp"
         android:layout_marginTop="470dp"
@@ -64,6 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="540dp"
+        android:onClick="onClick"
         android:text="@string/Sign"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"

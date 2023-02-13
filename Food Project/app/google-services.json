@@ -14,8 +14,12 @@
       },
       "oauth_client": [
         {
-          "client_id": "187883982968-27qrlkgciimgffv2h3l5tujpbg3ds6ur.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "187883982968-fbs6ufnf01t676edgnppe17k7ldm0ird.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.foodplanner",
+            "certificate_hash": "74c1a66670c0abad112ac86479c2e58344e476d6"
+          }
         }
       ],
       "api_key": [
