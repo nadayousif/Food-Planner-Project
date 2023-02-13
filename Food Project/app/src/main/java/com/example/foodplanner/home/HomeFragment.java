@@ -11,9 +11,11 @@ import androidx.fragment.app.Fragment;
 import com.example.foodplanner.Model.RandomMeal;
 import com.example.foodplanner.databinding.FragmentHomeBinding;
 
+
 public class HomeFragment extends Fragment {
     private static RandomMeal randomMeal;
     private FragmentHomeBinding binding;
+
 
 
     public View onCreateView(@NonNull LayoutInflater inflater,
@@ -24,6 +26,8 @@ public class HomeFragment extends Fragment {
         View root = binding.getRoot();
         randomMeal = new RandomMeal("4554", "Checken", "htlsjadflskjflk;sdjflk");
         binding.cardView.setTag(randomMeal.getIdMeal());
+
+
         return root;
     }
 

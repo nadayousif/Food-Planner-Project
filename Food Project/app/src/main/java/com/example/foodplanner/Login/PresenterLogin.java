@@ -19,6 +19,7 @@ public class PresenterLogin implements NetworkDelegate {
         databaseConnection.login(email, password, this);
     }
 
+
     public void signup(String email, String password) {
         databaseConnection.signup(email, password, this);
     }

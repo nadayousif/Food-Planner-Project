@@ -48,6 +48,8 @@ public class RetrofitClient implements RemoteDataSource {
         return service;
     }
 
+
+
     @Override
     public void getCuisines(NetworkDelegateSearch notifyApi) {
         Log.i("TAGG", "getCuisines: ");
@@ -183,6 +185,7 @@ public class RetrofitClient implements RemoteDataSource {
     public void getSearchListCountry(String name, NetworkDelegateSearchResult networkDelegateSearchResult) {
         getService().getSearchListCountry(name).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<MyObject>() {
+
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         disposable.add(d);
