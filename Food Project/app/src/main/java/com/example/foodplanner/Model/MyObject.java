@@ -3,13 +3,13 @@ package com.example.foodplanner.Model;
 import java.util.List;
 
 public class MyObject {
-    List<Meal> list;
+    List<Meal> meals;
 
     public List<Meal> getList() {
-        return list;
+        return meals;
     }
 
     public void setList(List<Meal> list) {
-        this.list = list;
+        this.meals= meals;
     }
 }

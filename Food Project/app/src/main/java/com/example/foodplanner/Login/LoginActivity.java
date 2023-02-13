@@ -56,7 +56,6 @@ public class LoginActivity extends AppCompatActivity implements Communication {
             email.requestFocus();
 
         } else {
-
             if (CheckConnection.isConnect(getApplicationContext())) {
                 PresenterLogin presenterLogin = new PresenterLogin(new FireBaseConnection(), this);
                 presenterLogin.login(email.getText().toString(), password.getText().toString());
@@ -74,6 +73,7 @@ public class LoginActivity extends AppCompatActivity implements Communication {
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(getString(R.string.userEmail), email.getText().toString());
+
         editor.apply();
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);

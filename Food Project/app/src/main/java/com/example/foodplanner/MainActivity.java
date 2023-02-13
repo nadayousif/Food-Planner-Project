@@ -15,10 +15,12 @@ import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
 import com.example.foodplanner.DBConnection.localdatabase.ConcreteLocalData;
+
 import com.example.foodplanner.DBConnection.reomtlydatabase.FireBaseConnection;
 import com.example.foodplanner.Helper.CheckConnection;
-import com.example.foodplanner.Helper.Tags;
+
 import com.example.foodplanner.Login.PresenterLogin;
+
 import com.example.foodplanner.databinding.ActivityMainBinding;
 import com.example.foodplanner.meal.MealActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
@@ -82,7 +84,6 @@ public class MainActivity extends AppCompatActivity {
     }*/
     public void goToMeal(View view) {
         Intent intent=new Intent(this, MealActivity.class);
-        intent.putExtra(Tags.TAG_ID_INTENT,view.getTag().toString());
         startActivity(intent);
 
     }

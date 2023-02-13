@@ -15,7 +15,7 @@
     <string name="Email">Email</string>
     <string name="Password">Password</string>
     <string name="Login">Login</string>
-    <string name="signupAccount">Dont\'t have account?sign up</string>
+    <string name="signupAccount">Don\'t have account?sign up</string>
     <string name="Name">Name</string>
     <string name="Confirm">Confirm Password</string>
     <string name="Sign">Sign up</string>
@@ -29,4 +29,11 @@
     <string name="backup">Backup</string>
     <string name="chicken">Chicken</string>
     <string name="userEmail">email</string>
+    <string name="historySearch">historySearch</string>
+    <string name="resultSearch">resultSearch</string>
+    <string name="typeOfSearch">typeOfSearch</string>
+    <string name="searchByName">searchByName</string>
+    <string name="searchByIngredient">searchByIngredient</string>
+    <string name="searchByCountry">searchByCountry</string>
+    <string name="searchByCuisines">searchByCuisines</string>
 </resources>
