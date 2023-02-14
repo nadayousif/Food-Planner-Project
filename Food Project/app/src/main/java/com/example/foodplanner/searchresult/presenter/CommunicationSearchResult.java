@@ -8,4 +8,6 @@ public interface CommunicationSearchResult {
     void setList(List<Meal> list);
 
     void setError(String message);
+
+    void nadaTwo();//8
 }

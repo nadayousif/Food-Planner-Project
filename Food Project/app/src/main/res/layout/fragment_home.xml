@@ -51,6 +51,7 @@
             android:layout_width="196dp"
             android:layout_height="194dp"
             android:src="@mipmap/example"
+            android:onClick="goToMeal"
             android:visibility="visible" />
 
     </androidx.cardview.widget.CardView>

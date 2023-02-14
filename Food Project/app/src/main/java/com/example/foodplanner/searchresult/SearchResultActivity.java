@@ -33,6 +33,7 @@ public class SearchResultActivity extends AppCompatActivity implements OnClickIt
         if (getIntent() != null && CheckConnection.isConnect(this)) {
             PresenterSearchResult presenterSearchResult = new PresenterSearchResult(RetrofitClient.getInstance(), this);
             String name = getIntent().getStringExtra(getString(R.string.resultSearch));
+            presenterSearchResult.showNada();//1st
             String typeOfSearch = getIntent().getStringExtra(getString(R.string.typeOfSearch));
             binding.tvSearchResultName.setText(name);
             if (typeOfSearch.equals(getString(R.string.searchByName)))
@@ -72,4 +73,9 @@ public class SearchResultActivity extends AppCompatActivity implements OnClickIt
         Snackbar.make(binding.getRoot(), "something wrong pls try again", Snackbar.LENGTH_LONG)
                 .show();
     }
+
+    @Override
+    public void nadaTwo() {
+
+    }//9
 }
