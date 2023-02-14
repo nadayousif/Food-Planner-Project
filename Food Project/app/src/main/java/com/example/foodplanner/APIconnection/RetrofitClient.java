@@ -129,7 +129,7 @@ public class RetrofitClient implements RemoteDataSource {
     @Override
     public void getSearchList(NetworkDelegateSearch networkDelegateSearch, String name) {
 
-        getService().getSearchList(name).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).
+        getService().getSearchList(name).subscribeOn(Schedulers.io()).debounce(2,TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new Observer<MyObject>() {
             @Override
             public void onSubscribe(@NonNull Disposable d) {
