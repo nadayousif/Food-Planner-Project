@@ -8,4 +8,6 @@ public interface NetworkDelegateSearchResult {
     void onResponse(List<Meal> list);
 
     void onFailure(String message);
+
+    void onNada();//6(ret to pre)
 }

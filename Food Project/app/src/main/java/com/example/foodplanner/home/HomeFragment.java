@@ -1,20 +1,44 @@
 package com.example.foodplanner.home;
 
+
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.GridLayoutManager;
 
+import com.bumptech.glide.Glide;
+import com.example.foodplanner.APIconnection.RetrofitClient;
+import com.example.foodplanner.Helper.CheckConnection;
+import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.Model.RandomMeal;
+import com.example.foodplanner.R;
 import com.example.foodplanner.databinding.FragmentHomeBinding;
+import com.example.foodplanner.home.presenter.CommunicationRandomMeal;
+import com.example.foodplanner.home.presenter.PresenterRandomMeal;
+import com.example.foodplanner.searchresult.SearchResultActivity;
+import com.example.foodplanner.serach.category.AdapterCategory;
+import com.example.foodplanner.serach.presenter.PresenterSearch;
+import com.google.android.material.snackbar.Snackbar;
+
+import java.util.List;
 
 
-public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements OnClickRandomMeal, CommunicationRandomMeal {
     private static RandomMeal randomMeal;
     private FragmentHomeBinding binding;
+    //AdapterRandomMeal adapterRandomMeal;
+    PresenterRandomMeal presenterRandomMeal;
+    TextView mealName;
+    ImageView mealPhoto;
 
 
 
@@ -24,8 +48,15 @@ public class HomeFragment extends Fragment {
 
         binding = FragmentHomeBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
-        randomMeal = new RandomMeal("4554", "Checken", "htlsjadflskjflk;sdjflk");
-        binding.cardView.setTag(randomMeal.getIdMeal());
+        mealName = (TextView) root.findViewById(R.id.tx_random_name_meal);
+        mealPhoto = (ImageView) root.findViewById(R.id.iv_random_imgae_meal);
+        if (CheckConnection.isConnect(getContext())){
+            presenterRandomMeal = new PresenterRandomMeal(RetrofitClient.getInstance(), this);
+            presenterRandomMeal.getRandomMeal();
+
+        }
+        //randomMeal = new RandomMeal("4554", "Checken", "htlsjadflskjflk;sdjflk");
+        //binding.cardView.setTag(randomMeal.getIdMeal());
 
 
         return root;
@@ -36,6 +67,21 @@ public class HomeFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         binding = null;
+    }
+    public void setMeal(String idMeal,String strMeal,String strMealThumb) {
+        mealName.setText(strMeal);
+        Glide.with(getContext()).load(strMealThumb).into(mealPhoto);
+        mealPhoto.setTag(idMeal);
+    }
+
+    @Override
+    public void setError(String message) {
+        Snackbar.make(binding.getRoot(), "something wrong pls try again", Snackbar.LENGTH_LONG)
+                .show();
+    }
+    @Override
+    public void onClick(String id) {
+
     }
 
 

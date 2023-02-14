@@ -48,22 +48,15 @@ public class MainActivity extends AppCompatActivity {
          navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
 
         NavigationUI.setupWithNavController(binding.navView, navController);
-
-
-        GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+        /*GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if(acct!=null){
             String personName = acct.getDisplayName();
             personEmail = acct.getEmail();
             System.out.println(personName);
             System.out.println(personEmail);
-            /*if (CheckConnection.isConnect(getApplicationContext())) {
-                PresenterLogin presenterLogin = new PresenterLogin(new FireBaseConnection(), this);
-                presenterLogin.login(personEmail,personName);
-            } else {
-                //Snackbar.make(personEmail, "No Internet Connection", Snackbar.LENGTH_LONG)
-                     //   .show();
-            }*/
-        }
+            login();
+
+        }*/
 
 
 
@@ -72,19 +65,18 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /*public void login() {
+   /* public void login() {
         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPref.edit();
         editor.putString(getString(R.string.userEmail), personEmail);
         editor.apply();
-        Intent intent = new Intent(this, MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        startActivity(intent);
 
     }*/
     public void goToMeal(View view) {
         Intent intent=new Intent(this, MealActivity.class);
         startActivity(intent);
+        Toast.makeText(this, view.getTag().toString()+"////", Toast.LENGTH_SHORT).show();
+
 
     }
 

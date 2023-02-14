@@ -4,7 +4,9 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -155,7 +157,16 @@ public class WelcomeActivity extends AppCompatActivity {
 
             try {
                 task.getResult(ApiException.class);
+                GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
+                if(acct!=null){
+                String personName = acct.getDisplayName();
+                String personEmail = acct.getEmail();
+                System.out.println("Name:"+personName);
+                System.out.println("Email:"+personEmail);
+                    login(personEmail);
+                }
                 navigateToSecondActivity();
+
             } catch (ApiException e) {
                 e.printStackTrace();
                 Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_SHORT).show();
@@ -179,6 +190,13 @@ public class WelcomeActivity extends AppCompatActivity {
             System.out.println(personName);
             System.out.println(personEmail);
         }
+    }
+    public void login(String personEmail) {
+        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putString(getString(R.string.userEmail), personEmail);
+        editor.apply();
+
     }
 
 }

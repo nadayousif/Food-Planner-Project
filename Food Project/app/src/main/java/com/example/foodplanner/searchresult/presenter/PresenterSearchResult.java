@@ -40,4 +40,13 @@ public class PresenterSearchResult implements NetworkDelegateSearchResult{
         communicationSearchResult.setError(message);
 
     }
+
+    @Override
+    public void onNada() {
+        communicationSearchResult.nadaTwo();
+    }//7
+
+    public void showNada() {
+        remoteDataSource.get(this);
+    }//2
 }
