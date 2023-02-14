@@ -24,9 +24,6 @@ import com.example.foodplanner.R;
 import com.example.foodplanner.databinding.FragmentHomeBinding;
 import com.example.foodplanner.home.presenter.CommunicationRandomMeal;
 import com.example.foodplanner.home.presenter.PresenterRandomMeal;
-import com.example.foodplanner.searchresult.SearchResultActivity;
-import com.example.foodplanner.serach.category.AdapterCategory;
-import com.example.foodplanner.serach.presenter.PresenterSearch;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;

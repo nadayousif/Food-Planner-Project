@@ -36,4 +36,7 @@
     <string name="searchByIngredient">searchByIngredient</string>
     <string name="searchByCountry">searchByCountry</string>
     <string name="searchByCuisines">searchByCuisines</string>
+    <string name="facebook_app_id">502473452053822</string>
+    <string name="fb_login_protocol_scheme">fb1234</string>
+    <string name="facebook_client_token">c099d0593df0a65659598c4775fa4a0b</string>
 </resources>
