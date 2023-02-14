@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.Welcome.WelcomeActivity;
+import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
@@ -84,6 +85,7 @@ public class ProfileFragment extends Fragment {
                 signOut();
                 getActivity().moveTaskToBack(true);
                 getActivity().finish();
+
             }
         });
         return view;
@@ -98,6 +100,7 @@ public class ProfileFragment extends Fragment {
                 startActivity(new Intent(getContext(), WelcomeActivity.class));
             }
         });
+        LoginManager.getInstance().logOut();
     }
 
 }
