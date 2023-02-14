@@ -2,31 +2,25 @@ package com.example.foodplanner.home;
 
 
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.APIconnection.RetrofitClient;
-import com.example.foodplanner.Helper.CheckConnection;
-import com.example.foodplanner.Model.Meal;
+import com.example.foodplanner.helper.CheckConnection;
 import com.example.foodplanner.Model.RandomMeal;
 import com.example.foodplanner.R;
 import com.example.foodplanner.databinding.FragmentHomeBinding;
 import com.example.foodplanner.home.presenter.CommunicationRandomMeal;
 import com.example.foodplanner.home.presenter.PresenterRandomMeal;
 import com.google.android.material.snackbar.Snackbar;
-
-import java.util.List;
 
 
 public class HomeFragment extends Fragment implements OnClickRandomMeal, CommunicationRandomMeal {

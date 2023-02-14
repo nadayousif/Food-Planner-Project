@@ -1,8 +1,6 @@
 package com.example.foodplanner;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import android.view.View;
@@ -16,18 +14,12 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.foodplanner.DBConnection.localdatabase.ConcreteLocalData;
 
-import com.example.foodplanner.DBConnection.reomtlydatabase.FireBaseConnection;
-import com.example.foodplanner.Helper.CheckConnection;
-
-import com.example.foodplanner.Login.PresenterLogin;
-
 import com.example.foodplanner.databinding.ActivityMainBinding;
+import com.example.foodplanner.helper.MySharedPreference;
 import com.example.foodplanner.meal.MealActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity {
     NavController navController;
@@ -59,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
         }*/
 
 
-
-
+        String b=MySharedPreference.getEmail(this);
+        Toast.makeText(this, ""+b, Toast.LENGTH_SHORT).show();
 
 
     }
