@@ -29,17 +29,20 @@ public class MySharedPreference {
     }
 
     public static boolean isLogined(Activity activity) {
+        getSharedPreferences(activity);
         String email = sharedPreferences.getString(activity.getString(R.string.userEmail),"");
         if(email.isEmpty())return false;
         else return true;
 
     }
     public static void clear(Activity activity){
+        getSharedPreferences(activity);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(activity.getString(R.string.userEmail), "");
         editor.apply();
     }
     public static String getEmail(Activity activity) {
+        getSharedPreferences(activity);
         String email = sharedPreferences.getString(activity.getString(R.string.userEmail),"");
         return email;
 

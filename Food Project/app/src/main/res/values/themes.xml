@@ -33,6 +33,7 @@
         <item name="android:paddingStart">@dimen/image_horizontal_padding</item>
         <item name="android:paddingEnd">@dimen/image_vertical_padding</item>
         <item name="android:clickable">true</item>
+
     </style>
 
 

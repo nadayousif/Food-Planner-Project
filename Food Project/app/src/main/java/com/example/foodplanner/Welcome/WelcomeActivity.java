@@ -61,35 +61,39 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        signUP = findViewById(R.id.signup);
-        gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        gsc = GoogleSignIn.getClient(this, gso);
-        mAuth = FirebaseAuth.getInstance();
-        facebookButton = findViewById(R.id.facebook);
-        facebookButton.setReadPermissions(Arrays.asList(EMAIL));
+        if(MySharedPreference.isLogined(this)){
+            navigateToSecondActivity();
+        }
+        else {
+            signUP = findViewById(R.id.signup);
+            gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+            gsc = GoogleSignIn.getClient(this, gso);
+            mAuth = FirebaseAuth.getInstance();
+            facebookButton = findViewById(R.id.facebook);
+            facebookButton.setReadPermissions(Arrays.asList(EMAIL));
 
-        callbackManager = CallbackManager.Factory.create();
+            callbackManager = CallbackManager.Factory.create();
 
 
-        LoginManager.getInstance().registerCallback(callbackManager,
-                new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        // App code
-                        startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-                        finish();
-                    }
+            LoginManager.getInstance().registerCallback(callbackManager,
+                    new FacebookCallback<LoginResult>() {
+                        @Override
+                        public void onSuccess(LoginResult loginResult) {
+                            // App code
+                            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+                            finish();
+                        }
 
-                    @Override
-                    public void onCancel() {
-                        // App code
-                    }
+                        @Override
+                        public void onCancel() {
+                            // App code
+                        }
 
-                    @Override
-                    public void onError(FacebookException exception) {
-                        // App code
-                    }
-                });
+                        @Override
+                        public void onError(FacebookException exception) {
+                            // App code
+                        }
+                    });
         /*GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("187883982968-fbs6ufnf01t676edgnppe17k7ldm0ird.apps.googleusercontent.com")
                 .requestEmail()
@@ -98,41 +102,41 @@ public class WelcomeActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         mAuth = FirebaseAuth.getInstance();*/
-        // [END initialize_auth]
-        signUP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), SignUpActivity.class);
-                startActivity(i);
-            }
-        });
-        have_Account = findViewById(R.id.haveAccount);
-        have_Account.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(i);
-            }
-        });
-        googleButton = findViewById(R.id.google);
+            // [END initialize_auth]
+            signUP.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(getApplicationContext(), SignUpActivity.class);
+                    startActivity(i);
+                }
+            });
+            have_Account = findViewById(R.id.haveAccount);
+            have_Account.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(i);
+                }
+            });
+            googleButton = findViewById(R.id.google);
 
-        googleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn();
+            googleButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    signIn();
 
-            }
-        });
+                }
+            });
 
-        facebookButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            facebookButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
 
-                LoginManager.getInstance().logInWithReadPermissions(WelcomeActivity.this, Arrays.asList("public_profile"));
-            }
-        });
-
+                    LoginManager.getInstance().logInWithReadPermissions(WelcomeActivity.this, Arrays.asList("public_profile"));
+                }
+            });
+        }
 
     }
 
