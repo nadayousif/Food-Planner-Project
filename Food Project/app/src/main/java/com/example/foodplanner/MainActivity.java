@@ -1,14 +1,16 @@
 package com.example.foodplanner;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
@@ -16,20 +18,14 @@ import androidx.navigation.ui.NavigationUI;
 
 import com.example.foodplanner.DBConnection.localdatabase.ConcreteLocalData;
 
-import com.example.foodplanner.DBConnection.reomtlydatabase.FireBaseConnection;
-import com.example.foodplanner.Helper.CheckConnection;
-
-import com.example.foodplanner.Login.PresenterLogin;
-
 import com.example.foodplanner.databinding.ActivityMainBinding;
+import com.example.foodplanner.helper.MySharedPreference;
 import com.example.foodplanner.meal.MealActivity;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
-import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
-import com.google.android.material.snackbar.Snackbar;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     NavController navController;
     private ActivityMainBinding binding;
     GoogleSignInOptions gso;
@@ -59,8 +55,8 @@ public class MainActivity extends AppCompatActivity {
         }*/
 
 
-
-
+        String b=MySharedPreference.getEmail(this);
+        Toast.makeText(this, ""+b, Toast.LENGTH_SHORT).show();
 
 
     }
@@ -86,5 +82,36 @@ public class MainActivity extends AppCompatActivity {
             db=ConcreteLocalData.getInstance(this);}).start();
 
     }
+    public void addFromFavToPlan(View view) {
+        String name="";
+        if(view.getTag().equals("Saturday"))
+            name="Saturday";
+        else if(view.getTag().equals("Sunday"))
+            name="Sunday";
+        else if (view.getTag().equals("Monday"))
+            name="Monday";
+        else if (view.getTag().equals("Tuesday"))
+            name="Tuesday";
+        else if (view.getTag().equals("Wednesday"))
+            name="Wednesday";
+        else if (view.getTag().equals("Thursday"))
+            name="Thursday";
+        else if (view.getTag().equals("Friday"))
+            name="Friday";
+            PopupMenu popup = new PopupMenu(this, view);
+            MenuInflater inflater = popup.getMenuInflater();
+            popup.setOnMenuItemClickListener(this);
+            inflater.inflate(R.menu.popup_plan, popup.getMenu());
+            popup.show();
+    }
 
+
+    @Override
+    public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+          if (menuItem.getItemId()==R.id.im_from_favorite){
+            Toast.makeText(this, "fav", Toast.LENGTH_SHORT).show();
+        }
+        else Toast.makeText(this, "search", Toast.LENGTH_SHORT).show();
+        return false;
+    }
 }

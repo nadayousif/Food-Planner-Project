@@ -2,19 +2,18 @@ package com.example.foodplanner.Login;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.foodplanner.Helper.CheckConnection;
+import com.example.foodplanner.helper.CheckConnection;
 import com.example.foodplanner.MainActivity;
 import com.example.foodplanner.R;
 import com.example.foodplanner.SignUp.SignUpActivity;
 import com.example.foodplanner.DBConnection.reomtlydatabase.FireBaseConnection;
+import com.example.foodplanner.helper.MySharedPreference;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -70,11 +69,11 @@ public class LoginActivity extends AppCompatActivity implements Communication {
 
     @Override
     public void login() {
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(getString(R.string.userEmail), email.getText().toString());
-
-        editor.apply();
+//        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
+//        SharedPreferences.Editor editor = sharedPref.edit();
+//        editor.putString(getString(R.string.userEmail), email.getText().toString());
+//        editor.apply();
+        MySharedPreference.saveInShared(this,email.getText().toString());
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

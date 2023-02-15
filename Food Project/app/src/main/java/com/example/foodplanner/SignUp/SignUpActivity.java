@@ -5,12 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.foodplanner.DBConnection.reomtlydatabase.FireBaseConnection;
-import com.example.foodplanner.Helper.CheckConnection;
+import com.example.foodplanner.helper.CheckConnection;
 import com.example.foodplanner.Login.Communication;
 import com.example.foodplanner.Login.LoginActivity;
 import com.example.foodplanner.Login.PresenterLogin;

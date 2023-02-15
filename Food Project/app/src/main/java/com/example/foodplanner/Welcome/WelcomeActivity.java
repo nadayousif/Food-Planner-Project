@@ -18,6 +18,7 @@ import com.example.foodplanner.Login.LoginActivity;
 import com.example.foodplanner.MainActivity;
 import com.example.foodplanner.R;
 import com.example.foodplanner.SignUp.SignUpActivity;
+import com.example.foodplanner.helper.MySharedPreference;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -42,13 +43,13 @@ import com.google.firebase.auth.GoogleAuthProvider;
 import java.util.Arrays;
 
 public class WelcomeActivity extends AppCompatActivity {
-     Button signUP;
-     TextView have_Account;
-     Button googleButton;
-     LoginButton facebookButton;
-   GoogleSignInOptions gso;
-   GoogleSignInClient gsc;
-   CallbackManager callbackManager;
+    Button signUP;
+    TextView have_Account;
+    Button googleButton;
+    LoginButton facebookButton;
+    GoogleSignInOptions gso;
+    GoogleSignInClient gsc;
+    CallbackManager callbackManager;
     private FirebaseAuth mAuth;
     BeginSignInRequest signInRequest;
     private static final String TAG = "GoogleActivity";
@@ -60,35 +61,39 @@ public class WelcomeActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
-        signUP=findViewById(R.id.signup);
-       gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        gsc = GoogleSignIn.getClient(this,gso);
-        mAuth = FirebaseAuth.getInstance();
-        facebookButton= findViewById(R.id.facebook);
-        facebookButton.setReadPermissions(Arrays.asList(EMAIL));
+        if(MySharedPreference.isLogined(this)){
+            navigateToSecondActivity();
+        }
+        else {
+            signUP = findViewById(R.id.signup);
+            gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
+            gsc = GoogleSignIn.getClient(this, gso);
+            mAuth = FirebaseAuth.getInstance();
+            facebookButton = findViewById(R.id.facebook);
+            facebookButton.setReadPermissions(Arrays.asList(EMAIL));
 
-        callbackManager = CallbackManager.Factory.create();
+            callbackManager = CallbackManager.Factory.create();
 
 
-        LoginManager.getInstance().registerCallback(callbackManager,
-                new FacebookCallback<LoginResult>() {
-                    @Override
-                    public void onSuccess(LoginResult loginResult) {
-                        // App code
-                        startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-                        finish();
-                    }
+            LoginManager.getInstance().registerCallback(callbackManager,
+                    new FacebookCallback<LoginResult>() {
+                        @Override
+                        public void onSuccess(LoginResult loginResult) {
+                            // App code
+                            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
+                            finish();
+                        }
 
-                    @Override
-                    public void onCancel() {
-                        // App code
-                    }
+                        @Override
+                        public void onCancel() {
+                            // App code
+                        }
 
-                    @Override
-                    public void onError(FacebookException exception) {
-                        // App code
-                    }
-                });
+                        @Override
+                        public void onError(FacebookException exception) {
+                            // App code
+                        }
+                    });
         /*GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("187883982968-fbs6ufnf01t676edgnppe17k7ldm0ird.apps.googleusercontent.com")
                 .requestEmail()
@@ -97,68 +102,67 @@ public class WelcomeActivity extends AppCompatActivity {
         mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
 
         mAuth = FirebaseAuth.getInstance();*/
-        // [END initialize_auth]
-        signUP.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), SignUpActivity.class);
-                startActivity(i);
-            }
-        });
-        have_Account=findViewById(R.id.haveAccount);
-        have_Account.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), LoginActivity.class);
-                startActivity(i);
-            }
-        });
-        googleButton=findViewById(R.id.google);
+            // [END initialize_auth]
+            signUP.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(getApplicationContext(), SignUpActivity.class);
+                    startActivity(i);
+                }
+            });
+            have_Account = findViewById(R.id.haveAccount);
+            have_Account.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(i);
+                }
+            });
+            googleButton = findViewById(R.id.google);
 
-        googleButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                signIn();
+            googleButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    signIn();
 
-            }
-        });
+                }
+            });
 
-        facebookButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+            facebookButton.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
 
-                LoginManager.getInstance().logInWithReadPermissions(WelcomeActivity.this, Arrays.asList("public_profile"));
-            }
-        });
-
+                    LoginManager.getInstance().logInWithReadPermissions(WelcomeActivity.this, Arrays.asList("public_profile"));
+                }
+            });
+        }
 
     }
 
 
-
-
-    void signIn(){
+    void signIn() {
         Intent signInIntent = gsc.getSignInIntent();
-        startActivityForResult(signInIntent,1000);
+        startActivityForResult(signInIntent, 1000);
     }
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode,Intent data) {
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         callbackManager.onActivityResult(requestCode, resultCode, data);
 
-        if(requestCode == 1000){
+        if (requestCode == 1000) {
             Task<GoogleSignInAccount> task = GoogleSignIn.getSignedInAccountFromIntent(data);
 
             try {
                 task.getResult(ApiException.class);
                 GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-                if(acct!=null){
-                String personName = acct.getDisplayName();
-                String personEmail = acct.getEmail();
-                System.out.println("Name:"+personName);
-                System.out.println("Email:"+personEmail);
-                    login(personEmail);
+                if (acct != null) {
+                    String personName = acct.getDisplayName();
+                    String personEmail = acct.getEmail();
+                    System.out.println("Name:" + personName);
+                    System.out.println("Email:" + personEmail);
+                    MySharedPreference.saveInShared(this, personEmail);
                 }
                 navigateToSecondActivity();
 
@@ -169,31 +173,25 @@ public class WelcomeActivity extends AppCompatActivity {
         }
 
     }
-    void navigateToSecondActivity(){
+
+    void navigateToSecondActivity() {
         finish();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }
-    void UserData(){
+
+    void UserData() {
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
-        gsc = GoogleSignIn.getClient(this,gso);
+        gsc = GoogleSignIn.getClient(this, gso);
 
         GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        if(acct!=null){
+        if (acct != null) {
             String personName = acct.getDisplayName();
             String personEmail = acct.getEmail();
             System.out.println(personName);
             System.out.println(personEmail);
         }
     }
-    public void login(String personEmail) {
-        SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        editor.putString(getString(R.string.userEmail), personEmail);
-        editor.apply();
-
-    }
-
 
 
 }

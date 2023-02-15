@@ -39,4 +39,6 @@
     <string name="facebook_app_id">502473452053822</string>
     <string name="fb_login_protocol_scheme">fb1234</string>
     <string name="facebook_client_token">c099d0593df0a65659598c4775fa4a0b</string>
+    <string name="mealID">mealID</string>
+    <string name="isLocal">isLocal</string>
 </resources>
