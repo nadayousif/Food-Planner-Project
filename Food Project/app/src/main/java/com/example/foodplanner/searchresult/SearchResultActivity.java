@@ -33,7 +33,9 @@ public class SearchResultActivity extends AppCompatActivity implements OnClickIt
             String name = getIntent().getStringExtra(getString(R.string.resultSearch));
             presenterSearchResult.showNada();//1st
             String typeOfSearch = getIntent().getStringExtra(getString(R.string.typeOfSearch));
+
             binding.tvSearchResultName.setText(name);
+
             if (typeOfSearch.equals(getString(R.string.searchByName)))
                 presenterSearchResult.getList(name);
             else if (typeOfSearch.equals(getString(R.string.searchByCountry)))

@@ -41,4 +41,6 @@
     <string name="facebook_client_token">c099d0593df0a65659598c4775fa4a0b</string>
     <string name="mealID">mealID</string>
     <string name="isLocal">isLocal</string>
+    <string name="add">Add</string>
+    <string name="cancel">Cancel</string>
 </resources>

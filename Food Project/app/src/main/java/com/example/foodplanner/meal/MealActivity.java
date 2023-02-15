@@ -26,15 +26,15 @@ public class MealActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_meal);
-        RecyclerView recIngrMeas = findViewById(R.id.rc_meal_Ingredient_Measure);
+
+        RecyclerView recIngMeas = findViewById(R.id.rc_meal_Ingredient_Measure);
         RecyclerView recInst = findViewById(R.id.rec_mael_instructions);
-        recIngrMeas.setLayoutManager(new StaggeredGridLayoutManager(4, LinearLayoutManager.VERTICAL));
-        recIngrMeas.setAdapter(new AdapterIngredientMeasure(meal.getIngredients(), meal.getMeasures()));
+
+        recIngMeas.setLayoutManager(new StaggeredGridLayoutManager(4, LinearLayoutManager.VERTICAL));
+        recIngMeas.setAdapter(new AdapterIngredientMeasure(meal.getIngredients(), meal.getMeasures()));
+
         recInst.setLayoutManager(new LinearLayoutManager(this));
         recInst.setAdapter(new AdapterInstructions(meal.getStrInstructions()));
-        Log.i("TAGA", "onCreate: " + meal.getStrYoutube());
-
-
 
 
 
