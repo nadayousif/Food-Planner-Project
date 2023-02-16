@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.foodplanner.DBConnection.reomtlydatabase.FireBaseConnection;
+import com.example.foodplanner.DBConnection.localdatabase.reomtlydatabase.FireBaseConnection;
 import com.example.foodplanner.helper.CheckConnection;
 import com.example.foodplanner.Login.Communication;
 import com.example.foodplanner.Login.LoginActivity;

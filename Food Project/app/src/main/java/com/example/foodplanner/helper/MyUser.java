@@ -27,4 +27,8 @@ public class MyUser {
     public String getEmail() {
         return email;
     }
+
+    public boolean isLogin() {
+        return !email.isEmpty();
+    }
 }

@@ -17,8 +17,9 @@ import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.foodplanner.DBConnection.localdatabase.ConcreteLocalData;
-
+import com.example.foodplanner.DBConnection.localdatabase.localdb.ConcreteLocalData;
+import com.example.foodplanner.DBConnection.localdatabase.localdb.LocalDataSource;
+import com.example.foodplanner.Welcome.WelcomeActivity;
 import com.example.foodplanner.databinding.ActivityMainBinding;
 import com.example.foodplanner.helper.MySharedPreference;
 import com.example.foodplanner.helper.MyUser;
@@ -28,18 +29,17 @@ import com.example.foodplanner.plan.dialog.search.SearchDialog;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
+import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
     NavController navController;
     private ActivityMainBinding binding;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
-    String personEmail;
-
+    private String day;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
@@ -50,6 +50,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         NavigationUI.setupWithNavController(binding.navView, navController);
 
         MyUser.getInstance().setEmail(MySharedPreference.getEmail(this));
+        Toast.makeText(this, "" + MyUser.getInstance().getEmail(), Toast.LENGTH_SHORT).show();
 
         /*GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if(acct!=null){
@@ -60,12 +61,6 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
             login();
 
         }*/
-
-
-        String b = MySharedPreference.getEmail(this);
-        Toast.makeText(this, "" + b, Toast.LENGTH_SHORT).show();
-
-
     }
 
     /* public void login() {
@@ -77,55 +72,58 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
      }*/
     public void goToMeal(View view) {
 
-        if (view.getTag()!=null){
-            Intent intent=new Intent(this, MealActivity.class);
+        if (view.getTag() != null) {
+            Intent intent = new Intent(this, MealActivity.class);
 
-            intent.putExtra(getString(R.string.mealID),view.getTag().toString());
-            intent.putExtra(getString(R.string.isLocal),false);
+            intent.putExtra(getString(R.string.mealID), view.getTag().toString());
+            intent.putExtra(getString(R.string.isLocal), false);
             startActivity(intent);
         }
     }
 
-    public void addToPlan(View view) {
-        navController.navigate(R.id.navigation_search);
-        new Thread(() -> {
-            ConcreteLocalData db;
-            db = ConcreteLocalData.getInstance(this);
-        }).start();
-
-    }
 
     public void addFromFavToPlan(View view) {
-        String name = "";
-        if (view.getTag().equals("Saturday"))
-            name = "Saturday";
-        else if (view.getTag().equals("Sunday"))
-            name = "Sunday";
-        else if (view.getTag().equals("Monday"))
-            name = "Monday";
-        else if (view.getTag().equals("Tuesday"))
-            name = "Tuesday";
-        else if (view.getTag().equals("Wednesday"))
-            name = "Wednesday";
-        else if (view.getTag().equals("Thursday"))
-            name = "Thursday";
-        else if (view.getTag().equals("Friday"))
-            name = "Friday";
-        PopupMenu popup = new PopupMenu(this, view);
-        MenuInflater inflater = popup.getMenuInflater();
-        popup.setOnMenuItemClickListener(this);
-        inflater.inflate(R.menu.popup_plan, popup.getMenu());
-        popup.show();
+        if (MyUser.getInstance().isLogin()) {
+            String name = "";
+            if (view.getTag().equals("Saturday"))
+                name = "Saturday";
+            else if (view.getTag().equals("Sunday"))
+                name = "Sunday";
+            else if (view.getTag().equals("Monday"))
+                name = "Monday";
+            else if (view.getTag().equals("Tuesday"))
+                name = "Tuesday";
+            else if (view.getTag().equals("Wednesday"))
+                name = "Wednesday";
+            else if (view.getTag().equals("Thursday"))
+                name = "Thursday";
+            else if (view.getTag().equals("Friday"))
+                name = "Friday";
+
+            day=name;
+            PopupMenu popup = new PopupMenu(this, view);
+            MenuInflater inflater = popup.getMenuInflater();
+            popup.setOnMenuItemClickListener(this);
+            inflater.inflate(R.menu.popup_plan, popup.getMenu());
+            popup.show();
+        } else {
+            Snackbar.make(findViewById(android.R.id.content), "you can't add with out account ", Snackbar.LENGTH_LONG)
+                    .setAction(R.string.create_account, i -> {
+                        startActivity(new Intent(this, WelcomeActivity.class));
+                        finish();
+                    })
+                    .show();
+        }
     }
 
 
     @Override
     public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
         if (menuItem.getItemId() == R.id.im_from_favorite) {
-            DialogFragment newFragment = new FavoriteDialog();
+            DialogFragment newFragment = new FavoriteDialog(day);
             newFragment.show(getSupportFragmentManager(), "Add From Favorite");
         } else {
-            DialogFragment newFragment = new SearchDialog();
+            DialogFragment newFragment = new SearchDialog(day);
             newFragment.show(getSupportFragmentManager(), "Add From Favorite");
         }
         return false;

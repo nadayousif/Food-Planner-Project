@@ -315,7 +315,7 @@ public class RetrofitClient implements RemoteDataSource {
                             String strMealCategory=meal.getStrCategory();
                             ArrayList<String> strIngredients=meal.getIngredients();
                             ArrayList<String> strMeasures=meal.getMeasures();
-                            String[] strInstructions=meal.getStrInstructions();
+                            String[] strInstructions=meal.getArrOfStrInstructions();
                             String strCountry=meal.getStrArea();
                             String strYouTube=meal.getStrYoutube();
 

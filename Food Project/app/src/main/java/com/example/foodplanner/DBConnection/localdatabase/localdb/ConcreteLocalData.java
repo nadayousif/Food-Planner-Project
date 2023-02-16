@@ -1,11 +1,9 @@
-package com.example.foodplanner.DBConnection.localdatabase;
+package com.example.foodplanner.DBConnection.localdatabase.localdb;
 
 import android.content.Context;
 
-import androidx.lifecycle.LiveData;
-
-import com.example.foodplanner.DBConnection.DBModel.FavoriteMeal;
-import com.example.foodplanner.DBConnection.DBModel.PlanMeal;
+import com.example.foodplanner.Model.Meal;
+import com.example.foodplanner.plan.dialog.search.presenter.presenterSearchDialog;
 import com.example.foodplanner.plan.presenter.NetworkDelegatePlan;
 
 import java.util.List;
@@ -25,7 +23,7 @@ public class ConcreteLocalData implements LocalDataSource{
     private static ConcreteLocalData concreteLocalData= null;
 
     CompositeDisposable disposable;
-    private ConcreteLocalData(Context context){
+    public ConcreteLocalData(Context context){
         this.context=context;
         DBFood db= DBFood.getInstance(this.context.getApplicationContext());
         dao=db.mealDAO();
@@ -36,25 +34,25 @@ public class ConcreteLocalData implements LocalDataSource{
         if (concreteLocalData==null)concreteLocalData=new ConcreteLocalData(context);
         return concreteLocalData;
     }
-    public void deleteProduct(FavoriteMeal meal){
+    public void deleteProduct(Meal meal){
         new Thread(()->{dao.deleteProduct(meal);}).start();
 
     }
-    public void insertProduct(FavoriteMeal meal){
+    public void insertProduct(Meal meal){
         new Thread(()->{dao.insertProduct(meal);}).start();
     }
 
     @Override
     public void getPlanMeals(String email,NetworkDelegatePlan networkDelegatePlan) {
         dao.getPlanMeals(email).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<List<PlanMeal>>() {
+                .subscribe(new SingleObserver<List<Meal>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         disposable.add(d);
                     }
 
                     @Override
-                    public void onSuccess(@NonNull List<PlanMeal> planMeals) {
+                    public void onSuccess(@NonNull List<Meal> planMeals) {
                         networkDelegatePlan.onResponse(planMeals);
                     }
 
@@ -90,5 +88,9 @@ public class ConcreteLocalData implements LocalDataSource{
     @Override
     public void clear() {
          disposable.clear();
+    }
+
+    @Override
+    public void setMealsInPlan(presenterSearchDialog presenterSearchDialog, List<Meal> listMeals) {
     }
 }

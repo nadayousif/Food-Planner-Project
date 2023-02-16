@@ -12,14 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodplanner.DBConnection.DBModel.FavoriteMeal;
+import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterFavoriteDialog extends RecyclerView.Adapter<AdapterFavoriteDialog.ViewHolder> {
-    private List<FavoriteMeal> arr;
+    private List<Meal> arr;
     private OnClickItem onclickItem;
 
     public AdapterFavoriteDialog(OnClickItem onclickItem) {
@@ -27,7 +27,7 @@ public class AdapterFavoriteDialog extends RecyclerView.Adapter<AdapterFavoriteD
         this.onclickItem = onclickItem;
     }
 
-    public void setArr(List<FavoriteMeal> arr) {
+    public void setArr(List<Meal> arr) {
         this.arr = arr;
     }
 

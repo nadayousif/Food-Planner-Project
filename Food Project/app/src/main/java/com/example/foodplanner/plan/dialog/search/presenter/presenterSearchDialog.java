@@ -1,16 +1,19 @@
 package com.example.foodplanner.plan.dialog.search.presenter;
 
 import com.example.foodplanner.APIconnection.RemoteDataSource;
+import com.example.foodplanner.DBConnection.localdatabase.localdb.LocalDataSource;
 import com.example.foodplanner.Model.Meal;
 
 import java.util.List;
 
 public class presenterSearchDialog implements NetworkDelegateSearchPlan {
+    private final LocalDataSource localDataSource;
     RemoteDataSource remoteDataSource;
     CommunicationSearchDialog communicationSearchDialog;
-    public presenterSearchDialog(RemoteDataSource instance, CommunicationSearchDialog searchDialog) {
+    public presenterSearchDialog(RemoteDataSource instance, CommunicationSearchDialog searchDialog, LocalDataSource localDataSource) {
      remoteDataSource=instance;
      communicationSearchDialog=searchDialog;
+     this.localDataSource=localDataSource;
     }
 
     public void search(String newText) {
@@ -37,5 +40,9 @@ public class presenterSearchDialog implements NetworkDelegateSearchPlan {
     public void onResponseListOfMeals(List<Meal> list) {
 
             communicationSearchDialog.setListMeals(list);
+    }
+
+    public void setMealsInPlan(List<Meal> listMeals) {
+        localDataSource.setMealsInPlan(this,listMeals);
     }
 }

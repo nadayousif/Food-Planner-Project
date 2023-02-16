@@ -1,15 +1,11 @@
-package com.example.foodplanner.DBConnection.localdatabase;
-
+package com.example.foodplanner.DBConnection.localdatabase.localdb;
 import android.content.Context;
-
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import com.example.foodplanner.Model.Meal;
 
-import com.example.foodplanner.DBConnection.DBModel.FavoriteMeal;
-import com.example.foodplanner.DBConnection.DBModel.PlanMeal;
-
-@Database(entities = {FavoriteMeal.class, PlanMeal.class}, version = 1)
+@Database(entities = {Meal.class}, version = 1)
 public abstract class DBFood extends RoomDatabase {
     private static DBFood instance = null;
     public abstract MealDAO mealDAO();

@@ -22,6 +22,7 @@ LottieAnimationView food;
             public void run() {
               Intent i = new Intent(getApplicationContext(), SecondSplashActivity.class);
               startActivity(i);
+              finish();
             }
         },5000);
     }

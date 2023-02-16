@@ -20,6 +20,7 @@ public class SecondSplashActivity extends AppCompatActivity {
             public void run() {
                 Intent i = new Intent(getApplicationContext(), WelcomeActivity.class);
                 startActivity(i);
+                finish();
             }
         },3000);
 

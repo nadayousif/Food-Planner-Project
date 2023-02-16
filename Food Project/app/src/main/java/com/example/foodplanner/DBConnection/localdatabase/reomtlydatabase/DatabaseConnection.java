@@ -1,4 +1,4 @@
-package com.example.foodplanner.DBConnection.reomtlydatabase;
+package com.example.foodplanner.DBConnection.localdatabase.reomtlydatabase;
 
 import android.app.Activity;
 
