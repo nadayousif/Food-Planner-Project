@@ -57,8 +57,8 @@ public class SearchFragment extends Fragment implements OnClickItemCategory, Com
         adapterHistory = new AdapterHistory(this);
         binding.recLastSearch.setAdapter(adapterHistory);
         typeOfTab = "Ingredient";
+        presenterSearch = new PresenterSearch(RetrofitClient.getInstance(), this);
         if (CheckConnection.isConnect(getContext())) {
-            presenterSearch = new PresenterSearch(RetrofitClient.getInstance(), this);
             presenterSearch.getIngredient();
             binding.tablayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
                 @Override
