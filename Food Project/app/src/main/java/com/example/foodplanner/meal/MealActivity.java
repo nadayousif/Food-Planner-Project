@@ -66,6 +66,7 @@ public class MealActivity extends AppCompatActivity  implements CommunicationMea
                     .show();
         }
 
+
         recIngrMeas.setLayoutManager(new StaggeredGridLayoutManager(4, LinearLayoutManager.VERTICAL));
         adapterIngredientMeasure= new AdapterIngredientMeasure();
         recIngrMeas.setAdapter(adapterIngredientMeasure);

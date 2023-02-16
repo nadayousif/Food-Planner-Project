@@ -80,7 +80,7 @@ public class PlanFragment extends Fragment implements OnClickItem, Communication
     @Override
     public void onPause() {
         super.onPause();
-        presenterPlan.getPlanMeals(MyUser.getInstance().getEmail());
+//        presenterPlan.getPlanMeals(MyUser.getInstance().getEmail());
     }
 
     @Override
