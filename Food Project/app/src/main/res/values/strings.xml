@@ -43,4 +43,5 @@
     <string name="isLocal">isLocal</string>
     <string name="add">Add</string>
     <string name="cancel">Cancel</string>
+    <string name="create_account">CREATE ACCOUNT</string>
 </resources>

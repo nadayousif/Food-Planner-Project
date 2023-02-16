@@ -12,7 +12,7 @@ import com.example.foodplanner.helper.CheckConnection;
 import com.example.foodplanner.MainActivity;
 import com.example.foodplanner.R;
 import com.example.foodplanner.SignUp.SignUpActivity;
-import com.example.foodplanner.DBConnection.reomtlydatabase.FireBaseConnection;
+import com.example.foodplanner.DBConnection.localdatabase.reomtlydatabase.FireBaseConnection;
 import com.example.foodplanner.helper.MySharedPreference;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;

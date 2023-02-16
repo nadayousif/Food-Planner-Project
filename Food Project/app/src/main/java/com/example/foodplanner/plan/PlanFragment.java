@@ -11,11 +11,10 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.example.foodplanner.DBConnection.DBModel.PlanMeal;
-import com.example.foodplanner.DBConnection.localdatabase.ConcreteLocalData;
+import com.example.foodplanner.DBConnection.localdatabase.localdb.ConcreteLocalData;
+import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
 import com.example.foodplanner.databinding.FragmentPlanBinding;
 import com.example.foodplanner.helper.MyUser;
@@ -25,7 +24,6 @@ import com.example.foodplanner.plan.adapter.OnClickItem;
 import com.example.foodplanner.plan.presenter.CommunicationPlan;
 import com.example.foodplanner.plan.presenter.PresenterPlan;
 
-import java.util.AbstractCollection;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -54,6 +52,7 @@ public class PlanFragment extends Fragment implements OnClickItem, Communication
         adapterPlanMonday = new AdapterPlan(this);
         adapterPlanSunday = new AdapterPlan(this);
         adapterPlanSaturday = new AdapterPlan(this);
+        presenterPlan.getPlanMeals(MyUser.getInstance().getEmail());
         return root;
     }
 
@@ -80,7 +79,7 @@ public class PlanFragment extends Fragment implements OnClickItem, Communication
     @Override
     public void onPause() {
         super.onPause();
-//        presenterPlan.getPlanMeals(MyUser.getInstance().getEmail());
+//        presenterPlan.getMeals(MyUser.getInstance().getEmail());
     }
 
     @Override
@@ -114,16 +113,16 @@ public class PlanFragment extends Fragment implements OnClickItem, Communication
     }
 
     @Override
-    public void onResponse(List<PlanMeal> planMeals) {
+    public void onResponse(List<Meal> Meals) {
         //--------------------
-        List<PlanMeal> listSaturday = new ArrayList<>();
-        List<PlanMeal> listSunday = new ArrayList<>();
-        List<PlanMeal> listMonday = new ArrayList<>();
-        List<PlanMeal> listTuesday = new ArrayList<>();
-        List<PlanMeal> listWednesday = new ArrayList<>();
-        List<PlanMeal> listThursday = new ArrayList<>();
-        List<PlanMeal> listFriday = new ArrayList<>();
-        for (PlanMeal meal : planMeals) {
+        List<Meal> listSaturday = new ArrayList<>();
+        List<Meal> listSunday = new ArrayList<>();
+        List<Meal> listMonday = new ArrayList<>();
+        List<Meal> listTuesday = new ArrayList<>();
+        List<Meal> listWednesday = new ArrayList<>();
+        List<Meal> listThursday = new ArrayList<>();
+        List<Meal> listFriday = new ArrayList<>();
+        for (Meal meal : Meals) {
             if (meal.getDay().equals("Saturday"))
                 listSaturday.add(meal);
             else if (meal.getDay().equals("Sunday"))
@@ -138,6 +137,7 @@ public class PlanFragment extends Fragment implements OnClickItem, Communication
                 listThursday.add(meal);
             else if (meal.getDay().equals("Friday"))
                 listFriday.add(meal);
+
         }
         adapterPlanSaturday.setArr(listSaturday);
         adapterPlanSunday.setArr(listSunday);

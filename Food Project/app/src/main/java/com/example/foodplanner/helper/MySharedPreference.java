@@ -28,8 +28,8 @@ public class MySharedPreference {
 
     public static boolean isLogin(Activity activity) {
         String email = sharedPreferences.getString(activity.getString(R.string.userEmail),"");
-        if(email.isEmpty())return false;
-        else return true;
+        return !email.isEmpty();
+
 
     }
     public static void clear(Activity activity){

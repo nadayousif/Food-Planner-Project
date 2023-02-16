@@ -1,7 +1,5 @@
-package com.example.foodplanner.DBConnection.reomtlydatabase;
+package com.example.foodplanner.DBConnection.localdatabase.reomtlydatabase;
 
-
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 

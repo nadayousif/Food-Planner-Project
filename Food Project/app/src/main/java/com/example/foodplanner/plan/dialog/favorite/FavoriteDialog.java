@@ -3,6 +3,7 @@ package com.example.foodplanner.plan.dialog.favorite;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.widget.Toast;
 
@@ -14,6 +15,12 @@ import androidx.fragment.app.DialogFragment;
 import com.example.foodplanner.R;
 
 public class FavoriteDialog extends DialogFragment implements OnClickItem{
+    private String day;
+    public FavoriteDialog(String day) {
+        Log.i("TAGG", "FavoriteDialog: "+day);
+        this.day=day;
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {

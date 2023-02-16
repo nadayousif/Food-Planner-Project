@@ -17,6 +17,8 @@ import com.example.foodplanner.helper.MySharedPreference;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
+import com.facebook.GraphRequest;
+import com.facebook.GraphResponse;
 import com.facebook.login.LoginManager;
 import com.facebook.login.LoginResult;
 import com.facebook.login.widget.LoginButton;
@@ -28,6 +30,9 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.ApiException;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
+import org.json.JSONObject;
 
 import java.util.Arrays;
 
@@ -35,7 +40,7 @@ public class WelcomeActivity extends AppCompatActivity {
     Button signUP;
     TextView have_Account;
     Button googleButton;
-    LoginButton facebookButton;
+    Button facebookButton;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
     CallbackManager callbackManager;
@@ -59,18 +64,33 @@ public class WelcomeActivity extends AppCompatActivity {
             gsc = GoogleSignIn.getClient(this, gso);
             mAuth = FirebaseAuth.getInstance();
             facebookButton = findViewById(R.id.facebook);
-            facebookButton.setReadPermissions(Arrays.asList(EMAIL));
 
             callbackManager = CallbackManager.Factory.create();
-
 
             LoginManager.getInstance().registerCallback(callbackManager,
                     new FacebookCallback<LoginResult>() {
                         @Override
                         public void onSuccess(LoginResult loginResult) {
-                            // App code
-                            startActivity(new Intent(WelcomeActivity.this, MainActivity.class));
-                            finish();
+                            GraphRequest request = GraphRequest.newMeRequest(loginResult.getAccessToken(), new GraphRequest.GraphJSONObjectCallback() {
+
+                                @Override
+                                public void onCompleted(JSONObject object, GraphResponse response) {
+                                    // Get facebook data from login
+                                    // Application code
+                                    if (response.getError() == null) {
+                                        String fbUserEmail = object.optString("email");
+                                        MySharedPreference.saveInShared(WelcomeActivity.this, fbUserEmail);
+                                        Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                                        startActivity(intent);
+                                    }
+
+                                }
+                            });
+                            Bundle parameters = new Bundle();
+                            parameters.putString("fields", "email");
+                            request.setParameters(parameters);
+                            request.executeAsync();
                         }
 
                         @Override
@@ -164,10 +184,10 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
     void navigateToSecondActivity() {
-        finish();
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
+        finish();
     }
 
     void UserData() {
@@ -184,4 +204,11 @@ public class WelcomeActivity extends AppCompatActivity {
     }
 
 
+    public void loginAsGuest(View view) {
+        MySharedPreference.saveInShared(this,"");
+        Intent intent=new Intent(this,MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        startActivity(intent);
+        finish();
+    }
 }

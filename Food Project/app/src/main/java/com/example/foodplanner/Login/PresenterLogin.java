@@ -1,6 +1,6 @@
 package com.example.foodplanner.Login;
 
-import com.example.foodplanner.DBConnection.reomtlydatabase.DatabaseConnection;
+import com.example.foodplanner.DBConnection.localdatabase.reomtlydatabase.DatabaseConnection;
 
 public class PresenterLogin implements NetworkDelegate {
     private DatabaseConnection databaseConnection;

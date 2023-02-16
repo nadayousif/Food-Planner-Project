@@ -1,7 +1,7 @@
 package com.example.foodplanner.plan.presenter;
 
-import com.example.foodplanner.DBConnection.DBModel.PlanMeal;
-import com.example.foodplanner.DBConnection.localdatabase.LocalDataSource;
+import com.example.foodplanner.DBConnection.localdatabase.localdb.LocalDataSource;
+import com.example.foodplanner.Model.Meal;
 
 import java.util.List;
 
@@ -30,7 +30,7 @@ public class PresenterPlan implements NetworkDelegatePlan{
     }
 
     @Override
-    public void onResponse(List<PlanMeal> planMeals) {
+    public void onResponse(List<Meal> planMeals) {
         communicationPlan.onResponse(planMeals);
     }
 

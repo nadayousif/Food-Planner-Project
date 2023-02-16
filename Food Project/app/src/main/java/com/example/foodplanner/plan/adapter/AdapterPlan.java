@@ -12,14 +12,14 @@ import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.foodplanner.DBConnection.DBModel.PlanMeal;
+import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterPlan extends RecyclerView.Adapter<AdapterPlan.ViewHolder> {
-    private List<PlanMeal> arr;
+    private List<Meal> arr;
     private OnClickItem onclickItem;
 
     public AdapterPlan(OnClickItem onclickItem) {
@@ -27,7 +27,7 @@ public class AdapterPlan extends RecyclerView.Adapter<AdapterPlan.ViewHolder> {
         this.onclickItem = onclickItem;
     }
 
-    public void setArr(List<PlanMeal> arr) {
+    public void setArr(List<Meal> arr) {
         this.arr = arr;
     }
 

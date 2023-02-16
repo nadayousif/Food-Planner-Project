@@ -73,6 +73,10 @@ public class AdapterSearchDialog extends RecyclerView.Adapter<RecyclerView.ViewH
         return arr.size();
     }
 
+    public List<Meal> getListMeals() {
+        return selectedMeal;
+    }
+
 
     public class SearchViewHolder extends RecyclerView.ViewHolder{
         TextView item;

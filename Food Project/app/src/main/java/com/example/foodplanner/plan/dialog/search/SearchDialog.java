@@ -1,14 +1,10 @@
 package com.example.foodplanner.plan.dialog.search;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -19,12 +15,11 @@ import androidx.fragment.app.DialogFragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.example.foodplanner.APIconnection.RetrofitClient;
+import com.example.foodplanner.DBConnection.localdatabase.localdb.ConcreteLocalData;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
-import com.example.foodplanner.databinding.DialogSearchBinding;
 import com.example.foodplanner.helper.CheckConnection;
 import com.example.foodplanner.helper.MySharedPreference;
 import com.example.foodplanner.plan.dialog.search.historyserach.AdapterHistory;
@@ -49,6 +44,11 @@ public class SearchDialog extends DialogFragment implements OnClickItem, OnClick
     private RecyclerView recDialogSearch;
     private RecyclerView recDialogSearchHistory;
 
+    private String day;
+    public SearchDialog(String day) {
+       this.day=day;
+    }
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
@@ -61,7 +61,9 @@ public class SearchDialog extends DialogFragment implements OnClickItem, OnClick
                 .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-
+                        Toast.makeText(getContext(), day, Toast.LENGTH_SHORT).show();
+                        adapterSearchDialog.getListMeals().stream().forEach(i->i.setDay(day));
+                        presenterSearchDialog.setMealsInPlan(adapterSearchDialog.getListMeals());
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {
@@ -82,7 +84,7 @@ public class SearchDialog extends DialogFragment implements OnClickItem, OnClick
         recDialogSearch.setAdapter(adapterSearchDialog);
         SearchView svDialogSearch = view.findViewById(R.id.sv_dialog_search);
         if (CheckConnection.isConnect(getContext())) {
-            presenterSearchDialog = new presenterSearchDialog(RetrofitClient.getInstance(), this);
+            presenterSearchDialog = new presenterSearchDialog(RetrofitClient.getInstance(), this,new ConcreteLocalData(getContext()));
 
 
             svDialogSearch.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {

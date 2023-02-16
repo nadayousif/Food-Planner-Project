@@ -1,6 +1,7 @@
 package com.example.foodplanner.plan.presenter;
 
-import com.example.foodplanner.DBConnection.DBModel.PlanMeal;
+
+import com.example.foodplanner.Model.Meal;
 
 import java.util.List;
 
@@ -9,5 +10,5 @@ public interface NetworkDelegatePlan {
 
     void onError(String s);
 
-    void onResponse(List<PlanMeal> planMeals);
+    void onResponse(List<Meal> planMeals);
 }
