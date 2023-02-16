@@ -8,9 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.foodplanner.APIconnection.RetrofitClient;
-import com.example.foodplanner.helper.CheckConnection;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
+import com.example.foodplanner.Helper.CheckConnection;
 import com.example.foodplanner.databinding.ActivitySearchResultBinding;
 import com.example.foodplanner.meal.MealActivity;
 import com.example.foodplanner.searchresult.presenter.CommunicationSearchResult;
@@ -33,7 +33,9 @@ public class SearchResultActivity extends AppCompatActivity implements OnClickIt
             String name = getIntent().getStringExtra(getString(R.string.resultSearch));
             presenterSearchResult.showNada();//1st
             String typeOfSearch = getIntent().getStringExtra(getString(R.string.typeOfSearch));
+
             binding.tvSearchResultName.setText(name);
+
             if (typeOfSearch.equals(getString(R.string.searchByName)))
                 presenterSearchResult.getList(name);
             else if (typeOfSearch.equals(getString(R.string.searchByCountry)))

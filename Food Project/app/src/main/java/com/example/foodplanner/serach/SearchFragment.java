@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SearchView;
@@ -18,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.example.foodplanner.APIconnection.RetrofitClient;
 import com.example.foodplanner.helper.CheckConnection;
 import com.example.foodplanner.R;
+import com.example.foodplanner.helper.MySharedPreference;
 import com.example.foodplanner.searchresult.SearchResultActivity;
 import com.example.foodplanner.databinding.FragmentSearchBinding;
 import com.example.foodplanner.serach.category.AdapterCategory;
@@ -85,6 +87,7 @@ public class SearchFragment extends Fragment implements OnClickItemCategory, Com
                     if (b) {
                         showHistorySearch();
                         showHistorySearchList();
+                        Toast.makeText(getContext(), "hi", Toast.LENGTH_SHORT).show();
 
                     } else {
                         hiddenHistorySearch();
@@ -178,8 +181,7 @@ public class SearchFragment extends Fragment implements OnClickItemCategory, Com
 
     void showHistorySearchList() {
         String[] arr = new String[0];
-        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        String s = sharedPref.getString(getString(R.string.historySearch), "");
+        String s = MySharedPreference.getListOfHistory(getActivity());
         if (!s.isEmpty()) {
             List<String> list = Arrays.stream(s.split(",")).filter(i -> !i.isEmpty()).collect(Collectors.toList());
             Collections.reverse(list);
@@ -210,14 +212,12 @@ public class SearchFragment extends Fragment implements OnClickItemCategory, Com
     }
 
     void saveIntoShare(String name) {
-        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        String s = sharedPref.getString(getString(R.string.historySearch), "");
+        String s =MySharedPreference.getListOfHistory(getActivity());
         boolean status = !Arrays.stream(s.split(",")).filter(i -> !i.isEmpty()).anyMatch(i -> i.equals(name));
         if (status)
             s += name + ",";
-        editor.putString(getString(R.string.historySearch), s);
-        editor.apply();
+        MySharedPreference.saveInHistory(getActivity(),s);
+
     }
 
     @Override
