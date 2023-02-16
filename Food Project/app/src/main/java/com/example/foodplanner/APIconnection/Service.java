@@ -35,4 +35,6 @@ public interface Service {
     Observable<MyObject> getSearchList(@Query("s") String name);
     @GET("random.php")
     Single<MyObject> getRandomMeal();
+    @GET("lookup.php")
+    Single<MyObject> getMeal(@Query("i") String id);
 }

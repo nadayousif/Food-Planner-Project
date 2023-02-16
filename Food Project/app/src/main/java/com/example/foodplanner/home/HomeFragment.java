@@ -24,12 +24,13 @@ import com.example.foodplanner.R;
 import com.example.foodplanner.databinding.FragmentHomeBinding;
 import com.example.foodplanner.home.presenter.CommunicationRandomMeal;
 import com.example.foodplanner.home.presenter.PresenterRandomMeal;
+import com.example.foodplanner.meal.MealActivity;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
 
-public class HomeFragment extends Fragment implements OnClickRandomMeal, CommunicationRandomMeal {
+public class HomeFragment extends Fragment implements  CommunicationRandomMeal {
     private static RandomMeal randomMeal;
     private FragmentHomeBinding binding;
     //AdapterRandomMeal adapterRandomMeal;
@@ -76,10 +77,7 @@ public class HomeFragment extends Fragment implements OnClickRandomMeal, Communi
         Snackbar.make(binding.getRoot(), "something wrong pls try again", Snackbar.LENGTH_LONG)
                 .show();
     }
-    @Override
-    public void onClick(String id) {
 
-    }
 
 
 }

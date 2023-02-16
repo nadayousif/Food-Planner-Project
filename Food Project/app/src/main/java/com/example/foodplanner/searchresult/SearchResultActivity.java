@@ -59,6 +59,8 @@ public class SearchResultActivity extends AppCompatActivity implements OnClickIt
     @Override
     public void onClick(String id) {
         Intent intent = new Intent(this, MealActivity.class);
+        intent.putExtra(getString(R.string.mealID),id);
+        intent.putExtra(getString(R.string.isLocal),false);
         startActivity(intent);
     }
 

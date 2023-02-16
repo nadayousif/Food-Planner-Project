@@ -73,9 +73,13 @@ public class MainActivity extends AppCompatActivity {
 
     }*/
     public void goToMeal(View view) {
-        Intent intent=new Intent(this, MealActivity.class);
-        startActivity(intent);
-        Toast.makeText(this, view.getTag().toString()+"////", Toast.LENGTH_SHORT).show();
+        if (view.getTag().toString()!=null){
+            Intent intent=new Intent(this, MealActivity.class);
+
+            intent.putExtra(getString(R.string.mealID),view.getTag().toString());
+            intent.putExtra(getString(R.string.isLocal),false);
+            startActivity(intent);
+        }
 
 
     }

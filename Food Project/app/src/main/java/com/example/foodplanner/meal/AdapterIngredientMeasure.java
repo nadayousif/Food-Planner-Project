@@ -16,9 +16,9 @@ public class AdapterIngredientMeasure extends RecyclerView.Adapter<AdapterIngred
     ArrayList<String> arrIngredient;
     ArrayList<String> arrMeasure;
 
-    public AdapterIngredientMeasure(ArrayList<String> ingredients,ArrayList<String> measures) {
-        this.arrIngredient=ingredients;
-        this.arrMeasure=measures;
+    public AdapterIngredientMeasure() {
+        this.arrIngredient=new ArrayList<>();;
+        this.arrMeasure=new ArrayList<>();
     }
 
 
@@ -33,13 +33,24 @@ public class AdapterIngredientMeasure extends RecyclerView.Adapter<AdapterIngred
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         holder.measure.setText(arrMeasure.get(position));
-        holder.ingredient.setText(arrIngredient.get(position));
+        if(position< arrIngredient.size()){
+            holder.ingredient.setText(arrIngredient.get(position));
+        }
+
     }
 
     @Override
     public int getItemCount() {
         // Returns number of items currently available in Adapter
         return arrMeasure.size();
+    }
+
+    public void setIngredients(ArrayList<String> strIngredients) {
+        this.arrIngredient = strIngredients;
+    }
+
+    public void setMeasures(ArrayList<String> strMeasures) {
+        this.arrMeasure = strMeasures;
     }
 
     // Initializing the Views
