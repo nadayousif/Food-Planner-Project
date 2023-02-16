@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import com.example.foodplanner.R;
 import com.example.foodplanner.Welcome.WelcomeActivity;
+import com.example.foodplanner.helper.MySharedPreference;
 import com.facebook.login.LoginManager;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -83,7 +84,7 @@ public class ProfileFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 signOut();
-                getActivity().moveTaskToBack(true);
+                MySharedPreference.clear(getActivity());
                 getActivity().finish();
 
             }
