@@ -1,36 +1,20 @@
 package com.example.foodplanner.meal;
-
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
-
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
-import android.webkit.WebChromeClient;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
 import android.widget.ImageView;
-import android.widget.MediaController;
 import android.widget.TextView;
-import android.widget.VideoView;
-
 import com.bumptech.glide.Glide;
 import com.example.foodplanner.APIconnection.RetrofitClient;
-import com.example.foodplanner.Helper.CheckConnection;
-import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
 import com.example.foodplanner.databinding.ActivityMealBinding;
-import com.example.foodplanner.databinding.ActivitySearchResultBinding;
+import com.example.foodplanner.helper.CheckConnection;
 import com.example.foodplanner.meal.presenter.CommunicationMeal;
 import com.example.foodplanner.meal.presenter.PresenterMeal;
-import com.example.foodplanner.searchresult.AdapterSearchResult;
-import com.example.foodplanner.searchresult.presenter.PresenterSearchResult;
 import com.google.android.material.snackbar.Snackbar;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 

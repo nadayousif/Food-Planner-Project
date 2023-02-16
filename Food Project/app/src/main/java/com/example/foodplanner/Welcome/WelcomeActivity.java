@@ -51,10 +51,9 @@ public class WelcomeActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_welcome);
         MySharedPreference.getSharedPreferences(this);
-        if(MySharedPreference.isLogin(this)){
+        if (MySharedPreference.isLogin(this)) {
             navigateToSecondActivity();
-        }
-        else {
+        } else {
             signUP = findViewById(R.id.signup);
             gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
             gsc = GoogleSignIn.getClient(this, gso);
@@ -167,6 +166,7 @@ public class WelcomeActivity extends AppCompatActivity {
     void navigateToSecondActivity() {
         finish();
         Intent intent = new Intent(this, MainActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
 

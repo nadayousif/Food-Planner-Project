@@ -21,6 +21,7 @@ import com.example.foodplanner.DBConnection.localdatabase.ConcreteLocalData;
 
 import com.example.foodplanner.databinding.ActivityMainBinding;
 import com.example.foodplanner.helper.MySharedPreference;
+import com.example.foodplanner.helper.MyUser;
 import com.example.foodplanner.meal.MealActivity;
 import com.example.foodplanner.plan.dialog.favorite.FavoriteDialog;
 import com.example.foodplanner.plan.dialog.search.SearchDialog;
@@ -47,6 +48,9 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
 
         NavigationUI.setupWithNavController(binding.navView, navController);
+
+        MyUser.getInstance().setEmail(MySharedPreference.getEmail(this));
+
         /*GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if(acct!=null){
             String personName = acct.getDisplayName();
@@ -73,7 +77,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
      }*/
     public void goToMeal(View view) {
 
-        if (view.getTag().toString()!=null){
+        if (view.getTag()!=null){
             Intent intent=new Intent(this, MealActivity.class);
 
             intent.putExtra(getString(R.string.mealID),view.getTag().toString());
