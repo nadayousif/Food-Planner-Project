@@ -8,9 +8,9 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.example.foodplanner.APIconnection.RetrofitClient;
-import com.example.foodplanner.helper.CheckConnection;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
+import com.example.foodplanner.Helper.CheckConnection;
 import com.example.foodplanner.databinding.ActivitySearchResultBinding;
 import com.example.foodplanner.meal.MealActivity;
 import com.example.foodplanner.searchresult.presenter.CommunicationSearchResult;
