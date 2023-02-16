@@ -8,15 +8,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
+
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class AdapterInstructions extends RecyclerView.Adapter<AdapterInstructions.ViewHolder> {
     String[] arrInstruction;
     private boolean isRight=false;
 
-    public AdapterInstructions(String[] arr) {
-        this.arrInstruction = arr;
+    public AdapterInstructions() {
+
+        this.arrInstruction = new String[0];;
     }
 
 
@@ -47,6 +52,10 @@ public class AdapterInstructions extends RecyclerView.Adapter<AdapterInstruction
     @Override
     public int getItemCount() {
         return arrInstruction.length;
+    }
+
+    public void setInstructions(String[] strInstructions) {
+        this.arrInstruction=strInstructions;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {

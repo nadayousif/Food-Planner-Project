@@ -6,8 +6,12 @@ import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.Model.MyObject;
 import com.example.foodplanner.Model.RandomMeal;
 import com.example.foodplanner.home.presenter.NetworkDelegateRandomMeal;
+
 import com.example.foodplanner.plan.dialog.search.presenter.NetworkDelegateSearchPlan;
 import com.example.foodplanner.plan.dialog.search.presenter.presenterSearchDialog;
+
+import com.example.foodplanner.meal.presenter.NetworkDelegateMeal;
+
 import com.example.foodplanner.searchresult.presenter.NetworkDelegateSearchResult;
 import com.example.foodplanner.serach.presenter.NetworkDelegateSearch;
 
@@ -287,59 +291,45 @@ public class RetrofitClient implements RemoteDataSource {
 
                     }
                 });
-              /*  .subscribe(new SingleObserver<RandomMeal>() {
+
+
+
+    }
+
+    @Override
+    public void getMeal(String id, NetworkDelegateMeal networkDelegateMeal) {
+        getService().getMeal(id).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<MyObject>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         disposable.add(d);
                     }
 
                     @Override
-                    public void onSuccess(@NonNull RandomMeal randomMeal) {
-                        if (randomMeal.getIdMeal() != null&& randomMeal.getStrMeal() != null&&randomMeal.getStrMealThumb() != null){
-                            String idMeal=randomMeal.getIdMeal();
-                            String strMeal=randomMeal.getStrMeal();
-                            String strMealThumb=randomMeal.getStrMealThumb();
-                            networkDelegateRandomMeal.onResponseRandomMeal(idMeal,strMeal,strMealThumb);
+                    public void onSuccess(@NonNull MyObject myObject) {
+                        if(myObject.getList()!=null){
+                            Meal meal = myObject.getList().get(0);
+                            String idMeal=meal.getIdMeal();
+                            String strMeal=meal.getStrMeal();
+                            String strMealThumb=meal.getStrMealThumb();
+                            String strMealCategory=meal.getStrCategory();
+                            ArrayList<String> strIngredients=meal.getIngredients();
+                            ArrayList<String> strMeasures=meal.getMeasures();
+                            String[] strInstructions=meal.getStrInstructions();
+                            String strCountry=meal.getStrArea();
+                            String strYouTube=meal.getStrYoutube();
+
+                            networkDelegateMeal.onResponseMeal(idMeal,strMeal,strMealThumb,strMealCategory,strIngredients,strMeasures,strInstructions,strCountry,strYouTube);
                         }
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        networkDelegateRandomMeal.onFailure(e.getMessage());
+                        networkDelegateMeal.onFailure(e.getMessage());
                         Log.i("TAGG", "onError: " + e.fillInStackTrace());
-                    }
-                });*/
-
-
-                /*subscribe(new Observer<RandomMeal>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-                        disposable.add(d);
-                    }
-
-                    @Override
-                    public void onNext(@NonNull RandomMeal randomMeal) {
-                        if (randomMeal.getIdMeal() != null&& randomMeal.getStrMeal() != null&&randomMeal.getStrMealThumb() != null){
-                            String idMeal=randomMeal.getIdMeal();
-                            String strMeal=randomMeal.getStrMeal();
-                            String strMealThumb=randomMeal.getStrMealThumb();
-                            networkDelegateRandomMeal.onResponseRandomMeal(idMeal,strMeal,strMealThumb);
-                        }
-                    }
-
-
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        networkDelegateRandomMeal.onFailure(e.getMessage());
-                        Log.i("TAGG", "onError: " + e.fillInStackTrace());
-                    }
-
-                    @Override
-                    public void onComplete() {
 
                     }
-                });*/
+                });
 
     }
 
