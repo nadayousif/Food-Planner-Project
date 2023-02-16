@@ -4,10 +4,10 @@ import com.example.foodplanner.Model.Meal;
 
 import java.util.List;
 
-public interface CommunicationSearchDialog {
-    void setListHistory(String[] names);
+public interface NetworkDelegateSearchPlan {
+    void onResponseSearch(String[] names);
 
     void onFailure(String message);
 
-    void setListMeals(List<Meal> list);
+    void onResponseListOfMeals(List<Meal> list);
 }

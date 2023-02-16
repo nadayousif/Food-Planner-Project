@@ -6,6 +6,8 @@ import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.Model.MyObject;
 import com.example.foodplanner.Model.RandomMeal;
 import com.example.foodplanner.home.presenter.NetworkDelegateRandomMeal;
+import com.example.foodplanner.plan.dialog.search.presenter.NetworkDelegateSearchPlan;
+import com.example.foodplanner.plan.dialog.search.presenter.presenterSearchDialog;
 import com.example.foodplanner.searchresult.presenter.NetworkDelegateSearchResult;
 import com.example.foodplanner.serach.presenter.NetworkDelegateSearch;
 
@@ -49,7 +51,6 @@ public class RetrofitClient implements RemoteDataSource {
     private Service getService() {
         return service;
     }
-
 
 
     @Override
@@ -129,32 +130,32 @@ public class RetrofitClient implements RemoteDataSource {
     @Override
     public void getSearchList(NetworkDelegateSearch networkDelegateSearch, String name) {
 
-        getService().getSearchList(name).subscribeOn(Schedulers.io()).debounce(2,TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).
+        getService().getSearchList(name).subscribeOn(Schedulers.io()).debounce(2, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).
                 subscribe(new Observer<MyObject>() {
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
-                disposable.add(d);
-            }
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        disposable.add(d);
+                    }
 
-            @Override
-            public void onNext(@NonNull MyObject myObject) {
-                if (myObject.getList() != null) {
-                    String[] names = myObject.getList().stream().map(Meal::getStrMeal).toArray(String[]::new);
-                    networkDelegateSearch.onResponseSearch(names);
-                }
-            }
+                    @Override
+                    public void onNext(@NonNull MyObject myObject) {
+                        if (myObject.getList() != null) {
+                            String[] names = myObject.getList().stream().map(Meal::getStrMeal).toArray(String[]::new);
+                            networkDelegateSearch.onResponseSearch(names);
+                        }
+                    }
 
-            @Override
-            public void onError(@NonNull Throwable e) {
-                networkDelegateSearch.onFailure(e.getMessage());
-                Log.i("TAGG", "onError: " + e.fillInStackTrace());
-            }
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        networkDelegateSearch.onFailure(e.getMessage());
+                        Log.i("TAGG", "onError: " + e.fillInStackTrace());
+                    }
 
-            @Override
-            public void onComplete() {
+                    @Override
+                    public void onComplete() {
 
-            }
-        });
+                    }
+                });
     }
 
     @Override
@@ -195,7 +196,7 @@ public class RetrofitClient implements RemoteDataSource {
 
                     @Override
                     public void onSuccess(@NonNull MyObject myObject) {
-                        if(myObject.getList()!=null){
+                        if (myObject.getList() != null) {
                             networkDelegateSearchResult.onResponse(myObject.getList());
                         }
                     }
@@ -218,7 +219,7 @@ public class RetrofitClient implements RemoteDataSource {
 
                     @Override
                     public void onSuccess(@NonNull MyObject myObject) {
-                        if(myObject.getList()!=null){
+                        if (myObject.getList() != null) {
                             networkDelegateSearchResult.onResponse(myObject.getList());
                         }
                     }
@@ -241,7 +242,7 @@ public class RetrofitClient implements RemoteDataSource {
 
                     @Override
                     public void onSuccess(@NonNull MyObject myObject) {
-                        if(myObject.getList()!=null){
+                        if (myObject.getList() != null) {
                             networkDelegateSearchResult.onResponse(myObject.getList());
                         }
                     }
@@ -257,9 +258,10 @@ public class RetrofitClient implements RemoteDataSource {
     public void get(NetworkDelegateSearchResult NADA) {
         NADA.onNada();//5
     }//4
+
     @Override
 
-    public void getRandomMeal(NetworkDelegateRandomMeal networkDelegateRandomMeal ){
+    public void getRandomMeal(NetworkDelegateRandomMeal networkDelegateRandomMeal) {
         getService().getRandomMeal().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<MyObject>() {
                     @Override
@@ -269,12 +271,12 @@ public class RetrofitClient implements RemoteDataSource {
 
                     @Override
                     public void onSuccess(@NonNull MyObject myObject) {
-                        if(myObject.getList()!=null){
+                        if (myObject.getList() != null) {
                             Meal randomMeal = myObject.getList().get(0);
-                            String idMeal=randomMeal.getIdMeal();
-                            String strMeal=randomMeal.getStrMeal();
-                            String strMealThumb=randomMeal.getStrMealThumb();
-                            networkDelegateRandomMeal.onResponseRandomMeal(idMeal,strMeal,strMealThumb);
+                            String idMeal = randomMeal.getIdMeal();
+                            String strMeal = randomMeal.getStrMeal();
+                            String strMealThumb = randomMeal.getStrMealThumb();
+                            networkDelegateRandomMeal.onResponseRandomMeal(idMeal, strMeal, strMealThumb);
                         }
                     }
 
@@ -340,6 +342,67 @@ public class RetrofitClient implements RemoteDataSource {
                 });*/
 
     }
+
+    @Override
+    public void getMealSearchPlan(String query, NetworkDelegateSearchPlan networkDelegateSearchPlan) {
+        getService().getSearchList(query).subscribeOn(Schedulers.io()).
+                observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new Observer<MyObject>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        disposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(@NonNull MyObject myObject) {
+                        if(myObject.getList()!=null)
+                            networkDelegateSearchPlan.onResponseListOfMeals(myObject.getList());
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        networkDelegateSearchPlan.onFailure(e.getMessage());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+    @Override
+    public void getSearchList(String newText, NetworkDelegateSearchPlan networkDelegateSearchPlan) {
+        getService().getSearchList(newText).subscribeOn(Schedulers.io()).debounce(2, TimeUnit.SECONDS).observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new Observer<MyObject>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        disposable.add(d);
+                    }
+
+                    @Override
+                    public void onNext(@NonNull MyObject myObject) {
+                        if (myObject.getList() != null) {
+                            String[] names = myObject.getList().stream().map(Meal::getStrMeal).toArray(String[]::new);
+                            networkDelegateSearchPlan.onResponseSearch(names);
+                        }
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        networkDelegateSearchPlan.onFailure(e.getMessage());
+                        Log.i("TAGG", "onError: " + e.fillInStackTrace());
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+                });
+    }
+
+
 
 
     @Override

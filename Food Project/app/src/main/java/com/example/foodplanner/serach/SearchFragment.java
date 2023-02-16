@@ -212,14 +212,12 @@ public class SearchFragment extends Fragment implements OnClickItemCategory, Com
     }
 
     void saveIntoShare(String name) {
-        SharedPreferences sharedPref = getActivity().getPreferences(Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
-        String s = sharedPref.getString(getString(R.string.historySearch), "");
+        String s =MySharedPreference.getListOfHistory(getActivity());
         boolean status = !Arrays.stream(s.split(",")).filter(i -> !i.isEmpty()).anyMatch(i -> i.equals(name));
         if (status)
             s += name + ",";
-        editor.putString(getString(R.string.historySearch), s);
-        editor.apply();
+        MySharedPreference.saveInHistory(getActivity(),s);
+
     }
 
     @Override
