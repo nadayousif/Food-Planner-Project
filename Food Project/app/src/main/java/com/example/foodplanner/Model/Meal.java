@@ -7,6 +7,15 @@ public class Meal {
         this.idMeal = idMeal;
         this.strMeal = strMeal;
     }
+    private boolean isSelect=false;
+
+    public boolean isSelect() {
+        return isSelect;
+    }
+
+    public void setSelect() {
+        isSelect = !isSelect;
+    }
 
     public String getStrIngredient() {
         return strIngredient;
