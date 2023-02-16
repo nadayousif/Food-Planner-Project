@@ -2,6 +2,8 @@ package com.example.foodplanner.APIconnection;
 
 import com.example.foodplanner.home.presenter.NetworkDelegateRandomMeal;
 import com.example.foodplanner.home.presenter.PresenterRandomMeal;
+import com.example.foodplanner.meal.presenter.NetworkDelegateMeal;
+import com.example.foodplanner.meal.presenter.PresenterMeal;
 import com.example.foodplanner.searchresult.presenter.NetworkDelegateSearchResult;
 import com.example.foodplanner.serach.presenter.NetworkDelegateSearch;
 
@@ -28,4 +30,6 @@ public interface RemoteDataSource {
     void get(NetworkDelegateSearchResult nada);//3
 
     void getRandomMeal(NetworkDelegateRandomMeal networkDelegateRandomMeal );
+
+    void getMeal(String id, NetworkDelegateMeal networkDelegateMeal);
 }
