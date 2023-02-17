@@ -1,7 +1,9 @@
 package com.example.foodplanner.plan.dialog.search.searchresult;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,26 +12,29 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
+import com.example.foodplanner.helper.Converter;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterSearchDialog extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     private List<Meal> arr;
     private List<Meal> selectedMeal;
-    private OnClickItem onclickItem;
     private Context context;
 
-    public AdapterSearchDialog(OnClickItem onclickItem) {
+    public AdapterSearchDialog() {
         this.arr = new ArrayList<>();
         this.selectedMeal= new ArrayList<>();
-        this.onclickItem = onclickItem;
     }
 
     public void setArr(List<Meal> arr) {
@@ -53,16 +58,29 @@ public class AdapterSearchDialog extends RecyclerView.Adapter<RecyclerView.ViewH
 
         ((SearchViewHolder) holder).item.setText(arr.get(position).getStrMeal());
         ((SearchViewHolder) holder).cardView.setCardBackgroundColor(arr.get(position).isSelect()? context.getColor(R.color.primaryColor) : context.getColor(R.color.secondaryColor));
-        Glide.with(context).load(arr.get(position).getStrMealThumb() + "/preview").into(((SearchViewHolder) holder).imageView);
+        Glide.with(context)
+                .asBitmap()
+                .load(arr.get(position).getStrMealThumb() + "/preview")
+                .into(new CustomTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        ((SearchViewHolder) holder).imageView.setImageBitmap(resource);
+                        arr.get(holder.getAbsoluteAdapterPosition()).setImage(Converter.getBytesFromBitmap(resource));
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                    }
+                });
         ((SearchViewHolder) holder).cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                arr.get(holder.getAdapterPosition()).setSelect();
-                if (arr.get(holder.getAdapterPosition()).isSelect())
-                    selectedMeal.add(arr.get(holder.getAdapterPosition()));
+                arr.get(holder.getAbsoluteAdapterPosition()).setSelect();
+                if (arr.get(holder.getAbsoluteAdapterPosition()).isSelect())
+                    selectedMeal.add(arr.get(holder.getAbsoluteAdapterPosition()));
                 else
-                    selectedMeal.remove(arr.get(holder.getAdapterPosition()));
-                notifyItemChanged(holder.getAdapterPosition());
+                    selectedMeal.remove(arr.get(holder.getAbsoluteAdapterPosition()));
+                notifyItemChanged(holder.getAbsoluteAdapterPosition());
             }
         });
     }
@@ -92,4 +110,5 @@ public class AdapterSearchDialog extends RecyclerView.Adapter<RecyclerView.ViewH
 
 
     }
+
 }

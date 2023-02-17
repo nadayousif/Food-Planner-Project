@@ -2,6 +2,7 @@ package com.example.foodplanner.plan;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodplanner.DBConnection.localdatabase.localdb.ConcreteLocalData;
 import com.example.foodplanner.Model.Meal;
@@ -27,7 +29,8 @@ import com.example.foodplanner.plan.presenter.PresenterPlan;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlanFragment extends Fragment implements OnClickItem, CommunicationPlan {
+public class PlanFragment extends Fragment implements OnClickItem, CommunicationPlan, CommunicationSearchToPlan {
+    private static final String TAG = "TAGG";
     private FragmentPlanBinding binding;
     private PresenterPlan presenterPlan;
     private AdapterPlan adapterPlanSaturday;
@@ -41,7 +44,6 @@ public class PlanFragment extends Fragment implements OnClickItem, Communication
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
-
         binding = FragmentPlanBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         presenterPlan = new PresenterPlan(ConcreteLocalData.getInstance(getContext()), this);
@@ -52,20 +54,20 @@ public class PlanFragment extends Fragment implements OnClickItem, Communication
         adapterPlanMonday = new AdapterPlan(this);
         adapterPlanSunday = new AdapterPlan(this);
         adapterPlanSaturday = new AdapterPlan(this);
-        presenterPlan.getPlanMeals(MyUser.getInstance().getEmail());
+
         return root;
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        binding.recPlanFriday.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.recPlanThursday.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.recPlanWednesday.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.recPlanTuesday.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.recPlanMonday.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.recPlanSunday.setLayoutManager(new LinearLayoutManager(getContext()));
-        binding.recPlanSaturday.setLayoutManager(new LinearLayoutManager(getContext()));
+        binding.recPlanFriday.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
+        binding.recPlanThursday.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
+        binding.recPlanWednesday.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
+        binding.recPlanTuesday.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
+        binding.recPlanMonday.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
+        binding.recPlanSunday.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
+        binding.recPlanSaturday.setLayoutManager(new LinearLayoutManager(getContext(), LinearLayoutManager.HORIZONTAL,false));
 
         binding.recPlanFriday.setAdapter(adapterPlanFriday);
         binding.recPlanThursday.setAdapter(adapterPlanThursday);
@@ -74,6 +76,7 @@ public class PlanFragment extends Fragment implements OnClickItem, Communication
         binding.recPlanMonday.setAdapter(adapterPlanMonday);
         binding.recPlanSunday.setAdapter(adapterPlanSunday);
         binding.recPlanSaturday.setAdapter(adapterPlanSaturday);
+        presenterPlan.getPlanMeals(MyUser.getInstance().getEmail());
     }
 
     @Override
@@ -85,9 +88,11 @@ public class PlanFragment extends Fragment implements OnClickItem, Communication
     @Override
     public void onDestroyView() {
         super.onDestroyView();
+        Toast.makeText(getContext(), "///", Toast.LENGTH_SHORT).show();
         binding = null;
         presenterPlan.clear();
     }
+
 
 
     @Override
@@ -110,6 +115,7 @@ public class PlanFragment extends Fragment implements OnClickItem, Communication
     @Override
     public void onError(String s) {
         Toast.makeText(getContext(), "something failed pls try again", Toast.LENGTH_SHORT).show();
+        Log.i(TAG, "onError: "+s);
     }
 
     @Override
@@ -165,5 +171,4 @@ public class PlanFragment extends Fragment implements OnClickItem, Communication
         } else Toast.makeText(getContext(), "search", Toast.LENGTH_SHORT).show();
         return super.onContextItemSelected(item);
     }
-
 }

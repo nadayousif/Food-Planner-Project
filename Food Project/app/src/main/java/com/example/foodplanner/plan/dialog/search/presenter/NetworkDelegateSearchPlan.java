@@ -10,4 +10,6 @@ public interface NetworkDelegateSearchPlan {
     void onFailure(String message);
 
     void onResponseListOfMeals(List<Meal> list);
+
+    void onComplete();
 }

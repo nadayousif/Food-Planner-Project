@@ -23,8 +23,8 @@
         android:label="@string/title_notifications"
         tools:layout="@layout/fragment_plan" >
         <action
-            android:id="@+id/action_navigation_plan_to_navigation_search"
-            app:destination="@id/navigation_search"
+            android:id="@+id/action_navigation_plan_self"
+            app:destination="@id/navigation_plan"
             app:popUpTo="@id/navigation_plan"
             app:popUpToInclusive="true" />
     </fragment>
