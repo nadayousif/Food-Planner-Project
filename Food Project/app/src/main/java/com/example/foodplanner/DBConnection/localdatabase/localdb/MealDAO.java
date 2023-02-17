@@ -3,6 +3,7 @@ package com.example.foodplanner.DBConnection.localdatabase.localdb;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.example.foodplanner.Model.Meal;
@@ -20,8 +21,8 @@ public interface MealDAO {
     @Query("Select * from Meal where email = :email")
     Single<List<Meal>> getPlanMeals(String email);
 
-    @Insert
-    void insertProduct(Meal meal);
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    Completable insertMeal(Meal meal);
 
     @Delete
     void deleteProduct(Meal meal);

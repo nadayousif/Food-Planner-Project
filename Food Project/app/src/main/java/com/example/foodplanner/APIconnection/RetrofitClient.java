@@ -318,8 +318,9 @@ public class RetrofitClient implements RemoteDataSource {
                             String[] strInstructions=meal.getArrOfStrInstructions();
                             String strCountry=meal.getStrArea();
                             String strYouTube=meal.getStrYoutube();
+                            networkDelegateMeal.onResponseMealView(meal);
 
-                            networkDelegateMeal.onResponseMeal(idMeal,strMeal,strMealThumb,strMealCategory,strIngredients,strMeasures,strInstructions,strCountry,strYouTube);
+                            networkDelegateMeal.onResponseMeal(meal,idMeal,strMeal,strMealThumb,strMealCategory,strIngredients,strMeasures,strInstructions,strCountry,strYouTube);
                         }
                     }
 
