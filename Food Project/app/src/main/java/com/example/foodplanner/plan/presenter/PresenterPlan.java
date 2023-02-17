@@ -15,7 +15,7 @@ public class PresenterPlan implements NetworkDelegatePlan{
     }
 
     public void deleteMeal(String idMeal, String email) {
-        localDataSource.deletePlanMeal(idMeal,email,this);
+        localDataSource.deleteMeal(idMeal,email,this);
     }
 
     @Override
@@ -35,7 +35,7 @@ public class PresenterPlan implements NetworkDelegatePlan{
     }
 
     public void getPlanMeals(String email) {
-        localDataSource.getPlanMeals(email,this);
+        localDataSource.getMeal(email,this);
     }
 
     public void clear() {

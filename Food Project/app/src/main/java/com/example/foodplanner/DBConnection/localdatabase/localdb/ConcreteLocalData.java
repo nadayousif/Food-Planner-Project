@@ -1,10 +1,15 @@
 package com.example.foodplanner.DBConnection.localdatabase.localdb;
 
 import android.content.Context;
+import android.util.Log;
 
+import com.example.foodplanner.Model.FavoriteMeal;
 import com.example.foodplanner.Model.Meal;
-import com.example.foodplanner.plan.dialog.search.presenter.presenterSearchDialog;
+import com.example.foodplanner.plan.dialog.favorite.NetworkDelegateFavDialog;
+import com.example.foodplanner.plan.dialog.search.presenter.NetworkDelegateSearchPlan;
 import com.example.foodplanner.plan.presenter.NetworkDelegatePlan;
+import com.example.foodplanner.searchresult.OnViewClickSearchPlan;
+import com.example.foodplanner.searchresult.presenter.NetworkDelegateSearchResult;
 
 import java.util.List;
 
@@ -17,6 +22,7 @@ import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class ConcreteLocalData implements LocalDataSource{
+    private static final String TAG = "TAGG";
     private final Context context;
     MealDAO dao;
 
@@ -43,7 +49,7 @@ public class ConcreteLocalData implements LocalDataSource{
     }
 
     @Override
-    public void getPlanMeals(String email,NetworkDelegatePlan networkDelegatePlan) {
+    public void getMeal(String email, NetworkDelegatePlan networkDelegatePlan) {
         dao.getPlanMeals(email).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new SingleObserver<List<Meal>>() {
                     @Override
@@ -58,13 +64,13 @@ public class ConcreteLocalData implements LocalDataSource{
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-
+                        networkDelegatePlan.onError(e.getMessage());
                     }
                 });
     }
 
     @Override
-    public void deletePlanMeal(String idMeal, String email, NetworkDelegatePlan networkDelegatePlan) {
+    public void deleteMeal(String idMeal, String email, NetworkDelegatePlan networkDelegatePlan) {
         dao.deletePlanMeal(idMeal,email).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new CompletableObserver() {
                     @Override
@@ -91,6 +97,111 @@ public class ConcreteLocalData implements LocalDataSource{
     }
 
     @Override
-    public void setMealsInPlan(presenterSearchDialog presenterSearchDialog, List<Meal> listMeals) {
+    public void setMeals(NetworkDelegateSearchPlan networkDelegateSearchPlan, List<Meal> listMeals) {
+       dao.setMeals(listMeals).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        disposable.add(d);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        networkDelegateSearchPlan.onComplete();
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        networkDelegateSearchPlan.onFailure(e.getMessage().toString());
+                        Log.i(TAG, "onError: "+e.getMessage());
+                    }
+                });
+    }
+
+    @Override
+    public void addToFav(FavoriteMeal tag, OnViewClickSearchPlan onViewClickSearchPlan, NetworkDelegateSearchResult networkDelegateSearchResult) {
+        dao.addToFav(tag).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        disposable.add(disposable);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                       networkDelegateSearchResult.sus(onViewClickSearchPlan);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        networkDelegateSearchResult.onFailureToAdd(onViewClickSearchPlan,e.getMessage());
+                    }
+                });
+    }
+
+    @Override
+    public void removeFav(FavoriteMeal meal, OnViewClickSearchPlan onViewClickSearchPlan, NetworkDelegateSearchResult delegateSearchResult) {
+        dao.removeFav(meal).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        disposable.add(disposable);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        delegateSearchResult.sus(onViewClickSearchPlan);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        delegateSearchResult.onFailureToAdd(onViewClickSearchPlan,e.getMessage());
+                    }
+                });
+    }
+
+    @Override
+    public void getListFav(String email, NetworkDelegateFavDialog networkDelegateFavDialog) {
+        dao.getFavoriteMeals(email).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<FavoriteMeal>>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        disposable.add(d);
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull List<FavoriteMeal> favoriteMeals) {
+                        networkDelegateFavDialog.setList(favoriteMeals);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        networkDelegateFavDialog.onError(e.getMessage());
+                    }
+                });
+    }
+
+    @Override
+    public void setMealsFromFav(NetworkDelegateFavDialog networkDelegateFavDialog, List<Meal> listMeals) {
+        dao.setMeals(listMeals).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        disposable.add(d);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        networkDelegateFavDialog.sus();
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        networkDelegateFavDialog.onError(e.getMessage().toString());
+                        Log.i(TAG, "onError: "+e.getMessage());
+                    }
+                });
     }
 }

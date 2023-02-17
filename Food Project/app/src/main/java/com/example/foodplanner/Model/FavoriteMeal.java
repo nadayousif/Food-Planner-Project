@@ -4,20 +4,19 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.Ignore;
-import androidx.room.PrimaryKey;
 
 import java.util.ArrayList;
-@Entity(tableName = "Meal",primaryKeys = {"email","idMeal"})
-public class Meal {
-    @NonNull
-    private String email;
-    @NonNull
-    private String idMeal;
-    @ColumnInfo
-    private String day;
+
+@Entity(tableName = "FavoriteMeal",primaryKeys = {"email","idMeal"})
+public class FavoriteMeal {
+
+        @NonNull
+        private String email;
+        @NonNull
+        private String idMeal;
 
 
-    @NonNull
+        @NonNull
     public String getEmail() {
         return email;
     }
@@ -25,13 +24,7 @@ public class Meal {
     public void setEmail(@NonNull String email) {
         this.email = email;
     }
-    public String getDay() {
-        return day;
-    }
 
-    public void setDay(String day) {
-        this.day = day;
-    }
 
     public void setSelect(boolean select) {
         isSelect = select;
@@ -53,12 +46,8 @@ public class Meal {
         this.strMeal = strMeal;
     }
 
+
     @Ignore
-    public Meal(String idMeal, String strMeal) {
-        this.idMeal = idMeal;
-        this.strMeal = strMeal;
-    }
-   @Ignore
     private boolean isSelect = false;
     @ColumnInfo
     private byte[] image;
@@ -89,9 +78,9 @@ public class Meal {
     public void setStrArea(String strArea) {
         this.strArea = strArea;
     }
- public String getStrInstructions(){
+    public String getStrInstructions(){
         return this.strInstructions;
- }
+    }
     public void setStrInstructions(String strInstructions) {
         this.strInstructions = strInstructions;
     }
@@ -551,18 +540,12 @@ public class Meal {
             list.add(strMeasure20);
         return list;
     }
-   @Ignore
-    public Meal(String strMeal) {
-        this.strMeal = strMeal;
-    }
 
 
 
-    public Meal(@NonNull String email, @NonNull String idMeal, String day,  byte[] image, String strMeal, String strDrinkAlternate, String strCategory, String strArea, String strInstructions, String strIngredient, String strMealThumb, String strYoutube, String strIngredient1, String strIngredient2, String strIngredient3, String strIngredient4, String strIngredient5, String strIngredient6, String strIngredient7, String strIngredient8, String strIngredient9, String strIngredient10, String strIngredient11, String strIngredient12, String strIngredient13, String strIngredient14, String strIngredient15, String strIngredient16, String strIngredient17, String strIngredient18, String strIngredient19, String strIngredient20, String strMeasure1, String strMeasure2, String strMeasure3, String strMeasure4, String strMeasure5, String strMeasure6, String strMeasure7, String strMeasure8, String strMeasure9, String strMeasure10, String strMeasure11, String strMeasure12, String strMeasure13, String strMeasure14, String strMeasure15, String strMeasure16, String strMeasure17, String strMeasure18, String strMeasure19, String strMeasure20) {
+    public FavoriteMeal(@NonNull String email, @NonNull String idMeal, byte[] image, String strMeal, String strDrinkAlternate, String strCategory, String strArea, String strInstructions, String strIngredient, String strMealThumb, String strYoutube, String strIngredient1, String strIngredient2, String strIngredient3, String strIngredient4, String strIngredient5, String strIngredient6, String strIngredient7, String strIngredient8, String strIngredient9, String strIngredient10, String strIngredient11, String strIngredient12, String strIngredient13, String strIngredient14, String strIngredient15, String strIngredient16, String strIngredient17, String strIngredient18, String strIngredient19, String strIngredient20, String strMeasure1, String strMeasure2, String strMeasure3, String strMeasure4, String strMeasure5, String strMeasure6, String strMeasure7, String strMeasure8, String strMeasure9, String strMeasure10, String strMeasure11, String strMeasure12, String strMeasure13, String strMeasure14, String strMeasure15, String strMeasure16, String strMeasure17, String strMeasure18, String strMeasure19, String strMeasure20) {
         this.email = email;
         this.idMeal = idMeal;
-        this.day = day;
-
         this.image = image;
         this.strMeal = strMeal;
         this.strDrinkAlternate = strDrinkAlternate;
@@ -613,5 +596,5 @@ public class Meal {
         this.strMeasure19 = strMeasure19;
         this.strMeasure20 = strMeasure20;
     }
-}
 
+}
