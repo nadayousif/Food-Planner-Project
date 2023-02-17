@@ -1,5 +1,6 @@
 package com.example.foodplanner.meal;
 
+import androidx.annotation.NonNull;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,13 +15,19 @@ import com.example.foodplanner.APIconnection.RetrofitClient;
 import com.example.foodplanner.DBConnection.localdatabase.localdb.ConcreteLocalData;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
+
 import com.example.foodplanner.databinding.ActivityMealBinding;
 import com.example.foodplanner.helper.CheckConnection;
 import com.example.foodplanner.meal.presenter.CommunicationMeal;
 import com.example.foodplanner.meal.presenter.PresenterMeal;
 import com.google.android.material.snackbar.Snackbar;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
+import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
+
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.StringTokenizer;
 
 public class MealActivity extends AppCompatActivity  implements CommunicationMeal {
     private ActivityMealBinding binding;
@@ -29,6 +36,9 @@ public class MealActivity extends AppCompatActivity  implements CommunicationMea
     TextView mealName;
     TextView mealCategory;
     TextView mealCountry;
+    ImageView favoriteMeal;
+    private OnFavoriteClickListener communication;
+    YouTubePlayerView youTubePlayerView ;
     AdapterIngredientMeasure adapterIngredientMeasure;
     PresenterMeal presenterMeal;
     Meal meal;
@@ -44,6 +54,8 @@ public class MealActivity extends AppCompatActivity  implements CommunicationMea
         mealName = findViewById(R.id.tv_mael_name);
         mealCategory = findViewById(R.id.tv_meal_category);
         mealCountry=findViewById(R.id.tv_country);
+        favoriteMeal = findViewById(R.id.iv_favorite_image_button);
+        youTubePlayerView =findViewById(R.id.ybv);
         RecyclerView recIngrMeas = findViewById(R.id.rc_meal_Ingredient_Measure);
         RecyclerView recInst = findViewById(R.id.rec_mael_instructions);
 
@@ -65,6 +77,12 @@ public class MealActivity extends AppCompatActivity  implements CommunicationMea
         recInst.setAdapter(adapterInstructions);
 
 
+        favoriteMeal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //communication.setOnSave(DataSet.get(position));
+            }
+        });
 
     }
 
@@ -93,10 +111,27 @@ public class MealActivity extends AppCompatActivity  implements CommunicationMea
         Glide.with(this).load(strMealThumb).into(mealPhoto);
         mealCategory.setText(strMealCategory);
         mealCountry.setText(strCountry);
+
         this.meal=meal;
     }
 
     public void setMealView(Meal meal){
            // this.meal=meal;
+
+        final String[] VideoUrl = {strYouTube};
+        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+            @Override
+            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                super.onReady(youTubePlayer);
+                if(VideoUrl[0] !=null){
+                    VideoUrl[0] = VideoUrl[0].substring(VideoUrl[0].indexOf("=") + 1);
+                    StringTokenizer st = new StringTokenizer(VideoUrl[0], "&");
+                    VideoUrl[0] = st.nextToken();
+                    youTubePlayer.loadVideo(VideoUrl[0], 0);
+                    youTubePlayer.pause();
+                }
+            }
+        });
+
     }
 }
