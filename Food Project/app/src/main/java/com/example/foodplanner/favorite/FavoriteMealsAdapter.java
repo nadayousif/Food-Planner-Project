@@ -70,8 +70,11 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
         holder.layout.setOnClickListener((i) -> {
             onFavoriteClickListener.onClick(arr.get(position).getIdMeal(), false);
         });
-        Bitmap bmp = BitmapFactory.decodeByteArray(arr.get(position).getImage(), 0, arr.get(position).getImage().length);
-        holder.thumbnails.setImageBitmap(bmp);
+        if(arr.get(position).getImage() !=null){
+            Bitmap bmp = BitmapFactory.decodeByteArray(arr.get(position).getImage(), 0, arr.get(position).getImage().length);
+            holder.thumbnails.setImageBitmap(bmp);
+        }
+
        /* holder.close.setOnClickListener(i -> {
             onFavoriteClickListener.onClick(arr.get(position).getIdMeal(), true);
             arr.remove(position);
