@@ -21,14 +21,13 @@ import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
 import com.example.foodplanner.helper.Converter;
 import com.example.foodplanner.helper.MyUser;
-import com.example.foodplanner.plan.CommunicationWithDailog;
+import com.example.foodplanner.plan.dialog.CommunicationWithDailog;
 import com.example.foodplanner.plan.dialog.favorite.adapter.AdapterFavoriteDialog;
 import com.example.foodplanner.plan.dialog.favorite.adapter.OnClickItem;
 import com.example.foodplanner.plan.dialog.favorite.presenter.CommunicationFavoriteDialog;
 import com.example.foodplanner.plan.dialog.favorite.presenter.PresenterFavoriteDialog;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class FavoriteDialog extends DialogFragment implements CommunicationFavoriteDialog, OnClickItem {
     private static final String TAG = "TAGG";

@@ -209,6 +209,7 @@ public class WelcomeActivity extends AppCompatActivity {
 
 
     public void loginAsGuest(View view) {
+        MyUser.getInstance().setEmail("");
         MySharedPreference.saveInShared(this,"");
         Intent intent=new Intent(this,MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
