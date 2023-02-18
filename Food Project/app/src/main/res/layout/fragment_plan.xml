@@ -29,16 +29,19 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textView251"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="15"
                     android:text="Saturday"
                     android:textColor="@color/secondaryTextColor"
-                    android:textSize="24sp"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_conversion_absoluteHeight="32dp"
@@ -51,17 +54,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/backbround_button_image"
+                    android:background="@drawable/add_plan"
                     android:onClick="addFromFavToPlan"
+                    android:padding="8dp"
                     android:src="@drawable/add_circle_24"
-                    android:tag="Saturday"
-                    android:theme="@style/AppTheme.Components.ImageView.Button" />
+                    android:tag="Saturday" />
             </LinearLayout>
+
+            <View
+                android:id="@+id/divider3"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rec_plan_saturday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView6"
@@ -76,16 +86,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textView252"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="15"
                     android:text="Sunday"
                     android:textColor="@color/secondaryTextColor"
-                    android:textSize="24sp"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_conversion_absoluteHeight="32dp"
@@ -98,17 +111,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/backbround_button_image"
+                    android:background="@drawable/add_plan"
                     android:onClick="addFromFavToPlan"
+                    android:padding="8dp"
                     android:src="@drawable/add_circle_24"
-                    android:tag="Sunday"
-                    android:theme="@style/AppTheme.Components.ImageView.Button" />
+                    android:tag="Sunday" />
             </LinearLayout>
+
+            <View
+                android:id="@+id/divider5"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rec_plan_sunday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView6"
@@ -123,16 +143,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textView253"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="15"
                     android:text="Monday"
                     android:textColor="@color/secondaryTextColor"
-                    android:textSize="24sp"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_conversion_absoluteHeight="32dp"
@@ -145,17 +168,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/backbround_button_image"
+                    android:background="@drawable/add_plan"
                     android:onClick="addFromFavToPlan"
+                    android:padding="8dp"
                     android:src="@drawable/add_circle_24"
-                    android:tag="Monday"
-                    android:theme="@style/AppTheme.Components.ImageView.Button" />
+                    android:tag="Monday" />
             </LinearLayout>
+
+            <View
+                android:id="@+id/divider6"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rec_plan_monday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView6"
@@ -170,16 +200,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textView255"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="15"
                     android:text="Tuesday"
                     android:textColor="@color/secondaryTextColor"
-                    android:textSize="24sp"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_conversion_absoluteHeight="32dp"
@@ -192,17 +225,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/backbround_button_image"
+                    android:background="@drawable/add_plan"
                     android:onClick="addFromFavToPlan"
+                    android:padding="8dp"
                     android:src="@drawable/add_circle_24"
-                    android:tag="Tuesday"
-                    android:theme="@style/AppTheme.Components.ImageView.Button" />
+                    android:tag="Tuesday" />
             </LinearLayout>
+
+            <View
+                android:id="@+id/divider7"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rec_plan_tuesday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView6"
@@ -217,16 +257,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textView256"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="15"
                     android:text="Wednesday"
                     android:textColor="@color/secondaryTextColor"
-                    android:textSize="24sp"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_conversion_absoluteHeight="32dp"
@@ -239,17 +282,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/backbround_button_image"
+                    android:background="@drawable/add_plan"
                     android:onClick="addFromFavToPlan"
+                    android:padding="8dp"
                     android:src="@drawable/add_circle_24"
-                    android:tag="Wednesday"
-                    android:theme="@style/AppTheme.Components.ImageView.Button" />
+                    android:tag="Wednesday" />
             </LinearLayout>
+
+
+            <View
+                android:id="@+id/divider10"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rec_plan_wednesday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView6"
@@ -260,21 +311,23 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textView257"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="15"
                     android:text="Thursday"
                     android:textColor="@color/secondaryTextColor"
-                    android:textSize="24sp"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_conversion_absoluteHeight="32dp"
@@ -287,17 +340,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/backbround_button_image"
+                    android:background="@drawable/add_plan"
                     android:onClick="addFromFavToPlan"
+                    android:padding="8dp"
                     android:src="@drawable/add_circle_24"
-                    android:tag="Thursday"
-                    android:theme="@style/AppTheme.Components.ImageView.Button" />
+                    android:tag="Thursday" />
             </LinearLayout>
+
+            <View
+                android:id="@+id/divider8"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rec_plan_thursday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView6"
@@ -312,16 +372,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/textView258"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
                     android:layout_weight="15"
                     android:text="Friday"
                     android:textColor="@color/secondaryTextColor"
-                    android:textSize="24sp"
+                    android:textSize="28sp"
+                    android:textStyle="bold"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     tools:layout_conversion_absoluteHeight="32dp"
@@ -334,17 +397,24 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/backbround_button_image"
+                    android:background="@drawable/add_plan"
                     android:onClick="addFromFavToPlan"
+                    android:padding="8dp"
                     android:src="@drawable/add_circle_24"
-                    android:tag="Friday"
-                    android:theme="@style/AppTheme.Components.ImageView.Button" />
+                    android:tag="Friday" />
             </LinearLayout>
+
+            <View
+                android:id="@+id/divider9"
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="?android:attr/listDivider" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rec_plan_friday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textView6"

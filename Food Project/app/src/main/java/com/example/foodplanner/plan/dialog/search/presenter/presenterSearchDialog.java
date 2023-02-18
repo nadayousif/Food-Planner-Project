@@ -38,11 +38,15 @@ public class presenterSearchDialog implements NetworkDelegateSearchPlan {
 
     @Override
     public void onResponseListOfMeals(List<Meal> list) {
-
             communicationSearchDialog.setListMeals(list);
     }
 
+    @Override
+    public void onComplete() {
+        communicationSearchDialog.onComplete();
+    }
+
     public void setMealsInPlan(List<Meal> listMeals) {
-        localDataSource.setMealsInPlan(this,listMeals);
+        localDataSource.setMeals(this,listMeals);
     }
 }

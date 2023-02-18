@@ -3,54 +3,66 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/cv_search_result"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="22dp"
+    android:layout_margin="8dp"
+    android:layout_marginBottom="8dp"
+    app:cardBackgroundColor="@color/secondaryColor"
     app:cardCornerRadius="24dp"
-    app:cardElevation="4dp"
-    app:cardPreventCornerOverlap="false">
+    app:cardElevation="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#121212">
+        android:layout_height="wrap_content"
+        android:background="@color/secondaryColor">
 
         <ImageView
             android:id="@+id/iv_search_result"
-            android:layout_width="match_parent"
-            android:layout_height="300dp"
-            android:scaleType="centerCrop"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:srcCompat="@drawable/example4" />
-
-        <View
-            android:id="@+id/view2"
-            android:layout_width="250dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="-25dp"
-            android:layout_marginBottom="1dp"
-            android:background="@drawable/ovile_search_result"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="160dp"
+            android:layout_height="200dp"
+            android:scaleType="fitXY"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/iv_search_result" />
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <View
+            android:id="@+id/view3"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="4dp"
+            android:background="@drawable/backbround_button_image"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ToggleButton
+            android:id="@+id/iv_search_result_add_to_fav"
+            style="@style/toggleButton"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:background="@drawable/ic_toggle_bg"
+            android:padding="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tv_search_result_name_content"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
-            android:text="BeaverTails"
+            android:layout_marginBottom="8dp"
             android:textAlignment="center"
             android:textColor="@color/secondaryTextColor"
             android:textSize="20sp"
             app:autoSizeMaxTextSize="20sp"
             app:autoSizeMinTextSize="9sp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@+id/view2"
-            app:layout_constraintStart_toStartOf="@+id/view2"
-            app:layout_constraintTop_toTopOf="@+id/view2" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/iv_search_result" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>

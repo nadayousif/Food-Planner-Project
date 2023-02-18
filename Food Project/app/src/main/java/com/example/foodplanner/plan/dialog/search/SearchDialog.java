@@ -1,5 +1,6 @@
 package com.example.foodplanner.plan.dialog.search;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -18,10 +19,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.foodplanner.APIconnection.RetrofitClient;
 import com.example.foodplanner.DBConnection.localdatabase.localdb.ConcreteLocalData;
+import com.example.foodplanner.MainActivity;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
 import com.example.foodplanner.helper.CheckConnection;
 import com.example.foodplanner.helper.MySharedPreference;
+import com.example.foodplanner.helper.MyUser;
 import com.example.foodplanner.plan.dialog.search.historyserach.AdapterHistory;
 import com.example.foodplanner.plan.dialog.search.historyserach.OnClickItemHistory;
 import com.example.foodplanner.plan.dialog.search.presenter.CommunicationSearchDialog;
@@ -35,9 +38,10 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SearchDialog extends DialogFragment implements OnClickItem, OnClickItemHistory, CommunicationSearchDialog {
+public class SearchDialog extends DialogFragment implements  OnClickItemHistory, CommunicationSearchDialog {
 
     private static final String TAG = "Dialog";
+    private final MainActivity activity;
     private presenterSearchDialog presenterSearchDialog;
     private AdapterSearchDialog adapterSearchDialog;
     private AdapterHistory adapterHistory;
@@ -45,8 +49,10 @@ public class SearchDialog extends DialogFragment implements OnClickItem, OnClick
     private RecyclerView recDialogSearchHistory;
 
     private String day;
-    public SearchDialog(String day) {
-       this.day=day;
+
+    public SearchDialog(String day, MainActivity activity) {
+        this.day = day;
+        this.activity=activity;
     }
 
     @NonNull
@@ -62,7 +68,11 @@ public class SearchDialog extends DialogFragment implements OnClickItem, OnClick
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         Toast.makeText(getContext(), day, Toast.LENGTH_SHORT).show();
-                        adapterSearchDialog.getListMeals().stream().forEach(i->i.setDay(day));
+                        adapterSearchDialog.getListMeals().stream().forEach(i -> {
+                            i.setDay(day);
+                            i.setEmail(MyUser.getInstance().getEmail());
+                        });
+                        activity.navController.navigate(R.id.action_navigation_plan_self);
                         presenterSearchDialog.setMealsInPlan(adapterSearchDialog.getListMeals());
                     }
                 })
@@ -74,17 +84,17 @@ public class SearchDialog extends DialogFragment implements OnClickItem, OnClick
         recDialogSearch = view.findViewById(R.id.rec_dialog_search);
 
         recDialogSearchHistory = view.findViewById(R.id.rec_dialog_search_history);
-        recDialogSearch.setLayoutManager(new GridLayoutManager(getContext(),2));
+        recDialogSearch.setLayoutManager(new GridLayoutManager(getContext(), 2));
         recDialogSearchHistory.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapterHistory = new AdapterHistory(this);
-        adapterSearchDialog = new AdapterSearchDialog(this);
+        adapterSearchDialog = new AdapterSearchDialog();
 
         recDialogSearchHistory.setAdapter(adapterHistory);
         recDialogSearch.setAdapter(adapterSearchDialog);
         SearchView svDialogSearch = view.findViewById(R.id.sv_dialog_search);
         if (CheckConnection.isConnect(getContext())) {
-            presenterSearchDialog = new presenterSearchDialog(RetrofitClient.getInstance(), this,new ConcreteLocalData(getContext()));
+            presenterSearchDialog = new presenterSearchDialog(RetrofitClient.getInstance(), this, new ConcreteLocalData(getContext()));
 
 
             svDialogSearch.setOnQueryTextFocusChangeListener(new View.OnFocusChangeListener() {
@@ -130,10 +140,7 @@ public class SearchDialog extends DialogFragment implements OnClickItem, OnClick
     }
 
 
-    @Override
-    public void onClick(String idMeal) {
 
-    }
 
     @Override
     public void onClickHistory(String name) {
@@ -183,7 +190,8 @@ public class SearchDialog extends DialogFragment implements OnClickItem, OnClick
 
     @Override
     public void onFailure(String message) {
-        Toast.makeText(getContext(), "something failure pls try again", Toast.LENGTH_SHORT).show();
+        Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG)
+                .show();
         Log.i(TAG, "onFailure: " + message);
     }
 
@@ -191,5 +199,11 @@ public class SearchDialog extends DialogFragment implements OnClickItem, OnClick
     public void setListMeals(List<Meal> list) {
         adapterSearchDialog.setArr(list);
         adapterSearchDialog.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onComplete() {
+        Snackbar.make(activity.findViewById(android.R.id.content), "added ", Snackbar.LENGTH_LONG)
+                .show();
     }
 }

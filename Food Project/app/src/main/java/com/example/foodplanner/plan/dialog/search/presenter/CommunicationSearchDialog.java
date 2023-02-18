@@ -10,4 +10,6 @@ public interface CommunicationSearchDialog {
     void onFailure(String message);
 
     void setListMeals(List<Meal> list);
+
+    void onComplete();
 }

@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ import java.util.Arrays;
 import java.util.StringTokenizer;
 
 public class MealActivity extends AppCompatActivity  implements CommunicationMeal {
+    private static final String TAG = "TAGG";
     private ActivityMealBinding binding;
     AdapterInstructions adapterInstructions;
     ImageView mealPhoto;
@@ -115,27 +117,31 @@ public class MealActivity extends AppCompatActivity  implements CommunicationMea
         mealCategory.setText(strMealCategory);
         mealCountry.setText(strCountry);
         final String[] VideoUrl = {strYouTube};
-        youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
-            @Override
-            public void onReady(@NonNull YouTubePlayer youTubePlayer) {
-                super.onReady(youTubePlayer);
-                if(VideoUrl[0] !=null){
-                    VideoUrl[0] = VideoUrl[0].substring(VideoUrl[0].indexOf("=") + 1);
-                    StringTokenizer st = new StringTokenizer(VideoUrl[0], "&");
-                    VideoUrl[0] = st.nextToken();
-                    youTubePlayer.loadVideo(VideoUrl[0], 0);
-                    youTubePlayer.pause();
+        try {
+            youTubePlayerView.addYouTubePlayerListener(new AbstractYouTubePlayerListener() {
+                @Override
+                public void onReady(@NonNull YouTubePlayer youTubePlayer) {
+                    super.onReady(youTubePlayer);
+                    if (VideoUrl[0] != null) {
+                        VideoUrl[0] = VideoUrl[0].substring(VideoUrl[0].indexOf("=") + 1);
+                        StringTokenizer st = new StringTokenizer(VideoUrl[0], "&");
+                        VideoUrl[0] = st.nextToken();
+                        youTubePlayer.loadVideo(VideoUrl[0], 0);
+                        youTubePlayer.pause();
+                    }
                 }
+
             }
         });
+        }catch (Exception ex ){
+            Log.i(TAG, "setMeal: "+ex.getMessage());
+        }
 
         this.meal=meal;
     }
 
     public void setMealView(Meal meal){
            // this.meal=meal;
-
-
 
     }
 }

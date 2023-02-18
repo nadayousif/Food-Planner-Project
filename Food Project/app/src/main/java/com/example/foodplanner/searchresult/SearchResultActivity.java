@@ -1,17 +1,23 @@
 package com.example.foodplanner.searchresult;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.example.foodplanner.APIconnection.RetrofitClient;
+import com.example.foodplanner.DBConnection.localdatabase.localdb.ConcreteLocalData;
+import com.example.foodplanner.Model.FavoriteMeal;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
 import com.example.foodplanner.databinding.ActivitySearchResultBinding;
 import com.example.foodplanner.helper.CheckConnection;
+import com.example.foodplanner.helper.Converter;
+import com.example.foodplanner.helper.MyUser;
 import com.example.foodplanner.meal.MealActivity;
 import com.example.foodplanner.searchresult.presenter.CommunicationSearchResult;
 import com.example.foodplanner.searchresult.presenter.PresenterSearchResult;
@@ -20,16 +26,17 @@ import com.google.android.material.snackbar.Snackbar;
 import java.util.List;
 
 public class SearchResultActivity extends AppCompatActivity implements OnClickItem, CommunicationSearchResult {
+    private static final String TAG = "TAGG";
     private ActivitySearchResultBinding binding;
     AdapterSearchResult adapterSearchResult;
-
+PresenterSearchResult presenterSearchResult;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivitySearchResultBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
         if (getIntent() != null && CheckConnection.isConnect(this)) {
-            PresenterSearchResult presenterSearchResult = new PresenterSearchResult(RetrofitClient.getInstance(), this);
+            presenterSearchResult = new PresenterSearchResult(RetrofitClient.getInstance(), this, ConcreteLocalData.getInstance(this));
             String name = getIntent().getStringExtra(getString(R.string.resultSearch));
             presenterSearchResult.showNada();//1st
             String typeOfSearch = getIntent().getStringExtra(getString(R.string.typeOfSearch));
@@ -49,7 +56,7 @@ public class SearchResultActivity extends AppCompatActivity implements OnClickIt
             Snackbar.make(findViewById(android.R.id.content), "no internet connection pls try again ", Snackbar.LENGTH_LONG)
                     .show();
         }
-        binding.recSearchResult.setLayoutManager(new LinearLayoutManager(this));
+        binding.recSearchResult.setLayoutManager(new GridLayoutManager(this,2));
         adapterSearchResult = new AdapterSearchResult(this);
         binding.recSearchResult.setAdapter(adapterSearchResult);
 
@@ -62,6 +69,21 @@ public class SearchResultActivity extends AppCompatActivity implements OnClickIt
         intent.putExtra(getString(R.string.mealID),id);
         intent.putExtra(getString(R.string.isLocal),false);
         startActivity(intent);
+    }
+
+    @Override
+    public void addToFav(OnViewClickSearchPlan onViewClickSearchPlan, Meal tag) {
+        FavoriteMeal meal=Converter.convertMealToFav(tag);
+        meal.setEmail(MyUser.getInstance().getEmail());
+        presenterSearchResult.addToFav(meal,onViewClickSearchPlan);
+        
+    }
+
+    @Override
+    public void removeFromFav(OnViewClickSearchPlan onViewClickSearchPlan, Meal tag) {
+             FavoriteMeal meal=Converter.convertMealToFav(tag);
+        meal.setEmail(MyUser.getInstance().getEmail());
+        presenterSearchResult.removeFromFav(meal,onViewClickSearchPlan);
     }
 
     @Override
@@ -80,4 +102,19 @@ public class SearchResultActivity extends AppCompatActivity implements OnClickIt
     public void nadaTwo() {
 
     }//9
+
+    @Override
+    public void susToAdd(OnViewClickSearchPlan onViewClickSearchPlan) {
+        onViewClickSearchPlan.setEnable();
+    }
+
+    @Override
+    public void onFailureToAdd(OnViewClickSearchPlan onViewClickSearchPlan, String message) {
+        onViewClickSearchPlan.setEnable();
+        onViewClickSearchPlan.undo();
+        Log.i(TAG, "onFailureToAdd: "+message);
+        Toast.makeText(this, "failure pls try again", Toast.LENGTH_SHORT).show();
+    }
+
+
 }

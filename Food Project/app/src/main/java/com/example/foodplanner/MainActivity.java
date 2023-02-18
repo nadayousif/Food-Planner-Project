@@ -14,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import androidx.navigation.NavController;
+import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.NavigationUI;
 
@@ -32,7 +33,7 @@ import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.material.snackbar.Snackbar;
 
 public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuItemClickListener {
-    NavController navController;
+     public NavController navController;
     private ActivityMainBinding binding;
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
@@ -120,10 +121,10 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     @Override
     public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
         if (menuItem.getItemId() == R.id.im_from_favorite) {
-            DialogFragment newFragment = new FavoriteDialog(day);
+            DialogFragment newFragment = new FavoriteDialog(day,this);
             newFragment.show(getSupportFragmentManager(), "Add From Favorite");
         } else {
-            DialogFragment newFragment = new SearchDialog(day);
+            DialogFragment newFragment = new SearchDialog(day, this);
             newFragment.show(getSupportFragmentManager(), "Add From Favorite");
         }
         return false;
