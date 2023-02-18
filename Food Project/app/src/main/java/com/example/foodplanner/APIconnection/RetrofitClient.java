@@ -352,17 +352,19 @@ public class RetrofitClient implements RemoteDataSource {
                     public void onSuccess(@NonNull MyObject myObject) {
                         if (myObject.getList() != null) {
                             Meal meal = myObject.getList().get(0);
-                            String idMeal = meal.getIdMeal();
-                            String strMeal = meal.getStrMeal();
-                            String strMealThumb = meal.getStrMealThumb();
-                            String strMealCategory = meal.getStrCategory();
-                            ArrayList<String> strIngredients = meal.getIngredients();
-                            ArrayList<String> strMeasures = meal.getMeasures();
-                            String[] strInstructions = meal.getArrOfStrInstructions();
-                            String strCountry = meal.getStrArea();
-                            String strYouTube = meal.getStrYoutube();
 
-                            networkDelegateMeal.onResponseMeal(idMeal, strMeal, strMealThumb, strMealCategory, strIngredients, strMeasures, strInstructions, strCountry, strYouTube);
+                            String idMeal=meal.getIdMeal();
+                            String strMeal=meal.getStrMeal();
+                            String strMealThumb=meal.getStrMealThumb();
+                            String strMealCategory=meal.getStrCategory();
+                            ArrayList<String> strIngredients=meal.getIngredients();
+                            ArrayList<String> strMeasures=meal.getMeasures();
+                            String[] strInstructions=meal.getArrOfStrInstructions();
+                            String strCountry=meal.getStrArea();
+                            String strYouTube=meal.getStrYoutube();
+                            networkDelegateMeal.onResponseMealView(meal);
+
+                            networkDelegateMeal.onResponseMeal(meal,idMeal,strMeal,strMealThumb,strMealCategory,strIngredients,strMeasures,strInstructions,strCountry,strYouTube);
                         }
                     }
 

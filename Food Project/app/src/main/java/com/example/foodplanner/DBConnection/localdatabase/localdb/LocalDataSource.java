@@ -12,6 +12,7 @@ import java.util.List;
 
 public interface LocalDataSource {
 
+
     void getMeal(String email, NetworkDelegatePlan networkDelegatePlan);
 
     void deleteMeal(String idMeal, String email, NetworkDelegatePlan networkDelegatePlan);

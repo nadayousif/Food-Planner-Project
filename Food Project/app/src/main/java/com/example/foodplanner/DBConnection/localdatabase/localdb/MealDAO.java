@@ -24,6 +24,11 @@ public interface MealDAO {
     Single<List<Meal>> getPlanMeals(String email);
 
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    Completable insertMeal(Meal meal);
+
+
+
     @Query("DELETE FROM Meal WHERE idMeal = :ID and email = :email ")
     Completable deletePlanMeal(String ID, String email);
 

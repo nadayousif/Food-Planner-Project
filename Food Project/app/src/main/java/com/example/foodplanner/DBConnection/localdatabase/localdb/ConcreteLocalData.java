@@ -43,6 +43,27 @@ public class ConcreteLocalData implements LocalDataSource {
         return concreteLocalData;
     }
 
+    }
+    public void insertMeal(Meal meal){
+        dao.insertMeal(meal).subscribeOn(Schedulers.computation()).subscribe(new CompletableObserver() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                
+
+            }
+        });
+    }
+
 
     @Override
     public void getMeal(String email, NetworkDelegatePlan networkDelegatePlan) {
