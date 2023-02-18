@@ -23,11 +23,6 @@ public interface MealDAO {
     @Query("Select * from Meal where email = :email")
     Single<List<Meal>> getPlanMeals(String email);
 
-    @Insert
-    void insertProduct(Meal meal);
-
-    @Delete
-    void deleteProduct(Meal meal);
 
     @Query("DELETE FROM Meal WHERE idMeal = :ID and email = :email ")
     Completable deletePlanMeal(String ID, String email);
@@ -40,4 +35,9 @@ public interface MealDAO {
 
     @Delete
     Completable removeFav(FavoriteMeal meal);
+
+    @Insert(onConflict = OnConflictStrategy.REPLACE)
+    Completable addMealPlan(Meal meal);
+    @Delete
+    Completable deleteMealPlan(Meal meal);
 }

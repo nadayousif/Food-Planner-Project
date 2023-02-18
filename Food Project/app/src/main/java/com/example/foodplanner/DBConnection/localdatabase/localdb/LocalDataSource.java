@@ -2,8 +2,7 @@ package com.example.foodplanner.DBConnection.localdatabase.localdb;
 
 import com.example.foodplanner.Model.FavoriteMeal;
 import com.example.foodplanner.Model.Meal;
-import com.example.foodplanner.plan.dialog.favorite.NetworkDelegateFavDialog;
-import com.example.foodplanner.plan.dialog.favorite.PresenterFavoriteDialog;
+import com.example.foodplanner.plan.dialog.favorite.presenter.NetworkDelegateFavDialog;
 import com.example.foodplanner.plan.dialog.search.presenter.NetworkDelegateSearchPlan;
 import com.example.foodplanner.plan.presenter.NetworkDelegatePlan;
 import com.example.foodplanner.searchresult.OnViewClickSearchPlan;
@@ -12,9 +11,6 @@ import com.example.foodplanner.searchresult.presenter.NetworkDelegateSearchResul
 import java.util.List;
 
 public interface LocalDataSource {
-    void deleteProduct(Meal meal);
-
-    void insertProduct(Meal  meal);
 
     void getMeal(String email, NetworkDelegatePlan networkDelegatePlan);
 
@@ -24,11 +20,14 @@ public interface LocalDataSource {
 
     void setMeals(NetworkDelegateSearchPlan NetworkDelegateSearchPlan, List<Meal> listMeals);
 
-    void addToFav(FavoriteMeal tag, OnViewClickSearchPlan onViewClickSearchPlan, NetworkDelegateSearchResult networkDelegateSearchResult);
+    void addToPlan(FavoriteMeal tag, OnViewClickSearchPlan onViewClickSearchPlan, NetworkDelegateSearchResult networkDelegateSearchResult);
 
     void removeFav(FavoriteMeal meal, OnViewClickSearchPlan onViewClickSearchPlan,NetworkDelegateSearchResult networkDelegateSearchResult);
 
     void getListFav(String email, NetworkDelegateFavDialog networkDelegateFavDialog);
      void setMealsFromFav(NetworkDelegateFavDialog networkDelegateFavDialog, List<Meal> listMeals);
 
+    void addToPlan(Meal meal);
+
+    void deleteMealFormPlan(Meal meal);
 }

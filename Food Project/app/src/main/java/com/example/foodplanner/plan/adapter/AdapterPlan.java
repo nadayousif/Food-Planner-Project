@@ -44,13 +44,15 @@ public class AdapterPlan extends RecyclerView.Adapter<AdapterPlan.ViewHolder> {
         holder.cardView.setOnClickListener((i) -> {
             onclickItem.onClick(arr.get(position).getIdMeal(), false);
         });
-        Bitmap bmp = BitmapFactory.decodeByteArray(arr.get(position).getImage(), 0, arr.get(position).getImage().length);
-        holder.imageView.setImageBitmap(bmp);
-        holder.close.setOnClickListener(i -> {
-            onclickItem.onClick(arr.get(position).getIdMeal(), true);
-            arr.remove(position);
-            notifyDataSetChanged();
-        });
+        if (arr.get(position).getImage() != null) {
+            Bitmap bmp = BitmapFactory.decodeByteArray(arr.get(position).getImage(), 0, arr.get(position).getImage().length);
+            holder.imageView.setImageBitmap(bmp);
+            holder.close.setOnClickListener(i -> {
+                onclickItem.onClick(arr.get(position).getIdMeal(), true);
+                arr.remove(position);
+                notifyDataSetChanged();
+            });
+        }
     }
 
     @Override
