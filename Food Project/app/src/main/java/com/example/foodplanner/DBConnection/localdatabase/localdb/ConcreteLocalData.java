@@ -52,6 +52,7 @@ public class ConcreteLocalData implements LocalDataSource{
 
             @Override
             public void onError(Throwable e) {
+                
 
             }
         });
