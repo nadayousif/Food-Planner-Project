@@ -125,14 +125,17 @@ public class MealActivity extends AppCompatActivity  implements CommunicationMea
                     if (VideoUrl[0] != null) {
                         VideoUrl[0] = VideoUrl[0].substring(VideoUrl[0].indexOf("=") + 1);
                         StringTokenizer st = new StringTokenizer(VideoUrl[0], "&");
-                        VideoUrl[0] = st.nextToken();
-                        youTubePlayer.loadVideo(VideoUrl[0], 0);
-                        youTubePlayer.pause();
+                        if(st.hasMoreElements()){
+                            VideoUrl[0] = st.nextToken();
+                            youTubePlayer.loadVideo(VideoUrl[0], 0);
+                            youTubePlayer.pause();
+                        }
+
                     }
                 }
 
             }
-        });
+        );
         }catch (Exception ex ){
             Log.i(TAG, "setMeal: "+ex.getMessage());
         }

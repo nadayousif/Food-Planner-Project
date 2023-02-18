@@ -43,6 +43,7 @@ public class FavoriteDialog extends DialogFragment implements CommunicationFavor
         communication=planFragment;
     }
 
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
