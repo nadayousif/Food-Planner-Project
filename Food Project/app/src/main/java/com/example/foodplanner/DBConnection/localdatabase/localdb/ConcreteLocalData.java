@@ -5,7 +5,7 @@ import android.util.Log;
 import com.example.foodplanner.Model.FavoriteMeal;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.favorite.presenter.NetworkDelegateFavMeal;
-import com.example.foodplanner.plan.dialog.favorite.NetworkDelegateFavDialog;
+
 import com.example.foodplanner.plan.dialog.favorite.presenter.NetworkDelegateFavDialog;
 import com.example.foodplanner.plan.dialog.search.presenter.NetworkDelegateSearchPlan;
 import com.example.foodplanner.plan.presenter.NetworkDelegatePlan;
@@ -44,7 +44,7 @@ public class ConcreteLocalData implements LocalDataSource {
         return concreteLocalData;
     }
 
-    }
+
     public void insertMeal(Meal meal){
         dao.insertMeal(meal).subscribeOn(Schedulers.computation()).subscribe(new CompletableObserver() {
             @Override

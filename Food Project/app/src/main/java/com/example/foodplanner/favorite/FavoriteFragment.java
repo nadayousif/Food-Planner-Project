@@ -35,11 +35,7 @@ import com.example.foodplanner.favorite.presenter.PresenterFavoriteMeal;
 import com.example.foodplanner.helper.CheckConnection;
 import com.example.foodplanner.helper.Converter;
 import com.example.foodplanner.helper.MyUser;
-import com.example.foodplanner.home.presenter.PresenterRandomMeal;
-import com.example.foodplanner.meal.MealActivity;
-import com.example.foodplanner.plan.dialog.favorite.AdapterFavoriteDialog;
-import com.example.foodplanner.plan.dialog.favorite.CommunicationFavoriteDialog;
-import com.example.foodplanner.plan.dialog.favorite.PresenterFavoriteDialog;
+
 import com.example.foodplanner.searchresult.AdapterSearchResult;
 import com.google.android.material.snackbar.Snackbar;
 
