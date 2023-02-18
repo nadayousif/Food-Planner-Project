@@ -53,8 +53,8 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-        MyUser.getInstance().setEmail(MySharedPreference.getEmail(this));
-        Toast.makeText(this, "" + MyUser.getInstance().getEmail(), Toast.LENGTH_SHORT).show();
+//        MyUser.getInstance().setEmail(MySharedPreference.getEmail(this));
+//        Toast.makeText(this, "" + MyUser.getInstance().getEmail(), Toast.LENGTH_SHORT).show();
 
         /*GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
         if(acct!=null){

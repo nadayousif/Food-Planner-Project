@@ -73,19 +73,21 @@ public class ConcreteLocalData implements LocalDataSource {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         disposable.add(d);
+                        Log.i(TAG, "onSubscribe: ");
                     }
 
                     @Override
                     public void onSuccess(@NonNull List<Meal> planMeals) {
                         if (planMeals != null) {
-//                            Log.i(TAG, "onSuccess: "+planMeals.get(0).getIdMeal());
                             networkDelegatePlan.onResponse(planMeals);
                         }
+
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
                         networkDelegatePlan.onError(e.getMessage());
+                        Log.i(TAG, "onError: "+e.getMessage());
                     }
                 });
     }
