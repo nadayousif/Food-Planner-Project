@@ -1,5 +1,11 @@
 package com.example.foodplanner.plan.dialog.search.searchresult;
 
+import com.example.foodplanner.Model.FavoriteMeal;
+import com.example.foodplanner.Model.Meal;
+
 public interface OnClickItem {
-    void onClick(String idMeal);
+
+    void saveMealToPlan(Meal meal);
+
+    void removeMealToPlan(Meal meal);
 }
