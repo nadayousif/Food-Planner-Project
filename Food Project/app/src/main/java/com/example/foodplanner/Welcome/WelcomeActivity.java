@@ -14,6 +14,7 @@ import com.example.foodplanner.MainActivity;
 import com.example.foodplanner.R;
 import com.example.foodplanner.SignUp.SignUpActivity;
 import com.example.foodplanner.helper.MySharedPreference;
+import com.example.foodplanner.helper.MyUser;
 import com.facebook.CallbackManager;
 import com.facebook.FacebookCallback;
 import com.facebook.FacebookException;
@@ -57,6 +58,7 @@ public class WelcomeActivity extends AppCompatActivity {
         setContentView(R.layout.activity_welcome);
         MySharedPreference.getSharedPreferences(this);
         if (MySharedPreference.isLogin(this)) {
+            MyUser.getInstance().setEmail(MySharedPreference.getEmail(this));
             navigateToSecondActivity();
         } else {
             signUP = findViewById(R.id.signup);
@@ -80,6 +82,7 @@ public class WelcomeActivity extends AppCompatActivity {
                                     if (response.getError() == null) {
                                         String fbUserEmail = object.optString("email");
                                         MySharedPreference.saveInShared(WelcomeActivity.this, fbUserEmail);
+                                        MyUser.getInstance().setEmail(fbUserEmail);
                                         Intent intent = new Intent(WelcomeActivity.this, MainActivity.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);
@@ -172,6 +175,7 @@ public class WelcomeActivity extends AppCompatActivity {
                     System.out.println("Name:" + personName);
                     System.out.println("Email:" + personEmail);
                     MySharedPreference.saveInShared(this, personEmail);
+                    MyUser.getInstance().setEmail(personEmail);
                 }
                 navigateToSecondActivity();
 

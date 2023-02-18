@@ -136,6 +136,7 @@ public class MealActivity extends AppCompatActivity  implements CommunicationMea
 
             }
         );
+
         }catch (Exception ex ){
             Log.i(TAG, "setMeal: "+ex.getMessage());
         }
@@ -144,7 +145,6 @@ public class MealActivity extends AppCompatActivity  implements CommunicationMea
     }
 
     public void setMealView(Meal meal){
-           // this.meal=meal;
 
     }
 }
