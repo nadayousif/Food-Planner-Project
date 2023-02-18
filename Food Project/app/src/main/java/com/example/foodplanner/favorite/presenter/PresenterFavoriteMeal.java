@@ -36,8 +36,12 @@ public class PresenterFavoriteMeal implements NetworkDelegateFavMeal {
     public void sus() {
         communicationFavoriteMeal.sus();
     }
-   /* public void deleteMeal(String idMeal, String email) {
-        localDataSource.deleteMeal(idMeal,email,this);
-    }*/
+    public void deleteMeal(String idMeal, String email) {
+        localDataSource.deleteMealFromFavorite(idMeal,email,this);
+    }
+    @Override
+    public void onComplete() {
+        communicationFavoriteMeal.onComplete();
+    }
 
 }

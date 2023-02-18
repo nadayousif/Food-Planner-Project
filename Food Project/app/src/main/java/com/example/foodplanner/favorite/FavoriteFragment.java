@@ -36,6 +36,7 @@ import com.example.foodplanner.helper.CheckConnection;
 import com.example.foodplanner.helper.Converter;
 import com.example.foodplanner.helper.MyUser;
 
+import com.example.foodplanner.meal.MealActivity;
 import com.example.foodplanner.searchresult.AdapterSearchResult;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -43,7 +44,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class FavoriteFragment extends Fragment implements CommunicationFavoriteMeal {
+public class FavoriteFragment extends Fragment implements CommunicationFavoriteMeal,OnClickFavoriteItem {
     private static final String TAG = "TAGG";
 
     FavoriteMealsAdapter myAdapter;
@@ -72,7 +73,7 @@ public class FavoriteFragment extends Fragment implements CommunicationFavoriteM
         binding = FragmentFavoriteBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
         binding.RVId.setLayoutManager(new GridLayoutManager(getContext(), 2));
-        myAdapter = new FavoriteMealsAdapter();
+        myAdapter = new FavoriteMealsAdapter(this);
         binding.RVId.setAdapter(myAdapter);
         presenterFavoriteMeal = new PresenterFavoriteMeal(this, ConcreteLocalData.getInstance(getContext()));
         presenterFavoriteMeal.getListFav(MyUser.getInstance().getEmail());
@@ -81,7 +82,7 @@ public class FavoriteFragment extends Fragment implements CommunicationFavoriteM
         return root;
 
     }
-   /* @Override
+
     public void onClick(String idMeal, boolean isClose) {
         if (isClose)
             presenterFavoriteMeal.deleteMeal(idMeal, MyUser.getInstance().getEmail());
@@ -91,7 +92,11 @@ public class FavoriteFragment extends Fragment implements CommunicationFavoriteM
             intent.putExtra(getString(R.string.isLocal), true);
             startActivity(intent);
         }
-    }*/
+    }
+    @Override
+    public void onComplete() {
+        Toast.makeText(getContext(), "delete", Toast.LENGTH_SHORT).show();
+    }
 
     @Override
     public void onDestroy() {

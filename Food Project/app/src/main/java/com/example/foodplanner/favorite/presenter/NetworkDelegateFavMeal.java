@@ -10,4 +10,6 @@ public interface NetworkDelegateFavMeal {
     void onError(String message);
 
     void sus();
+
+    void onComplete();
 }
