@@ -40,6 +40,7 @@ public class FavoriteDialog extends DialogFragment implements  CommunicationFavo
         this.activity=activity;
     }
 
+
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
