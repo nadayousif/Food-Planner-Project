@@ -22,6 +22,7 @@ import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
 import com.example.foodplanner.helper.Converter;
 import com.example.foodplanner.helper.MyUser;
+import com.example.foodplanner.searchresult.presenter.PresenterSearchResult;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,11 +30,13 @@ import java.util.List;
 public class AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResult.ViewHolder> {
     private List<Meal> arr;
     private OnClickItem onclickItem;
+    PresenterSearchResult presenterSearchResult;
     Context context;
 
-    public AdapterSearchResult(OnClickItem onclickItem) {
+    public AdapterSearchResult(OnClickItem onclickItem, PresenterSearchResult presenterSearchResult) {
         this.arr = new ArrayList<>();
         this.onclickItem = onclickItem;
+        this.presenterSearchResult=presenterSearchResult;
     }
 
     public void setArr(List<Meal> arr) {
@@ -68,6 +71,7 @@ public class AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResul
                     public void onLoadCleared(@Nullable Drawable placeholder) {
                     }
                 });
+
         holder.addToFav.setTag(arr.get(holder.getBindingAdapterPosition()));
 
 
@@ -94,8 +98,8 @@ public class AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResul
             addToFav.setOnClickListener(v -> {
                         v.setEnabled(false);
                         if (MyUser.getInstance().isLogin()) {
+                            if (v.getTag() != null)
                             if (((ToggleButton) v).isChecked()) {
-                                if (v.getTag() != null)
                                     onclickItem.addToFav(this, (Meal) v.getTag());
                             } else
                                 onclickItem.removeFromFav(this, (Meal) v.getTag());

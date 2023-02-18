@@ -13,19 +13,18 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
+import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
-import com.example.foodplanner.DBConnection.localdatabase.localdb.ConcreteLocalData;
-import com.example.foodplanner.DBConnection.localdatabase.localdb.LocalDataSource;
 import com.example.foodplanner.Welcome.WelcomeActivity;
 import com.example.foodplanner.databinding.ActivityMainBinding;
 import com.example.foodplanner.helper.MySharedPreference;
 import com.example.foodplanner.helper.MyUser;
 import com.example.foodplanner.meal.MealActivity;
-import com.example.foodplanner.plan.dialog.favorite.FavoriteDialog;
+import com.example.foodplanner.plan.PlanFragment;
 import com.example.foodplanner.plan.dialog.search.SearchDialog;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -38,11 +37,15 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
     GoogleSignInOptions gso;
     GoogleSignInClient gsc;
     private String day;
+    public NavHostFragment navHostFragment;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+//         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
+//         String s=navController.getCurrentDestination().toString();
+//        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, gso);
 
@@ -84,6 +87,7 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
 
     public void addFromFavToPlan(View view) {
+
         if (MyUser.getInstance().isLogin()) {
             String name = "";
             if (view.getTag().equals("Saturday"))
@@ -120,12 +124,13 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
 
     @Override
     public boolean onMenuItemClick(@NonNull MenuItem menuItem) {
+        navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
+        Fragment fragment = (navHostFragment.getChildFragmentManager().getFragments().get(0));
         if (menuItem.getItemId() == R.id.im_from_favorite) {
-            DialogFragment newFragment = new FavoriteDialog(day,this);
-            newFragment.show(getSupportFragmentManager(), "Add From Favorite");
+            ((PlanFragment)fragment).showFavoriteDialog(day,this);
         } else {
-            DialogFragment newFragment = new SearchDialog(day, this);
-            newFragment.show(getSupportFragmentManager(), "Add From Favorite");
+           ((PlanFragment)fragment).showSearchDialog(day,this);
+
         }
         return false;
     }

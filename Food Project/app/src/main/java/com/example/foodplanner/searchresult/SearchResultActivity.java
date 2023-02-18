@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.foodplanner.APIconnection.RetrofitClient;
@@ -30,6 +31,9 @@ public class SearchResultActivity extends AppCompatActivity implements OnClickIt
     private ActivitySearchResultBinding binding;
     AdapterSearchResult adapterSearchResult;
 PresenterSearchResult presenterSearchResult;
+    private int progress;
+    private int amount;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +61,7 @@ PresenterSearchResult presenterSearchResult;
                     .show();
         }
         binding.recSearchResult.setLayoutManager(new GridLayoutManager(this,2));
-        adapterSearchResult = new AdapterSearchResult(this);
+        adapterSearchResult = new AdapterSearchResult(this,presenterSearchResult);
         binding.recSearchResult.setAdapter(adapterSearchResult);
 
 
@@ -88,6 +92,8 @@ PresenterSearchResult presenterSearchResult;
 
     @Override
     public void setList(List<Meal> list) {
+        binding.recSearchResult.setVisibility(View.VISIBLE);
+        binding.progressBar.setVisibility(View.GONE);
         adapterSearchResult.setArr(list);
         adapterSearchResult.notifyDataSetChanged();
     }
@@ -114,6 +120,21 @@ PresenterSearchResult presenterSearchResult;
         onViewClickSearchPlan.undo();
         Log.i(TAG, "onFailureToAdd: "+message);
         Toast.makeText(this, "failure pls try again", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void setSize(int size) {
+        amount=100/(size*2);
+        progress=amount;
+    }
+
+    @Override
+    public void upDateProgressBar() {
+
+        if (progress<100) {
+            binding.progressBar.setProgress(progress);
+            progress+=amount;
+        }
     }
 
 

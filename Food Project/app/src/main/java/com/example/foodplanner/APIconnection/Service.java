@@ -23,13 +23,13 @@ public interface Service {
     Single<MyObject> getIngredient();
 
     @GET("filter.php")
-    Single<MyObject> getSearchListCountry(@Query("a") String name);
+    Observable<MyObject> getSearchListCountry(@Query("a") String name);
 
     @GET("filter.php")
-    Single<MyObject> getSearchListIngredient(@Query("i") String name);
+    Observable<MyObject> getSearchListIngredient(@Query("i") String name);
 
     @GET("filter.php")
-    Single<MyObject> getSearchListCuisines(@Query("c") String name);
+    Observable<MyObject> getSearchListCuisines(@Query("c") String name);
 
     @GET("search.php")
     Observable<MyObject> getSearchList(@Query("s") String name);

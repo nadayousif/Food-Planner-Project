@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.example.foodplanner.Model.FavoriteMeal;
 import com.example.foodplanner.Model.Meal;
-import com.example.foodplanner.plan.dialog.favorite.NetworkDelegateFavDialog;
+import com.example.foodplanner.plan.dialog.favorite.presenter.NetworkDelegateFavDialog;
 import com.example.foodplanner.plan.dialog.search.presenter.NetworkDelegateSearchPlan;
 import com.example.foodplanner.plan.presenter.NetworkDelegatePlan;
 import com.example.foodplanner.searchresult.OnViewClickSearchPlan;
@@ -21,27 +21,27 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
-public class ConcreteLocalData implements LocalDataSource{
+public class ConcreteLocalData implements LocalDataSource {
     private static final String TAG = "TAGG";
     private final Context context;
     MealDAO dao;
 
-    private static ConcreteLocalData concreteLocalData= null;
+    private static ConcreteLocalData concreteLocalData = null;
 
     CompositeDisposable disposable;
-    public ConcreteLocalData(Context context){
-        this.context=context;
-        DBFood db= DBFood.getInstance(this.context.getApplicationContext());
-        dao=db.mealDAO();
 
-        disposable=new CompositeDisposable();
+    public ConcreteLocalData(Context context) {
+        this.context = context;
+        DBFood db = DBFood.getInstance(this.context.getApplicationContext());
+        dao = db.mealDAO();
+
+        disposable = new CompositeDisposable();
     }
-    public static ConcreteLocalData getInstance(Context context){
-        if (concreteLocalData==null)concreteLocalData=new ConcreteLocalData(context);
+
+    public static ConcreteLocalData getInstance(Context context) {
+        if (concreteLocalData == null) concreteLocalData = new ConcreteLocalData(context);
         return concreteLocalData;
     }
-    public void deleteProduct(Meal meal){
-        new Thread(()->{dao.deleteProduct(meal);}).start();
 
     }
     public void insertMeal(Meal meal){
@@ -64,6 +64,7 @@ public class ConcreteLocalData implements LocalDataSource{
         });
     }
 
+
     @Override
     public void getMeal(String email, NetworkDelegatePlan networkDelegatePlan) {
         dao.getPlanMeals(email).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
@@ -75,7 +76,10 @@ public class ConcreteLocalData implements LocalDataSource{
 
                     @Override
                     public void onSuccess(@NonNull List<Meal> planMeals) {
-                        networkDelegatePlan.onResponse(planMeals);
+                        if (planMeals != null) {
+//                            Log.i(TAG, "onSuccess: "+planMeals.get(0).getIdMeal());
+                            networkDelegatePlan.onResponse(planMeals);
+                        }
                     }
 
                     @Override
@@ -87,7 +91,7 @@ public class ConcreteLocalData implements LocalDataSource{
 
     @Override
     public void deleteMeal(String idMeal, String email, NetworkDelegatePlan networkDelegatePlan) {
-        dao.deletePlanMeal(idMeal,email).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        dao.deletePlanMeal(idMeal, email).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new CompletableObserver() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
@@ -109,12 +113,12 @@ public class ConcreteLocalData implements LocalDataSource{
 
     @Override
     public void clear() {
-         disposable.clear();
+        disposable.clear();
     }
 
     @Override
     public void setMeals(NetworkDelegateSearchPlan networkDelegateSearchPlan, List<Meal> listMeals) {
-       dao.setMeals(listMeals).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+        dao.setMeals(listMeals).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new CompletableObserver() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
@@ -130,13 +134,13 @@ public class ConcreteLocalData implements LocalDataSource{
                     @Override
                     public void onError(@NonNull Throwable e) {
                         networkDelegateSearchPlan.onFailure(e.getMessage().toString());
-                        Log.i(TAG, "onError: "+e.getMessage());
+                        Log.i(TAG, "onError: " + e.getMessage());
                     }
                 });
     }
 
     @Override
-    public void addToFav(FavoriteMeal tag, OnViewClickSearchPlan onViewClickSearchPlan, NetworkDelegateSearchResult networkDelegateSearchResult) {
+    public void addToPlan(FavoriteMeal tag, OnViewClickSearchPlan onViewClickSearchPlan, NetworkDelegateSearchResult networkDelegateSearchResult) {
         dao.addToFav(tag).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new CompletableObserver() {
                     @Override
@@ -146,12 +150,12 @@ public class ConcreteLocalData implements LocalDataSource{
 
                     @Override
                     public void onComplete() {
-                       networkDelegateSearchResult.sus(onViewClickSearchPlan);
+                        networkDelegateSearchResult.sus(onViewClickSearchPlan);
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        networkDelegateSearchResult.onFailureToAdd(onViewClickSearchPlan,e.getMessage());
+                        networkDelegateSearchResult.onFailureToAdd(onViewClickSearchPlan, e.getMessage());
                     }
                 });
     }
@@ -172,7 +176,7 @@ public class ConcreteLocalData implements LocalDataSource{
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        delegateSearchResult.onFailureToAdd(onViewClickSearchPlan,e.getMessage());
+                        delegateSearchResult.onFailureToAdd(onViewClickSearchPlan, e.getMessage());
                     }
                 });
     }
@@ -216,7 +220,49 @@ public class ConcreteLocalData implements LocalDataSource{
                     @Override
                     public void onError(@NonNull Throwable e) {
                         networkDelegateFavDialog.onError(e.getMessage().toString());
-                        Log.i(TAG, "onError: "+e.getMessage());
+                        Log.i(TAG, "onError: " + e.getMessage());
+                    }
+                });
+    }
+
+    @Override
+    public void addToPlan(Meal meal) {
+        dao.addMealPlan(meal).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
+                    }
+                });
+    }
+
+    @Override
+    public void deleteMealFormPlan(Meal meal) {
+        dao.deleteMealPlan(meal).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+
                     }
                 });
     }

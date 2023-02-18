@@ -24,15 +24,22 @@
         tools:layout="@layout/fragment_plan" >
         <action
             android:id="@+id/action_navigation_plan_self"
-            app:destination="@id/navigation_plan"
-            app:popUpTo="@id/navigation_plan"
+            app:destination="@id/navigation_plan" />
+        <action
+            android:id="@+id/action_navigation_plan_to_navigation_profile"
+            app:destination="@id/navigation_profile"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/navigation_profile"
         android:name="com.example.foodplanner.profile.ProfileFragment"
         android:label="fragment_profile"
-        tools:layout="@layout/fragment_profile" />
+        tools:layout="@layout/fragment_profile" >
+        <action
+            android:id="@+id/action_navigation_profile_to_navigation_plan"
+            app:destination="@id/navigation_plan"
+            app:popUpToInclusive="true" />
+    </fragment>
     <fragment
         android:id="@+id/navigation_favorite"
         android:name="com.example.foodplanner.favorite.FavoriteFragment"

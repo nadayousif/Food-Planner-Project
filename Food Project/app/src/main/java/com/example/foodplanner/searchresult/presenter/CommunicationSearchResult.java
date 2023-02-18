@@ -15,4 +15,8 @@ public interface CommunicationSearchResult {
     void susToAdd(OnViewClickSearchPlan onViewClickSearchPlan);
 
     void onFailureToAdd(OnViewClickSearchPlan onViewClickSearchPlan, String message);
+
+    void setSize(int size);
+
+    void upDateProgressBar();
 }

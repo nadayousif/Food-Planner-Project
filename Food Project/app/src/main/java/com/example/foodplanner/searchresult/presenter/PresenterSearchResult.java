@@ -61,12 +61,23 @@ public class PresenterSearchResult implements NetworkDelegateSearchResult{
         communicationSearchResult.onFailureToAdd(onViewClickSearchPlan,message);
     }
 
+    @Override
+    public void setSizeOfList(int size) {
+        communicationSearchResult.setSize(size);
+    }
+
+    @Override
+    public void upDateProgressBar() {
+        communicationSearchResult.upDateProgressBar();
+
+    }
+
     public void showNada() {
         remoteDataSource.get(this);
     }//2
 
     public void addToFav(FavoriteMeal tag, OnViewClickSearchPlan onViewClickSearchPlan) {
-        localDataSource.addToFav(tag,onViewClickSearchPlan,this);
+        localDataSource.addToPlan(tag,onViewClickSearchPlan,this);
 
     }
 

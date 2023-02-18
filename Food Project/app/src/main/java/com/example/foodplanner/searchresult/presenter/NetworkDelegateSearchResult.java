@@ -15,4 +15,8 @@ public interface NetworkDelegateSearchResult {
     void sus(OnViewClickSearchPlan onViewClickSearchPlan);
 
     void onFailureToAdd(OnViewClickSearchPlan onViewClickSearchPlan, String message);
+
+    void setSizeOfList(int size);
+
+    void upDateProgressBar();
 }
