@@ -24,6 +24,7 @@ import com.example.foodplanner.helper.MyUser;
 import com.example.foodplanner.meal.MealActivity;
 import com.example.foodplanner.plan.adapter.AdapterPlan;
 import com.example.foodplanner.plan.adapter.OnClickItem;
+import com.example.foodplanner.plan.dialog.CommunicationWithDailog;
 import com.example.foodplanner.plan.dialog.favorite.FavoriteDialog;
 import com.example.foodplanner.plan.dialog.search.SearchDialog;
 import com.example.foodplanner.plan.presenter.CommunicationPlan;
@@ -81,8 +82,6 @@ public class PlanFragment extends Fragment implements OnClickItem, Communication
         binding.recPlanSunday.setAdapter(adapterPlanSunday);
         binding.recPlanSaturday.setAdapter(adapterPlanSaturday);
         presenterPlan.getPlanMeals(MyUser.getInstance().getEmail());
-        Toast.makeText(getContext(), MyUser.getInstance().getEmail(), Toast.LENGTH_SHORT).show();
-
     }
 
     @Override
@@ -122,7 +121,6 @@ public class PlanFragment extends Fragment implements OnClickItem, Communication
 
     @Override
     public void onResponse(List<Meal> Meals) {
-        Toast.makeText(getContext(), "" + Meals.size(), Toast.LENGTH_SHORT).show();
             List<Meal> listSaturday = new ArrayList<>();
             List<Meal> listSunday = new ArrayList<>();
             List<Meal> listMonday = new ArrayList<>();
@@ -167,13 +165,6 @@ public class PlanFragment extends Fragment implements OnClickItem, Communication
 
     }
 
-    @Override
-    public boolean onContextItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.im_from_favorite) {
-            Toast.makeText(getContext(), "fav", Toast.LENGTH_SHORT).show();
-        } else Toast.makeText(getContext(), "search", Toast.LENGTH_SHORT).show();
-        return super.onContextItemSelected(item);
-    }
 
 
     public void showFavoriteDialog(String day, MainActivity mainActivity) {

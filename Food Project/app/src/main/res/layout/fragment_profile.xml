@@ -8,109 +8,55 @@
     tools:context=".profile.ProfileFragment">
 
     <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
+        android:id="@+id/tv_profile"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="@string/Maximus"
-        android:textColor="@color/primaryColor"
-        android:textSize="27sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.182" />
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardView2"
-        android:layout_width="211dp"
-        android:layout_height="209dp"
-        app:cardCornerRadius="100dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <ImageView
-            android:id="@+id/userImage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/img_2" />
-    </androidx.cardview.widget.CardView>
-
-    <Button
-        android:id="@+id/email"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="@color/secondaryTextColor"
-        android:gravity="clip_vertical|fill_vertical"
-        android:text="@string/email"
-        android:textColor="@color/secondaryDarkColor"
-        app:icon="@drawable/img_3"
-        app:iconTint="@color/primaryColor"
-        app:iconTintMode="add"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.495"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.393" />
-
-    <Button
-        android:id="@+id/name"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="@color/secondaryTextColor"
-        android:gravity="clip_horizontal|fill_vertical"
-        android:text="@string/name"
-        android:textColor="@color/secondaryDarkColor"
-        app:icon="@drawable/img_4"
-        app:iconTint="@color/primaryColor"
-        app:iconTintMode="add"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="32dp"
+        android:layout_marginEnd="16dp"
+        android:text="TextView"
+        android:textColor="@color/secondaryTextColor"
+        android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/email" />
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
-        android:id="@+id/password"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="@color/secondaryTextColor"
-        android:gravity="clip_horizontal|fill_vertical"
-        android:text="@string/password2"
-        android:textColor="@color/secondaryDarkColor"
-        app:icon="@drawable/img_5"
-        app:iconTint="@color/primaryColor"
-        app:iconTintMode="add"
+    <View
+        android:id="@+id/divider11"
+        android:layout_width="0dp"
+        android:layout_height="3dp"
+        android:layout_marginTop="13dp"
+        android:background="?android:attr/listDivider"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/name" />
+        app:layout_constraintTop_toBottomOf="@+id/tv_profile" />
 
     <Button
-        android:id="@+id/backup"
-        android:layout_width="300dp"
-        android:layout_height="60dp"
-        android:layout_marginTop="30dp"
-        android:backgroundTint="@color/secondaryTextColor"
-        android:gravity="clip_horizontal|fill_vertical"
-        android:text="@string/backup"
-        android:textColor="@color/secondaryDarkColor"
-        app:icon="@drawable/backup"
-        app:iconSize="?attr/dialogPreferredPadding"
-        app:iconTint="@color/primaryColor"
-        app:iconTintMode="screen"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password" />
-
-    <Button
-        android:id="@+id/logOut"
-        android:layout_width="wrap_content"
+        android:id="@+id/b_backup"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="25dp"
-        android:text="@string/LogOUT"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/backup" />
+        android:layout_marginTop="16dp"
+        android:text="@string/backUp"
+        android:textAlignment="textStart"
+        android:textSize="20sp"
+        app:icon="@drawable/baseline_backup_24"
+        app:layout_constraintEnd_toEndOf="@+id/tv_profile"
+        app:layout_constraintStart_toStartOf="@+id/tv_profile"
+        app:layout_constraintTop_toBottomOf="@+id/divider11" />
+
+    <Button
+        android:id="@+id/b_logout"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="logout"
+        android:textAlignment="textStart"
+        android:textColor="@color/primaryDarkColor"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="@+id/b_backup"
+        app:layout_constraintStart_toStartOf="@+id/b_backup"
+        app:layout_constraintTop_toBottomOf="@+id/b_backup" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

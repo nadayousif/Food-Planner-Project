@@ -17,26 +17,30 @@ import java.util.List;
 
 public class AdapterInstructions extends RecyclerView.Adapter<AdapterInstructions.ViewHolder> {
     String[] arrInstruction;
-    private boolean isRight=false;
 
     public AdapterInstructions() {
 
         this.arrInstruction = new String[0];;
     }
 
+    @Override
+    public int getItemViewType(int position) {
+        if (position%2==0)
+            return 0;
+        else
+            return 1;
+    }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view;
-        if(isRight) {
+        if(viewType==0) {
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rec_meal_instruction_right, parent, false);
-            isRight=false;
         }
 
 
         else {
-            isRight = true;
             view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_rec_meal_instruction_left, parent, false);
         }
         return new ViewHolder(view);
