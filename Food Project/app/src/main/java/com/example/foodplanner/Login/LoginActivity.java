@@ -14,6 +14,7 @@ import com.example.foodplanner.R;
 import com.example.foodplanner.SignUp.SignUpActivity;
 import com.example.foodplanner.DBConnection.localdatabase.reomtlydatabase.FireBaseConnection;
 import com.example.foodplanner.helper.MySharedPreference;
+import com.example.foodplanner.helper.MyUser;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputEditText;
 
@@ -74,6 +75,7 @@ public class LoginActivity extends AppCompatActivity implements Communication {
 //        editor.putString(getString(R.string.userEmail), email.getText().toString());
 //        editor.apply();
         MySharedPreference.saveInShared(this,email.getText().toString());
+        MyUser.getInstance().setEmail(email.getText().toString());
         Intent intent = new Intent(this, MainActivity.class);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);

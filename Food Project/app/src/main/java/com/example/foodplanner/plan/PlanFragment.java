@@ -81,6 +81,8 @@ public class PlanFragment extends Fragment implements OnClickItem, Communication
         binding.recPlanSunday.setAdapter(adapterPlanSunday);
         binding.recPlanSaturday.setAdapter(adapterPlanSaturday);
         presenterPlan.getPlanMeals(MyUser.getInstance().getEmail());
+        Toast.makeText(getContext(), MyUser.getInstance().getEmail(), Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
@@ -91,9 +93,8 @@ public class PlanFragment extends Fragment implements OnClickItem, Communication
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Toast.makeText(getContext(), "///", Toast.LENGTH_SHORT).show();
         binding = null;
-        presenterPlan.clear();
+//        presenterPlan.clear();
     }
 
 
@@ -116,15 +117,12 @@ public class PlanFragment extends Fragment implements OnClickItem, Communication
 
     @Override
     public void onError(String s) {
-        Toast.makeText(getContext(), "something failed pls try again", Toast.LENGTH_SHORT).show();
         Log.i(TAG, "onError: " + s);
     }
 
     @Override
     public void onResponse(List<Meal> Meals) {
-        Toast.makeText(getContext(), "" + Meals.size()+" "+size, Toast.LENGTH_SHORT).show();
-        //--------------------
-
+        Toast.makeText(getContext(), "" + Meals.size(), Toast.LENGTH_SHORT).show();
             List<Meal> listSaturday = new ArrayList<>();
             List<Meal> listSunday = new ArrayList<>();
             List<Meal> listMonday = new ArrayList<>();
