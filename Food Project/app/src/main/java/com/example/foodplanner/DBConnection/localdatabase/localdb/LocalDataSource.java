@@ -4,8 +4,7 @@ import com.example.foodplanner.Model.FavoriteMeal;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.favorite.presenter.NetworkDelegateFavMeal;
 import com.example.foodplanner.favorite.presenter.PresenterFavoriteMeal;
-import com.example.foodplanner.plan.dialog.favorite.NetworkDelegateFavDialog;
-import com.example.foodplanner.plan.dialog.favorite.PresenterFavoriteDialog;
+
 import com.example.foodplanner.plan.dialog.favorite.presenter.NetworkDelegateFavDialog;
 import com.example.foodplanner.plan.dialog.search.presenter.NetworkDelegateSearchPlan;
 import com.example.foodplanner.plan.presenter.NetworkDelegatePlan;
@@ -40,4 +39,5 @@ public interface LocalDataSource {
 
     void deleteMealFormPlan(Meal meal);
 
+    void insertMeal(Meal meal);
 }
