@@ -4,11 +4,9 @@ import android.util.Log;
 
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.Model.MyObject;
-import com.example.foodplanner.Model.RandomMeal;
 import com.example.foodplanner.home.presenter.NetworkDelegateRandomMeal;
 
 import com.example.foodplanner.plan.dialog.search.presenter.NetworkDelegateSearchPlan;
-import com.example.foodplanner.plan.dialog.search.presenter.presenterSearchDialog;
 
 import com.example.foodplanner.meal.presenter.NetworkDelegateMeal;
 
@@ -23,16 +21,21 @@ import java.util.stream.Collectors;
 import hu.akarnokd.rxjava3.retrofit.RxJava3CallAdapterFactory;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
+import io.reactivex.rxjava3.core.Observable;
+import io.reactivex.rxjava3.core.ObservableSource;
 import io.reactivex.rxjava3.core.Observer;
 import io.reactivex.rxjava3.core.SingleObserver;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
+import io.reactivex.rxjava3.functions.Consumer;
+import io.reactivex.rxjava3.functions.Function;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class RetrofitClient implements RemoteDataSource {
     private static final String BASE_URL = "https://www.themealdb.com/api/json/v1/1/";
+    private static final String TAG = "TAGG";
 
     private static RetrofitClient instance = null;
     private Service service;
@@ -164,34 +167,51 @@ public class RetrofitClient implements RemoteDataSource {
 
     @Override
     public void getSearchResultList(String name, NetworkDelegateSearchResult networkDelegateSearchResult) {
-        getService().getSearchList(name).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Observer<MyObject>() {
-            @Override
-            public void onSubscribe(@NonNull Disposable d) {
-                disposable.add(d);
-            }
+        getService().getSearchList(name).subscribeOn(Schedulers.io()).map(i -> i.getList()).flatMap(new Function<List<Meal>, ObservableSource<Meal>>() {
+                    @Override
+                    public ObservableSource<Meal> apply(List<Meal> meals) throws Throwable {
+                        return Observable.fromIterable(meals);
+                    }
+                })
+                .flatMap((Function<Meal, ObservableSource<Meal>>) meal -> getService().getMeal(meal.getIdMeal()).map(i -> i.getList()).
+                        toObservable()
+                        .flatMap((Function<List<Meal>, ObservableSource<Meal>>) meals -> Observable.fromIterable(meals)))
+                .toList()
+                .observeOn(AndroidSchedulers.mainThread()).subscribe(new SingleObserver<List<Meal>>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        disposable.add(d);
+                    }
 
-            @Override
-            public void onNext(@NonNull MyObject myObject) {
-                if (myObject.getList() != null)
-                    networkDelegateSearchResult.onResponse(myObject.getList());
-            }
+                    @Override
+                    public void onSuccess(@NonNull List<Meal> meals) {
+                        if (meals!=null)
+                            networkDelegateSearchResult.onResponse(meals);
+                    }
 
-            @Override
-            public void onError(@NonNull Throwable e) {
-                networkDelegateSearchResult.onFailure(e.getMessage());
-            }
 
-            @Override
-            public void onComplete() {
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.i(TAG, "onError: " + e.getMessage());
+                    }
 
-            }
-        });
+
+                });
     }
 
     @Override
     public void getSearchListCountry(String name, NetworkDelegateSearchResult networkDelegateSearchResult) {
-        getService().getSearchListCountry(name).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<MyObject>() {
+        getService().getSearchListCountry(name).subscribeOn(Schedulers.io()).map(i -> i.getList()).flatMap(new Function<List<Meal>, ObservableSource<Meal>>() {
+                    @Override
+                    public ObservableSource<Meal> apply(List<Meal> meals) throws Throwable {
+                        return Observable.fromIterable(meals);
+                    }
+                })
+                .flatMap((Function<Meal, ObservableSource<Meal>>) meal -> getService().getMeal(meal.getIdMeal()).map(i -> i.getList()).
+                        toObservable()
+                        .flatMap((Function<List<Meal>, ObservableSource<Meal>>) meals -> Observable.fromIterable(meals)))
+                .toList().observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<Meal>>() {
 
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
@@ -199,9 +219,9 @@ public class RetrofitClient implements RemoteDataSource {
                     }
 
                     @Override
-                    public void onSuccess(@NonNull MyObject myObject) {
-                        if (myObject.getList() != null) {
-                            networkDelegateSearchResult.onResponse(myObject.getList());
+                    public void onSuccess(@NonNull List<Meal> meals) {
+                        if (meals != null) {
+                            networkDelegateSearchResult.onResponse(meals);
                         }
                     }
 
@@ -214,17 +234,26 @@ public class RetrofitClient implements RemoteDataSource {
 
     @Override
     public void getSearchListCuisines(String name, NetworkDelegateSearchResult networkDelegateSearchResult) {
-        getService().getSearchListCuisines(name).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<MyObject>() {
+        getService().getSearchListCuisines(name).observeOn(Schedulers.io()).map(i -> i.getList()).flatMap(new Function<List<Meal>, ObservableSource<Meal>>() {
+                    @Override
+                    public ObservableSource<Meal> apply(List<Meal> meals) throws Throwable {
+                        return Observable.fromIterable(meals);
+                    }
+                })
+                .flatMap((Function<Meal, ObservableSource<Meal>>) meal -> getService().getMeal(meal.getIdMeal()).map(i -> i.getList()).
+                        toObservable()
+                        .flatMap((Function<List<Meal>, ObservableSource<Meal>>) meals -> Observable.fromIterable(meals)))
+                .toList().observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<Meal>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         disposable.add(d);
                     }
 
                     @Override
-                    public void onSuccess(@NonNull MyObject myObject) {
-                        if (myObject.getList() != null) {
-                            networkDelegateSearchResult.onResponse(myObject.getList());
+                    public void onSuccess(@NonNull List<Meal> meals) {
+                        if (meals != null) {
+                            networkDelegateSearchResult.onResponse(meals);
                         }
                     }
 
@@ -237,17 +266,32 @@ public class RetrofitClient implements RemoteDataSource {
 
     @Override
     public void getSearchListIngredient(String name, NetworkDelegateSearchResult networkDelegateSearchResult) {
-        getService().getSearchListIngredient(name).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new SingleObserver<MyObject>() {
+        getService().getSearchListIngredient(name).subscribeOn(Schedulers.io()).map(i -> i.getList()).flatMap(new Function<List<Meal>, ObservableSource<Meal>>() {
+                    @Override
+                    public ObservableSource<Meal> apply(List<Meal> meals) throws Throwable {
+                        networkDelegateSearchResult.setSizeOfList(meals.size());
+                        return Observable.fromIterable(meals);
+                    }
+                }).doOnNext(new Consumer<Meal>() {
+                    @Override
+                    public void accept(Meal meal) throws Throwable {
+                        networkDelegateSearchResult.upDateProgressBar();
+                    }
+                })
+                .flatMap((Function<Meal, ObservableSource<Meal>>) meal -> getService().getMeal(meal.getIdMeal()).map(i -> i.getList()).
+                        toObservable().doOnNext(i->networkDelegateSearchResult.upDateProgressBar())
+                        .flatMap((Function<List<Meal>, ObservableSource<Meal>>) meals -> Observable.fromIterable(meals)))
+                .toList().observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<Meal>>() {
                     @Override
                     public void onSubscribe(@NonNull Disposable d) {
                         disposable.add(d);
                     }
 
                     @Override
-                    public void onSuccess(@NonNull MyObject myObject) {
-                        if (myObject.getList() != null) {
-                            networkDelegateSearchResult.onResponse(myObject.getList());
+                    public void onSuccess(@NonNull List<Meal> meals) {
+                        if (meals != null) {
+                            networkDelegateSearchResult.onResponse(meals);
                         }
                     }
 
@@ -293,7 +337,6 @@ public class RetrofitClient implements RemoteDataSource {
                 });
 
 
-
     }
 
     @Override
@@ -307,8 +350,9 @@ public class RetrofitClient implements RemoteDataSource {
 
                     @Override
                     public void onSuccess(@NonNull MyObject myObject) {
-                        if(myObject.getList()!=null){
+                        if (myObject.getList() != null) {
                             Meal meal = myObject.getList().get(0);
+
                             String idMeal=meal.getIdMeal();
                             String strMeal=meal.getStrMeal();
                             String strMealThumb=meal.getStrMealThumb();
@@ -346,7 +390,7 @@ public class RetrofitClient implements RemoteDataSource {
 
                     @Override
                     public void onNext(@NonNull MyObject myObject) {
-                        if(myObject.getList()!=null)
+                        if (myObject.getList() != null)
                             networkDelegateSearchPlan.onResponseListOfMeals(myObject.getList());
 
                     }
@@ -392,8 +436,6 @@ public class RetrofitClient implements RemoteDataSource {
                     }
                 });
     }
-
-
 
 
     @Override

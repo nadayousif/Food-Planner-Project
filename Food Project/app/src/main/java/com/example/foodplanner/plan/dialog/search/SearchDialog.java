@@ -1,6 +1,5 @@
 package com.example.foodplanner.plan.dialog.search;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -25,12 +24,13 @@ import com.example.foodplanner.R;
 import com.example.foodplanner.helper.CheckConnection;
 import com.example.foodplanner.helper.MySharedPreference;
 import com.example.foodplanner.helper.MyUser;
+import com.example.foodplanner.plan.CommunicationWithDailog;
+import com.example.foodplanner.plan.PlanFragment;
 import com.example.foodplanner.plan.dialog.search.historyserach.AdapterHistory;
 import com.example.foodplanner.plan.dialog.search.historyserach.OnClickItemHistory;
 import com.example.foodplanner.plan.dialog.search.presenter.CommunicationSearchDialog;
 import com.example.foodplanner.plan.dialog.search.presenter.presenterSearchDialog;
 import com.example.foodplanner.plan.dialog.search.searchresult.AdapterSearchDialog;
-import com.example.foodplanner.plan.dialog.search.searchresult.OnClickItem;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Arrays;
@@ -47,12 +47,13 @@ public class SearchDialog extends DialogFragment implements  OnClickItemHistory,
     private AdapterHistory adapterHistory;
     private RecyclerView recDialogSearch;
     private RecyclerView recDialogSearchHistory;
-
+    private CommunicationWithDailog communication;
     private String day;
 
-    public SearchDialog(String day, MainActivity activity) {
+    public SearchDialog(String day, MainActivity activity, CommunicationWithDailog planFragment) {
         this.day = day;
         this.activity=activity;
+        communication=planFragment;
     }
 
     @NonNull
@@ -72,8 +73,8 @@ public class SearchDialog extends DialogFragment implements  OnClickItemHistory,
                             i.setDay(day);
                             i.setEmail(MyUser.getInstance().getEmail());
                         });
-                        activity.navController.navigate(R.id.action_navigation_plan_self);
                         presenterSearchDialog.setMealsInPlan(adapterSearchDialog.getListMeals());
+                        communication.update();
                     }
                 })
                 .setNegativeButton(R.string.cancel, new DialogInterface.OnClickListener() {

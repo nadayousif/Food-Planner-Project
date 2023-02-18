@@ -1,6 +1,5 @@
-package com.example.foodplanner.plan.dialog.favorite;
+package com.example.foodplanner.plan.dialog.favorite.presenter;
 
-import com.example.foodplanner.DBConnection.localdatabase.localdb.ConcreteLocalData;
 import com.example.foodplanner.DBConnection.localdatabase.localdb.LocalDataSource;
 import com.example.foodplanner.Model.FavoriteMeal;
 import com.example.foodplanner.Model.Meal;
@@ -35,7 +34,13 @@ public class PresenterFavoriteDialog implements NetworkDelegateFavDialog{
 communicationFavoriteDialog.sus();
     }
 
-    public void setMealsInPlan(List<Meal> list) {
-        localDataSource.setMealsFromFav(this,list);
+
+
+    public void deleteMealFromPlan(Meal meal) {
+        localDataSource.deleteMealFormPlan(meal);
+    }
+
+    public void addMealToPlan(Meal meal) {
+        localDataSource.addToPlan(meal);
     }
 }
