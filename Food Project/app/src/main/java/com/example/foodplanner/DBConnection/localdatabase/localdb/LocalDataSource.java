@@ -14,7 +14,7 @@ import java.util.List;
 public interface LocalDataSource {
     void deleteProduct(Meal meal);
 
-    void insertProduct(Meal  meal);
+    void insertMeal(Meal meal);
 
     void getMeal(String email, NetworkDelegatePlan networkDelegatePlan);
 

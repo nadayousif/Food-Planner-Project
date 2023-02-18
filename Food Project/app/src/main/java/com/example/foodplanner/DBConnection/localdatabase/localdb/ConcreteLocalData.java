@@ -44,8 +44,24 @@ public class ConcreteLocalData implements LocalDataSource{
         new Thread(()->{dao.deleteProduct(meal);}).start();
 
     }
-    public void insertProduct(Meal meal){
-        new Thread(()->{dao.insertProduct(meal);}).start();
+    public void insertMeal(Meal meal){
+        dao.insertMeal(meal).subscribeOn(Schedulers.computation()).subscribe(new CompletableObserver() {
+            @Override
+            public void onSubscribe(Disposable d) {
+
+            }
+
+            @Override
+            public void onComplete() {
+
+            }
+
+            @Override
+            public void onError(Throwable e) {
+                
+
+            }
+        });
     }
 
     @Override

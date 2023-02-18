@@ -23,8 +23,8 @@ public interface MealDAO {
     @Query("Select * from Meal where email = :email")
     Single<List<Meal>> getPlanMeals(String email);
 
-    @Insert
-    void insertProduct(Meal meal);
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    Completable insertMeal(Meal meal);
 
     @Delete
     void deleteProduct(Meal meal);
