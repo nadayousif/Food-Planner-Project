@@ -2,6 +2,9 @@ package com.example.foodplanner.DBConnection.localdatabase.localdb;
 
 import com.example.foodplanner.Model.FavoriteMeal;
 import com.example.foodplanner.Model.Meal;
+import com.example.foodplanner.favorite.presenter.NetworkDelegateFavMeal;
+import com.example.foodplanner.favorite.presenter.PresenterFavoriteMeal;
+
 import com.example.foodplanner.plan.dialog.favorite.presenter.NetworkDelegateFavDialog;
 import com.example.foodplanner.plan.dialog.search.presenter.NetworkDelegateSearchPlan;
 import com.example.foodplanner.plan.presenter.NetworkDelegatePlan;
@@ -28,7 +31,13 @@ public interface LocalDataSource {
     void getListFav(String email, NetworkDelegateFavDialog networkDelegateFavDialog);
      void setMealsFromFav(NetworkDelegateFavDialog networkDelegateFavDialog, List<Meal> listMeals);
 
+    void getListFavMeal(String email, NetworkDelegateFavMeal networkDelegateFavMeal);
+
+    void setMealsFromFavMeal(NetworkDelegateFavMeal networkDelegateFavMeal, List<Meal> list);
+
     void addToPlan(Meal meal);
 
     void deleteMealFormPlan(Meal meal);
+
+    void insertMeal(Meal meal);
 }

@@ -1,6 +1,8 @@
 package com.example.foodplanner.favorite;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,33 +16,47 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.example.foodplanner.Model.FavoriteMeal;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
+import com.example.foodplanner.meal.OnFavoriteClickListener;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdapter.MyViewHolder>{
     private static final String TAG = "MyAdapter";
     Context context;
-    Meal[] meals;
-    public FavoriteMealsAdapter(Context _context , Meal[]  _meals){
-        context = _context;
-        meals = _meals;
+   // Meal[] meals;
+    OnFavoriteClickListener onFavoriteClickListener;
+    private List<FavoriteMeal> arr;
+
+    public FavoriteMealsAdapter(){
+        this.arr = new ArrayList<>();
+
     }
-    public int getItemCount(){return meals.length;}
+    public void setArr(List<FavoriteMeal> arr) {
+        this.arr = arr;
+    }
+
+    @Override
+    public int getItemCount() {
+        return arr.size();
+    }
+
     @NonNull
     @Override
     public FavoriteMealsAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater inflater  = (LayoutInflater) context .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(R.layout.item_favorite , parent , false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_favorite, parent, false);
+
         MyViewHolder vh = new MyViewHolder(view);
-        Log.i(TAG , "onCreateViewHolder");
+
         return vh;
     }
 
     @Override
     public void onBindViewHolder(@NonNull FavoriteMealsAdapter.MyViewHolder holder, int position) {
-        Meal current = meals[position];
+       /* Meal current = meals[position];
         holder.name.setText(current.getStrMeal());
         //holder.thumbnails.setImageResource(current.getStrMealThumb());
         Glide.with(context).load(current.getStrMealThumb()).into(holder.getThumbnails());
@@ -49,8 +65,20 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
             public void onClick(View v) {
                 Toast.makeText(context,current.getStrMeal(),Toast.LENGTH_SHORT).show();
             }
+        });*/
+        holder.name.setText(arr.get(position).getStrMeal());
+        holder.layout.setOnClickListener((i) -> {
+            onFavoriteClickListener.onClick(arr.get(position).getIdMeal(), false);
         });
+        Bitmap bmp = BitmapFactory.decodeByteArray(arr.get(position).getImage(), 0, arr.get(position).getImage().length);
+        holder.thumbnails.setImageBitmap(bmp);
+       /* holder.close.setOnClickListener(i -> {
+            onFavoriteClickListener.onClick(arr.get(position).getIdMeal(), true);
+            arr.remove(position);
+            notifyDataSetChanged();
+        });*/
     }
+
 
 
     class  MyViewHolder extends RecyclerView.ViewHolder{

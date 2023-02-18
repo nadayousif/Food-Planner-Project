@@ -2,9 +2,10 @@ package com.example.foodplanner.DBConnection.localdatabase.localdb;
 
 import android.content.Context;
 import android.util.Log;
-
 import com.example.foodplanner.Model.FavoriteMeal;
 import com.example.foodplanner.Model.Meal;
+import com.example.foodplanner.favorite.presenter.NetworkDelegateFavMeal;
+
 import com.example.foodplanner.plan.dialog.favorite.presenter.NetworkDelegateFavDialog;
 import com.example.foodplanner.plan.dialog.search.presenter.NetworkDelegateSearchPlan;
 import com.example.foodplanner.plan.presenter.NetworkDelegatePlan;
@@ -43,7 +44,7 @@ public class ConcreteLocalData implements LocalDataSource {
         return concreteLocalData;
     }
 
-    }
+
     public void insertMeal(Meal meal){
         dao.insertMeal(meal).subscribeOn(Schedulers.computation()).subscribe(new CompletableObserver() {
             @Override
@@ -202,6 +203,27 @@ public class ConcreteLocalData implements LocalDataSource {
                 });
     }
 
+
+    @Override
+    public void getListFavMeal(String email, NetworkDelegateFavMeal networkDelegateFavMeal) {
+        dao.getFavoriteMeals(email).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new SingleObserver<List<FavoriteMeal>>() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        disposable.add(d);
+                    }
+
+                    @Override
+                    public void onSuccess(@NonNull List<FavoriteMeal> favoriteMeals) {
+                        networkDelegateFavMeal.setList(favoriteMeals);
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        networkDelegateFavMeal.onError(e.getMessage());
+                    }
+                });
+    }
     @Override
     public void setMealsFromFav(NetworkDelegateFavDialog networkDelegateFavDialog, List<Meal> listMeals) {
         dao.setMeals(listMeals).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
@@ -263,6 +285,28 @@ public class ConcreteLocalData implements LocalDataSource {
                     @Override
                     public void onError(@NonNull Throwable e) {
 
+                    }
+                });
+    }
+    @Override
+    public void setMealsFromFavMeal(NetworkDelegateFavMeal networkDelegateFavMeal, List<Meal> listMeals) {
+        dao.setMeals(listMeals).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        disposable.add(d);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        networkDelegateFavMeal.sus();
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        networkDelegateFavMeal.onError(e.getMessage().toString());
+                        Log.i(TAG, "onError: "+e.getMessage());
                     }
                 });
     }
