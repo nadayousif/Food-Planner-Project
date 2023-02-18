@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodplanner.APIconnection.RetrofitClient;
 import com.example.foodplanner.DBConnection.localdatabase.localdb.ConcreteLocalData;
 import com.example.foodplanner.MainActivity;
+import com.example.foodplanner.Model.FavoriteMeal;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
 import com.example.foodplanner.helper.CheckConnection;
@@ -31,6 +32,7 @@ import com.example.foodplanner.plan.dialog.search.historyserach.OnClickItemHisto
 import com.example.foodplanner.plan.dialog.search.presenter.CommunicationSearchDialog;
 import com.example.foodplanner.plan.dialog.search.presenter.presenterSearchDialog;
 import com.example.foodplanner.plan.dialog.search.searchresult.AdapterSearchDialog;
+import com.example.foodplanner.plan.dialog.search.searchresult.OnClickItem;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Arrays;
@@ -38,7 +40,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class SearchDialog extends DialogFragment implements  OnClickItemHistory, CommunicationSearchDialog {
+public class SearchDialog extends DialogFragment implements  OnClickItemHistory, CommunicationSearchDialog , OnClickItem {
 
     private static final String TAG = "Dialog";
     private final MainActivity activity;
@@ -68,12 +70,6 @@ public class SearchDialog extends DialogFragment implements  OnClickItemHistory,
                 .setPositiveButton(R.string.add, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        Toast.makeText(getContext(), day, Toast.LENGTH_SHORT).show();
-                        adapterSearchDialog.getListMeals().stream().forEach(i -> {
-                            i.setDay(day);
-                            i.setEmail(MyUser.getInstance().getEmail());
-                        });
-                        presenterSearchDialog.setMealsInPlan(adapterSearchDialog.getListMeals());
                         communication.update();
                     }
                 })
@@ -89,7 +85,7 @@ public class SearchDialog extends DialogFragment implements  OnClickItemHistory,
         recDialogSearchHistory.setLayoutManager(new LinearLayoutManager(getContext()));
 
         adapterHistory = new AdapterHistory(this);
-        adapterSearchDialog = new AdapterSearchDialog();
+        adapterSearchDialog = new AdapterSearchDialog(this);
 
         recDialogSearchHistory.setAdapter(adapterHistory);
         recDialogSearch.setAdapter(adapterSearchDialog);
@@ -206,5 +202,23 @@ public class SearchDialog extends DialogFragment implements  OnClickItemHistory,
     public void onComplete() {
         Snackbar.make(activity.findViewById(android.R.id.content), "added ", Snackbar.LENGTH_LONG)
                 .show();
+    }
+
+
+
+
+    @Override
+    public void saveMealToPlan(Meal meal) {
+        meal.setEmail(MyUser.getInstance().getEmail());
+        meal.setDay(day);
+        presenterSearchDialog.saveMealToPlan(meal);
+
+    }
+
+    @Override
+    public void removeMealToPlan(Meal meal) {
+        meal.setEmail(MyUser.getInstance().getEmail());
+        meal.setDay(day);
+        presenterSearchDialog.removeMealToPlan(meal);
     }
 }

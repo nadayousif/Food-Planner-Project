@@ -49,4 +49,12 @@ public class presenterSearchDialog implements NetworkDelegateSearchPlan {
     public void setMealsInPlan(List<Meal> listMeals) {
         localDataSource.setMeals(this,listMeals);
     }
+
+    public void saveMealToPlan(Meal meal) {
+        localDataSource.addToPlan(meal);
+    }
+
+    public void removeMealToPlan(Meal meal) {
+        localDataSource.deleteMealFormPlan(meal);
+    }
 }

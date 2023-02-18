@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.example.foodplanner.Model.FavoriteMeal;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
 import com.example.foodplanner.helper.Converter;
@@ -28,13 +29,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class AdapterSearchDialog extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private final OnClickItem onClickItem;
     private List<Meal> arr;
-    private List<Meal> selectedMeal;
     private Context context;
 
-    public AdapterSearchDialog() {
+    public AdapterSearchDialog(OnClickItem onClickItem) {
         this.arr = new ArrayList<>();
-        this.selectedMeal= new ArrayList<>();
+        this.onClickItem = onClickItem;
     }
 
     public void setArr(List<Meal> arr) {
@@ -57,7 +58,7 @@ public class AdapterSearchDialog extends RecyclerView.Adapter<RecyclerView.ViewH
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         ((SearchViewHolder) holder).item.setText(arr.get(position).getStrMeal());
-        ((SearchViewHolder) holder).cardView.setCardBackgroundColor(arr.get(position).isSelect()? context.getColor(R.color.primaryColor) : context.getColor(R.color.secondaryColor));
+        ((SearchViewHolder) holder).cardView.setCardBackgroundColor(arr.get(position).isSelect() ? context.getColor(R.color.primaryColor) : context.getColor(R.color.secondaryColor));
         Glide.with(context)
                 .asBitmap()
                 .load(arr.get(position).getStrMealThumb() + "/preview")
@@ -77,9 +78,9 @@ public class AdapterSearchDialog extends RecyclerView.Adapter<RecyclerView.ViewH
             public void onClick(View view) {
                 arr.get(holder.getAbsoluteAdapterPosition()).setSelect();
                 if (arr.get(holder.getAbsoluteAdapterPosition()).isSelect())
-                    selectedMeal.add(arr.get(holder.getAbsoluteAdapterPosition()));
+                    onClickItem.saveMealToPlan(arr.get(holder.getAbsoluteAdapterPosition()));
                 else
-                    selectedMeal.remove(arr.get(holder.getAbsoluteAdapterPosition()));
+                    onClickItem.removeMealToPlan(arr.get(holder.getAbsoluteAdapterPosition()));
                 notifyItemChanged(holder.getAbsoluteAdapterPosition());
             }
         });
@@ -91,12 +92,10 @@ public class AdapterSearchDialog extends RecyclerView.Adapter<RecyclerView.ViewH
         return arr.size();
     }
 
-    public List<Meal> getListMeals() {
-        return selectedMeal;
-    }
 
 
-    public class SearchViewHolder extends RecyclerView.ViewHolder{
+
+    public class SearchViewHolder extends RecyclerView.ViewHolder {
         TextView item;
         CardView cardView;
         ImageView imageView;
