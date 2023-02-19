@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 
+import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
+import com.google.gson.Gson;
 
 public class MySharedPreference {
     private static SharedPreferences sharedPreferences = null;
@@ -27,18 +29,20 @@ public class MySharedPreference {
     }
 
     public static boolean isLogin(Activity activity) {
-        String email = sharedPreferences.getString(activity.getString(R.string.userEmail),"");
+        String email = sharedPreferences.getString(activity.getString(R.string.userEmail), "");
         return !email.isEmpty();
 
 
     }
-    public static void clear(Activity activity){
+
+    public static void clear(Activity activity) {
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(activity.getString(R.string.userEmail), "");
         editor.apply();
     }
+
     public static String getEmail(Activity activity) {
-        String email = sharedPreferences.getString(activity.getString(R.string.userEmail),"");
+        String email = sharedPreferences.getString(activity.getString(R.string.userEmail), "");
         return email;
 
     }
@@ -48,10 +52,29 @@ public class MySharedPreference {
         String s = sharedPreferences.getString(activity.getString(R.string.historySearch), "");
         return s;
     }
-     public static void saveInHistory(Activity activity,String history) {
-         SharedPreferences.Editor editor = sharedPreferences.edit();
-         editor.putString(activity.getString(R.string.historySearch), history);
-         editor.apply();
+
+    public static void saveInHistory(Activity activity, String history) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(activity.getString(R.string.historySearch), history);
+        editor.apply();
 
     }
+
+    public static void saveMeal(Activity activity, Meal meal) {
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(activity.getString(R.string.MealOfDay), new Gson().toJson(meal));
+        editor.putString(activity.getString(R.string.arrayImageMealOfDay), new Gson().toJson(meal.getImage()));
+        editor.apply();
+
+    }
+    public static Meal getMeal(Activity activity) {
+        String s=sharedPreferences.getString(activity.getString(R.string.MealOfDay),"");
+        if (!s.isEmpty())
+            return new Gson().fromJson(s, Meal.class);
+        else
+            return null;
+
+    }
+
+
 }

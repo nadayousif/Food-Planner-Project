@@ -18,9 +18,11 @@ public class PresenterRandomMeal implements NetworkDelegateRandomMeal {
     public void getRandomMeal() {
         remoteDataSource.getRandomMeal(this);
     }
-    public void onResponseRandomMeal(String idMeal,String strMeal,String strMealThumb) {
-        communicationRandomMeal.setMeal(idMeal,strMeal,strMealThumb);
+    public void onResponseRandomMeal(Meal meal) {
+        communicationRandomMeal.setMeal(meal);
     }
+
+
 
     @Override
     public void onFailure(String message) {
