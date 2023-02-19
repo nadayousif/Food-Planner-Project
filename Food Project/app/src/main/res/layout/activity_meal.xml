@@ -79,7 +79,6 @@
                         android:foregroundGravity="center_horizontal"
                         android:gravity="clip_horizontal|center|center_vertical"
                         android:padding="8dp"
-                        android:onClick="loveButton"
                         app:layout_constraintBottom_toBottomOf="@+id/view4"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />

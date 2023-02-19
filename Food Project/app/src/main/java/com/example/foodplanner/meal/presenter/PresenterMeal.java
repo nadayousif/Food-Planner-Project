@@ -34,7 +34,6 @@ public class PresenterMeal implements NetworkDelegateMeal {
     }
     public void addToFav(FavoriteMeal tag) {
         localDataSource.addToFavorite(tag,this);
-
     }
 
     public void removeFromFav(FavoriteMeal meal) {

@@ -2,35 +2,38 @@ package com.example.foodplanner.meal;
 
 import androidx.annotation.NonNull;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.foodplanner.APIconnection.RetrofitClient;
 import com.example.foodplanner.DBConnection.localdatabase.localdb.ConcreteLocalData;
-import com.example.foodplanner.Model.FavoriteMeal;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
 
-import com.example.foodplanner.databinding.ActivityMealBinding;
 import com.example.foodplanner.helper.CheckConnection;
 import com.example.foodplanner.helper.Converter;
 import com.example.foodplanner.helper.MyUser;
 import com.example.foodplanner.meal.presenter.CommunicationMeal;
 import com.example.foodplanner.meal.presenter.PresenterMeal;
 
-import com.example.foodplanner.searchresult.OnViewClickSearchPlan;
 import com.google.android.material.snackbar.Snackbar;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
@@ -53,6 +56,7 @@ public class MealActivity extends AppCompatActivity  implements CommunicationMea
     YouTubePlayerView youTubePlayerView ;
     AdapterIngredientMeasure adapterIngredientMeasure;
     PresenterMeal presenterMeal;
+    Button addTest;
 
 
     Meal meal;
@@ -69,6 +73,7 @@ public class MealActivity extends AppCompatActivity  implements CommunicationMea
         mealCountry=findViewById(R.id.tv_country);
         favoriteMeal = findViewById(R.id.iv_favorite_image_button);
 
+
         youTubePlayerView =findViewById(R.id.ybv);
         RecyclerView recIngrMeas = findViewById(R.id.rc_meal_Ingredient_Measure);
         RecyclerView recInst = findViewById(R.id.rec_mael_instructions);
@@ -77,11 +82,12 @@ public class MealActivity extends AppCompatActivity  implements CommunicationMea
             String id = getIntent().getStringExtra(getString(R.string.mealID));
             PresenterMeal presenterMeal = new PresenterMeal(RetrofitClient.getInstance(), this, ConcreteLocalData.getInstance(this));
             presenterMeal.getMeal(id);
-           /* favoriteMeal.setOnClickListener(v -> {
+
+            favoriteMeal.setOnClickListener(v -> {
                         v.setEnabled(false);
                 Toast.makeText(this, "HI AMMAR", Toast.LENGTH_SHORT).show();
                         if (MyUser.getInstance().isLogin()) {
-
+                            meal.setEmail(MyUser.getInstance().getEmail());
                             if (((ToggleButton) v).isChecked()) {
                                 Toast.makeText(this, "add to favorite", Toast.LENGTH_SHORT).show();
 
@@ -90,7 +96,7 @@ public class MealActivity extends AppCompatActivity  implements CommunicationMea
                                 presenterMeal.removeFromFav(Converter.convertMealToFav(meal));
                         }
                     }
-            );*/
+            );
         }else {
             Snackbar.make(findViewById(android.R.id.content), "no internet connection pls try again ", Snackbar.LENGTH_LONG)
                     .show();
@@ -105,12 +111,7 @@ public class MealActivity extends AppCompatActivity  implements CommunicationMea
         recInst.setAdapter(adapterInstructions);
 
 
-        favoriteMeal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //communication.setOnSave(DataSet.get(position));
-            }
-        });
+
 
     }
 
@@ -137,7 +138,21 @@ public class MealActivity extends AppCompatActivity  implements CommunicationMea
         adapterInstructions.setInstructions(strInstructions);
         adapterInstructions.notifyDataSetChanged();
         mealName.setText(strMeal);
-        Glide.with(this).load(strMealThumb).into(mealPhoto);
+       // Glide.with(this).load(strMealThumb).into(mealPhoto);
+        Glide.with(this)
+                .asBitmap()
+                .load(strMealThumb)
+                .into(new CustomTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        mealPhoto.setImageBitmap(resource);
+                        meal.setImage(Converter.getBytesFromBitmap(resource));
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                    }
+                });
         mealCategory.setText(strMealCategory);
         mealCountry.setText(strCountry);
         final String[] VideoUrl = {strYouTube};
@@ -181,27 +196,16 @@ public class MealActivity extends AppCompatActivity  implements CommunicationMea
 
     @Override
     public void onFailureToAdd(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
         favoriteMeal.setEnabled(true);
     }
 
-    public void onClick(String id) {
+    /*public void onClick(String id) {
         Intent intent = new Intent(this, MealActivity.class);
         intent.putExtra(getString(R.string.mealID),id);
         intent.putExtra(getString(R.string.isLocal),false);
         startActivity(intent);
-    }
+    }*/
 
-    public void loveButton(View v) {
-        Toast.makeText(this, "HI NADA", Toast.LENGTH_SHORT).show();
-        v.setEnabled(false);
-        if (MyUser.getInstance().isLogin()) {
-            if (((ToggleButton) v).isChecked()) {
-                Toast.makeText(this, "add to favorite", Toast.LENGTH_SHORT).show();
 
-                presenterMeal.addToFav( Converter.convertMealToFav(meal));
-            } else
-                presenterMeal.removeFromFav(Converter.convertMealToFav(meal));
-        }
-
-    }
 }
