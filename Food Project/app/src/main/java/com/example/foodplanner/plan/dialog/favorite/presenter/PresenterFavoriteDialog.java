@@ -42,5 +42,6 @@ communicationFavoriteDialog.sus();
 
     public void addMealToPlan(Meal meal) {
         localDataSource.addToPlan(meal);
+
     }
 }

@@ -37,12 +37,15 @@ import com.example.foodplanner.helper.Converter;
 import com.example.foodplanner.helper.MyUser;
 
 import com.example.foodplanner.meal.MealActivity;
+import com.example.foodplanner.profile.FirebaseDataBase;
+import com.example.foodplanner.profile.MealFirebase;
 import com.example.foodplanner.searchresult.AdapterSearchResult;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class FavoriteFragment extends Fragment implements CommunicationFavoriteMeal,OnClickFavoriteItem {
     private static final String TAG = "TAGG";
@@ -86,6 +89,7 @@ public class FavoriteFragment extends Fragment implements CommunicationFavoriteM
     public void onClick(String idMeal, boolean isClose) {
         if (isClose)
             presenterFavoriteMeal.deleteMeal(idMeal, MyUser.getInstance().getEmail());
+
         else {
             Intent intent = new Intent(getActivity(), MealActivity.class);
             intent.putExtra(getString(R.string.mealID), idMeal);

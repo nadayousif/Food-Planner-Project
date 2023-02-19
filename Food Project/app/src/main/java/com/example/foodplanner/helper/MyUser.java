@@ -5,6 +5,7 @@ package com.example.foodplanner.helper;
 public class MyUser {
 
     private String email;
+
     private static MyUser instance = null;
 
     private MyUser() {

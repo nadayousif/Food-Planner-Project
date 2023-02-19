@@ -21,9 +21,13 @@ import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
 import com.example.foodplanner.meal.OnFavoriteClickListener;
 import com.example.foodplanner.plan.adapter.OnClickItem;
+import com.example.foodplanner.profile.FirebaseDataBase;
+import com.example.foodplanner.profile.MealFirebase;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdapter.MyViewHolder>{
     private static final String TAG = "MyAdapter";
@@ -72,12 +76,27 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
         holder.name.setText(arr.get(position).getStrMeal());
         holder.layout.setOnClickListener((i) -> {
             onClickFavoriteItem.onClick(arr.get(position).getIdMeal(), false);
+
         });
         if(arr.get(position).getImage() !=null){
             Bitmap bmp = BitmapFactory.decodeByteArray(arr.get(position).getImage(), 0, arr.get(position).getImage().length);
             holder.thumbnails.setImageBitmap(bmp);
             holder.close.setOnClickListener(i -> {
                 onClickFavoriteItem.onClick(arr.get(position).getIdMeal(), true);
+                MealFirebase fireBaseRecord = new MealFirebase();
+                fireBaseRecord.setIdMeal(arr.get(position).getIdMeal());
+                fireBaseRecord.setEmail(arr.get(position).getEmail());
+                fireBaseRecord.setStrArea(arr.get(position).getStrArea());
+                fireBaseRecord.setStrCategory(arr.get(position).getStrCategory());
+                fireBaseRecord.setStrMeal(arr.get(position).getStrMeal());
+                fireBaseRecord.setStrIngredient(arr.get(position).getStrIngredient());
+                fireBaseRecord.setStrInstructions(arr.get(position).getStrInstructions());
+                fireBaseRecord.setStrMealThumb(arr.get(position).getStrMealThumb());
+                fireBaseRecord.setStrYoutube(arr.get(position).getStrYoutube());
+                fireBaseRecord.setIngredients(arr.get(position).getIngredients());
+                fireBaseRecord.setMeasures(arr.get(position).getMeasures());
+                fireBaseRecord.setImages(IntStream.range(0, arr.get(position).getImage().length).mapToObj(e -> (int) arr.get(position).getImage()[e]).collect(Collectors.toList()));
+                FirebaseDataBase.removeFavouriteFromFirebase(context,fireBaseRecord);
                 arr.remove(position);
                 notifyDataSetChanged();
             });

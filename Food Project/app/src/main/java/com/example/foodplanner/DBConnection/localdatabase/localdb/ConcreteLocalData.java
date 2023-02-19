@@ -324,6 +324,7 @@ public class ConcreteLocalData implements LocalDataSource {
                     @Override
                     public void onComplete() {
 
+
                     }
 
                     @Override
