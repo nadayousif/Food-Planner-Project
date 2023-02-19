@@ -72,7 +72,7 @@ public class MealActivity extends AppCompatActivity implements CommunicationMeal
 
     YouTubePlayerView youTubePlayerView;
     AdapterIngredientMeasure adapterIngredientMeasure;
-     PresenterMeal presenterMeal;
+    PresenterMeal presenterMeal;
     Meal meal;
 
     @Override
@@ -110,50 +110,50 @@ public class MealActivity extends AppCompatActivity implements CommunicationMeal
             }
             favoriteMeal.setOnClickListener(v -> {
 
-                        v.setEnabled(false);
+                v.setEnabled(false);
 
-                        if (MyUser.getInstance().isLogin()) {
-                            meal.setEmail(MyUser.getInstance().getEmail());
-                            if (((ToggleButton) v).isChecked()) {
-                                Toast.makeText(this, "add to favorite", Toast.LENGTH_SHORT).show();
-                                presenterMeal.addToFav( Converter.convertMealToFav(meal));
+                if (MyUser.getInstance().isLogin()) {
+                    meal.setEmail(MyUser.getInstance().getEmail());
+                    if (((ToggleButton) v).isChecked()) {
+                        Toast.makeText(this, "add to favorite", Toast.LENGTH_SHORT).show();
+                        presenterMeal.addToFav(Converter.convertMealToFav(meal));
 
-                                MealFirebase fireBaseRecord = new MealFirebase();
-                                fireBaseRecord.setIdMeal(meal.getIdMeal());
-                                fireBaseRecord.setDay(meal.getDay());
-                                fireBaseRecord.setEmail(meal.getEmail());
-                                fireBaseRecord.setStrArea(meal.getStrArea());
-                                fireBaseRecord.setStrCategory(meal.getStrCategory());
-                                fireBaseRecord.setStrMeal(meal.getStrMeal());
-                                fireBaseRecord.setStrIngredient(meal.getStrIngredient());
-                                fireBaseRecord.setStrInstructions(meal.getStrInstructions());
-                                fireBaseRecord.setStrMealThumb(meal.getStrMealThumb());
-                                fireBaseRecord.setStrYoutube(meal.getStrYoutube());
-                                fireBaseRecord.setIngredients(meal.getIngredients());
-                                fireBaseRecord.setMeasures(meal.getMeasures());
-                                fireBaseRecord.setImages(IntStream.range(0, meal.getImage().length).mapToObj(i -> (int) meal.getImage()[i]).collect(Collectors.toList()));
+                        MealFirebase fireBaseRecord = new MealFirebase();
+                        fireBaseRecord.setIdMeal(meal.getIdMeal());
+                        fireBaseRecord.setDay(meal.getDay());
+                        fireBaseRecord.setEmail(meal.getEmail());
+                        fireBaseRecord.setStrArea(meal.getStrArea());
+                        fireBaseRecord.setStrCategory(meal.getStrCategory());
+                        fireBaseRecord.setStrMeal(meal.getStrMeal());
+                        fireBaseRecord.setStrIngredient(meal.getStrIngredient());
+                        fireBaseRecord.setStrInstructions(meal.getStrInstructions());
+                        fireBaseRecord.setStrMealThumb(meal.getStrMealThumb());
+                        fireBaseRecord.setStrYoutube(meal.getStrYoutube());
+                        fireBaseRecord.setIngredients(meal.getIngredients());
+                        fireBaseRecord.setMeasures(meal.getMeasures());
+                        fireBaseRecord.setImages(IntStream.range(0, meal.getImage().length).mapToObj(i -> (int) meal.getImage()[i]).collect(Collectors.toList()));
 
 
-                                FirebaseDataBase.addFavouriteToFirebase(this,fireBaseRecord);
-                            } else{
-                                presenterMeal.removeFromFav(Converter.convertMealToFav(meal));
-                            MealFirebase fireBaseRecord = new MealFirebase();
-                            fireBaseRecord.setIdMeal(meal.getIdMeal());
-                            fireBaseRecord.setDay(meal.getDay());
-                            fireBaseRecord.setEmail(meal.getEmail());
-                            fireBaseRecord.setStrArea(meal.getStrArea());
-                            fireBaseRecord.setStrCategory(meal.getStrCategory());
-                            fireBaseRecord.setStrMeal(meal.getStrMeal());
-                            fireBaseRecord.setStrIngredient(meal.getStrIngredient());
-                            fireBaseRecord.setStrInstructions(meal.getStrInstructions());
-                            fireBaseRecord.setStrMealThumb(meal.getStrMealThumb());
-                            fireBaseRecord.setStrYoutube(meal.getStrYoutube());
-                            fireBaseRecord.setIngredients(meal.getIngredients());
-                            fireBaseRecord.setMeasures(meal.getMeasures());
-                            fireBaseRecord.setImages(IntStream.range(0, meal.getImage().length).mapToObj(i -> (int) meal.getImage()[i]).collect(Collectors.toList()));
-                            FirebaseDataBase.removeFavouriteFromFirebase(this,fireBaseRecord);
-                            }
-                        }
+                        FirebaseDataBase.addFavouriteToFirebase(this, fireBaseRecord);
+                    } else {
+                        presenterMeal.removeFromFav(Converter.convertMealToFav(meal));
+                        MealFirebase fireBaseRecord = new MealFirebase();
+                        fireBaseRecord.setIdMeal(meal.getIdMeal());
+                        fireBaseRecord.setDay(meal.getDay());
+                        fireBaseRecord.setEmail(meal.getEmail());
+                        fireBaseRecord.setStrArea(meal.getStrArea());
+                        fireBaseRecord.setStrCategory(meal.getStrCategory());
+                        fireBaseRecord.setStrMeal(meal.getStrMeal());
+                        fireBaseRecord.setStrIngredient(meal.getStrIngredient());
+                        fireBaseRecord.setStrInstructions(meal.getStrInstructions());
+                        fireBaseRecord.setStrMealThumb(meal.getStrMealThumb());
+                        fireBaseRecord.setStrYoutube(meal.getStrYoutube());
+                        fireBaseRecord.setIngredients(meal.getIngredients());
+                        fireBaseRecord.setMeasures(meal.getMeasures());
+                        fireBaseRecord.setImages(IntStream.range(0, meal.getImage().length).mapToObj(i -> (int) meal.getImage()[i]).collect(Collectors.toList()));
+                        FirebaseDataBase.removeFavouriteFromFirebase(this, fireBaseRecord);
+                    }
+                }
 
                 if (MyUser.getInstance().isLogin()) {
                     v.setEnabled(false);
@@ -292,9 +292,10 @@ public class MealActivity extends AppCompatActivity implements CommunicationMeal
     @Override
     public void updateDB(List<String> list) {
         meal.setEmail(MyUser.getInstance().getEmail());
-        List<Meal> meals=list.stream().map(i->{
-            meal.setDay(i);
-            return meal;
+        List<Meal> meals = list.stream().map(i -> {
+            Meal meal1=Converter.createMeal(meal);
+            meal1.setDay(i);
+            return meal1;
         }).collect(Collectors.toList());
         presenterMeal.addToPlan(meals);
     }
@@ -321,14 +322,14 @@ public class MealActivity extends AppCompatActivity implements CommunicationMeal
                             List<String> list = chipGroup.getCheckedChipIds().stream()
                                     .map(i ->
                                             ((Chip) view.findViewById(i)).getTag().toString()).collect(Collectors.toList());
-                         communicationMeal.updateDB(list);
+                            Log.i(TAG, "onClick: "+list.size());
+                            communicationMeal.updateDB(list);
 
-                    }
-        });
-
+                        }
+                    });
 
 
             return builder.create();
+        }
     }
-}
 }
