@@ -1,6 +1,8 @@
 package com.example.foodplanner.meal.presenter;
 
 import com.example.foodplanner.Model.Meal;
+import com.example.foodplanner.meal.OnViewClickFavorite;
+import com.example.foodplanner.searchresult.OnViewClickSearchPlan;
 
 import java.util.ArrayList;
 
@@ -10,4 +12,7 @@ public interface NetworkDelegateMeal {
     void onFailure(String message);
 
     void onResponseMealView(Meal meal);
+    void sus();
+
+    void onFailureToAdd( String message);
 }

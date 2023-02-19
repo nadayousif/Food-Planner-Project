@@ -89,12 +89,9 @@ public class PlanFragment extends Fragment implements OnClickItem, Communication
         super.onPause();
     }
 
-    @Override
-    public void onDestroyView() {
-        super.onDestroyView();
-        binding = null;
-//        presenterPlan.clear();
-    }
+
+
+
 
 
     @Override

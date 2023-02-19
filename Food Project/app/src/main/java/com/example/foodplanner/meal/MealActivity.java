@@ -2,26 +2,38 @@ package com.example.foodplanner.meal;
 
 import androidx.annotation.NonNull;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
+
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.ToggleButton;
+
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.example.foodplanner.APIconnection.RetrofitClient;
 import com.example.foodplanner.DBConnection.localdatabase.localdb.ConcreteLocalData;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
 
-import com.example.foodplanner.databinding.ActivityMealBinding;
 import com.example.foodplanner.helper.CheckConnection;
+import com.example.foodplanner.helper.Converter;
 import com.example.foodplanner.helper.MyUser;
 import com.example.foodplanner.meal.presenter.CommunicationMeal;
 import com.example.foodplanner.meal.presenter.PresenterMeal;
+
 import com.google.android.material.snackbar.Snackbar;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
@@ -33,17 +45,19 @@ import java.util.StringTokenizer;
 
 public class MealActivity extends AppCompatActivity  implements CommunicationMeal {
     private static final String TAG = "TAGG";
-    private ActivityMealBinding binding;
+
     AdapterInstructions adapterInstructions;
     ImageView mealPhoto;
     TextView mealName;
     TextView mealCategory;
     TextView mealCountry;
-    ImageView favoriteMeal;
-    private OnFavoriteClickListener communication;
+    ToggleButton favoriteMeal;
+
     YouTubePlayerView youTubePlayerView ;
     AdapterIngredientMeasure adapterIngredientMeasure;
     PresenterMeal presenterMeal;
+    Button addTest;
+
 
     Meal meal;
     //Meal meal = new Meal("52772", "Teriyaki Chicken Casserole", null, "Chicken", "Japanese", "Preheat oven to 350° F. Spray a 9x13-inch baking pan with non-stick spray.\r\nCombine soy sauce, ½ cup water, brown sugar, ginger and garlic in a small saucepan and cover. Bring to a boil over medium heat. Remove lid and cook for one minute once boiling.\r\nMeanwhile, stir together the corn starch and 2 tablespoons of water in a separate dish until smooth. Once sauce is boiling, add mixture to the saucepan and stir to combine. Cook until the sauce starts to thicken then remove from heat.\r\nPlace the chicken breasts in the prepared pan. Pour one cup of the sauce over top of chicken. Place chicken in oven and bake 35 minutes or until cooked through. Remove from oven and shred chicken in the dish using two forks.\r\n*Meanwhile, steam or cook the vegetables according to package directions.\r\nAdd the cooked vegetables and rice to the casserole dish with the chicken. Add most of the remaining sauce, reserving a bit to drizzle over the top when serving. Gently toss everything together in the casserole dish until combined. Return to oven and cook 15 minutes. Remove from oven and let stand 5 minutes before serving. Drizzle each serving with remaining sauce. Enjoy!", "https://www.themealdb.com/images/media/meals/wvpsxx1468256321.jpg", "https://www.youtube.com/watch?v=4aZr5hZXP_s", "soy sauce", "water", "brown sugar", "ground ginger", "minced garlic", "cornstarch", "chicken breasts", "stir-fry vegetables", "brown rice", "", "", "", "", "", "", null, null, null, null, null, "3/4 cup", "1/2 cup", "1/4 cup", "1/2 teaspoon", "1/2 teaspoon", "4 Tablespoons", "2", "1 (12 oz.)", "3 cups", "", "", "", "", "", "", null, null, null, null, null);
@@ -51,14 +65,15 @@ public class MealActivity extends AppCompatActivity  implements CommunicationMea
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityMealBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
+
         setContentView(R.layout.activity_meal);
         mealPhoto = findViewById(R.id.iv_meal);
         mealName = findViewById(R.id.tv_mael_name);
         mealCategory = findViewById(R.id.tv_meal_category);
         mealCountry=findViewById(R.id.tv_country);
         favoriteMeal = findViewById(R.id.iv_favorite_image_button);
+
+
         youTubePlayerView =findViewById(R.id.ybv);
         RecyclerView recIngrMeas = findViewById(R.id.rc_meal_Ingredient_Measure);
         RecyclerView recInst = findViewById(R.id.rec_mael_instructions);
@@ -67,6 +82,21 @@ public class MealActivity extends AppCompatActivity  implements CommunicationMea
             String id = getIntent().getStringExtra(getString(R.string.mealID));
             PresenterMeal presenterMeal = new PresenterMeal(RetrofitClient.getInstance(), this, ConcreteLocalData.getInstance(this));
             presenterMeal.getMeal(id);
+
+            favoriteMeal.setOnClickListener(v -> {
+                        v.setEnabled(false);
+                Toast.makeText(this, "HI AMMAR", Toast.LENGTH_SHORT).show();
+                        if (MyUser.getInstance().isLogin()) {
+                            meal.setEmail(MyUser.getInstance().getEmail());
+                            if (((ToggleButton) v).isChecked()) {
+                                Toast.makeText(this, "add to favorite", Toast.LENGTH_SHORT).show();
+
+                                presenterMeal.addToFav( Converter.convertMealToFav(meal));
+                            } else
+                                presenterMeal.removeFromFav(Converter.convertMealToFav(meal));
+                        }
+                    }
+            );
         }else {
             Snackbar.make(findViewById(android.R.id.content), "no internet connection pls try again ", Snackbar.LENGTH_LONG)
                     .show();
@@ -81,12 +111,7 @@ public class MealActivity extends AppCompatActivity  implements CommunicationMea
         recInst.setAdapter(adapterInstructions);
 
 
-        favoriteMeal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //communication.setOnSave(DataSet.get(position));
-            }
-        });
+
 
     }
 
@@ -102,7 +127,7 @@ public class MealActivity extends AppCompatActivity  implements CommunicationMea
     public void addToPLan(View view) {
     }
     public void setError(String message){
-        Snackbar.make(binding.getRoot(), "something wrong pls try again", Snackbar.LENGTH_LONG)
+        Snackbar.make(findViewById(android.R.id.content), "something wrong pls try again", Snackbar.LENGTH_LONG)
                 .show();
     }
     public void setMeal(Meal meal,String idMeal, String strMeal, String strMealThumb, String strMealCategory, ArrayList<String> strIngredients, ArrayList<String> strMeasures, String[]   strInstructions,String strCountry,String strYouTube){
@@ -113,7 +138,21 @@ public class MealActivity extends AppCompatActivity  implements CommunicationMea
         adapterInstructions.setInstructions(strInstructions);
         adapterInstructions.notifyDataSetChanged();
         mealName.setText(strMeal);
-        Glide.with(this).load(strMealThumb).into(mealPhoto);
+       // Glide.with(this).load(strMealThumb).into(mealPhoto);
+        Glide.with(this)
+                .asBitmap()
+                .load(strMealThumb)
+                .into(new CustomTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                        mealPhoto.setImageBitmap(resource);
+                        meal.setImage(Converter.getBytesFromBitmap(resource));
+                    }
+
+                    @Override
+                    public void onLoadCleared(@Nullable Drawable placeholder) {
+                    }
+                });
         mealCategory.setText(strMealCategory);
         mealCountry.setText(strCountry);
         final String[] VideoUrl = {strYouTube};
@@ -142,9 +181,31 @@ public class MealActivity extends AppCompatActivity  implements CommunicationMea
         }
 
         this.meal=meal;
+
     }
 
     public void setMealView(Meal meal){
 
     }
+
+    @Override
+    public void susToAdd() {
+        Toast.makeText(this, "added", Toast.LENGTH_SHORT).show();
+        favoriteMeal.setEnabled(true);
+    }
+
+    @Override
+    public void onFailureToAdd(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        favoriteMeal.setEnabled(true);
+    }
+
+    /*public void onClick(String id) {
+        Intent intent = new Intent(this, MealActivity.class);
+        intent.putExtra(getString(R.string.mealID),id);
+        intent.putExtra(getString(R.string.isLocal),false);
+        startActivity(intent);
+    }*/
+
+
 }

@@ -20,6 +20,7 @@ import com.example.foodplanner.Model.FavoriteMeal;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
 import com.example.foodplanner.meal.OnFavoriteClickListener;
+import com.example.foodplanner.plan.adapter.OnClickItem;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,11 +29,13 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
     private static final String TAG = "MyAdapter";
     Context context;
    // Meal[] meals;
-    OnFavoriteClickListener onFavoriteClickListener;
+
+    OnClickFavoriteItem onClickFavoriteItem;
     private List<FavoriteMeal> arr;
 
-    public FavoriteMealsAdapter(){
+    public FavoriteMealsAdapter(OnClickFavoriteItem onClickFavoriteItem){
         this.arr = new ArrayList<>();
+        this.onClickFavoriteItem=onClickFavoriteItem;
 
     }
     public void setArr(List<FavoriteMeal> arr) {
@@ -68,15 +71,19 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
         });*/
         holder.name.setText(arr.get(position).getStrMeal());
         holder.layout.setOnClickListener((i) -> {
-            onFavoriteClickListener.onClick(arr.get(position).getIdMeal(), false);
+            onClickFavoriteItem.onClick(arr.get(position).getIdMeal(), false);
         });
-        Bitmap bmp = BitmapFactory.decodeByteArray(arr.get(position).getImage(), 0, arr.get(position).getImage().length);
-        holder.thumbnails.setImageBitmap(bmp);
-       /* holder.close.setOnClickListener(i -> {
-            onFavoriteClickListener.onClick(arr.get(position).getIdMeal(), true);
-            arr.remove(position);
-            notifyDataSetChanged();
-        });*/
+        if(arr.get(position).getImage() !=null){
+            Bitmap bmp = BitmapFactory.decodeByteArray(arr.get(position).getImage(), 0, arr.get(position).getImage().length);
+            holder.thumbnails.setImageBitmap(bmp);
+            holder.close.setOnClickListener(i -> {
+                onClickFavoriteItem.onClick(arr.get(position).getIdMeal(), true);
+                arr.remove(position);
+                notifyDataSetChanged();
+            });
+        }
+
+
     }
 
 
@@ -85,6 +92,7 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
         ConstraintLayout layout;
         TextView name;
         ImageView thumbnails;
+        public ImageView close;
 
         public ConstraintLayout getLayout() {
             return layout;
@@ -104,6 +112,7 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
             layout = itemView.findViewById(R.id.constrain_id);
             name = itemView.findViewById(R.id.text_id);
             thumbnails = itemView.findViewById(R.id.image_favorite);
+            close = itemView.findViewById(R.id.iv_button_close_favorite);
         }
     }
 }

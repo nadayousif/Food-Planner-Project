@@ -8,4 +8,6 @@ public interface CommunicationFavoriteMeal {
     void setError(String message);
     void setList(List<FavoriteMeal> favoriteMeals);
     void sus();
+
+    void onComplete();
 }
