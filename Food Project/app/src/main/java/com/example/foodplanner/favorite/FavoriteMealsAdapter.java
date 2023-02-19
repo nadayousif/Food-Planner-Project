@@ -9,18 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.bumptech.glide.Glide;
 import com.example.foodplanner.Model.FavoriteMeal;
-import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
-import com.example.foodplanner.meal.OnFavoriteClickListener;
-import com.example.foodplanner.plan.adapter.OnClickItem;
 
 import java.util.ArrayList;
 import java.util.List;

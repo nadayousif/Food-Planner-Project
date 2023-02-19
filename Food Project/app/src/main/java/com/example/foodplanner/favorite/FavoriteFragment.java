@@ -89,6 +89,7 @@ public class FavoriteFragment extends Fragment implements CommunicationFavoriteM
             Intent intent = new Intent(getActivity(), MealActivity.class);
             intent.putExtra(getString(R.string.mealID), idMeal);
             intent.putExtra(getString(R.string.isLocal), true);
+            intent.putExtra(getString(R.string.isFav), true);
             startActivity(intent);
         }
     }

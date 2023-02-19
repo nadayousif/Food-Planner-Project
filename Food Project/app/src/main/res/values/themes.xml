@@ -11,7 +11,6 @@
         <item name="colorOnSecondary">@color/secondaryTextColor</item>
 
         <item name="bottomNavigationStyle">@style/Widget.App.BottomNavigationView</item>
-
     </style>
     <style name="Widget.App.BottomNavigationView" parent="Widget.MaterialComponents.BottomNavigationView">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.BottomNavigationView</item>
@@ -46,11 +45,11 @@
         <item name="android:textOn"></item>
         <item name="android:textOff"></item>
     </style>
-    <style name="Colors_Widget.MaterialComponents.Chip.Choice" parent="Widget.MaterialComponents.Chip.Choice">
-<!--        <item name="chipBackgroundColor">@color/colorstate</item>-->
-<!--        <item name="chipStrokeColor">@color/colorstate2</item>-->
-<!--        <item name="chipStrokeWidth">1dp</item>-->
-<!--        <item name="android:textColor">@color/black</item>-->
+    <style name="Colors_Widget.MaterialComponents.Chip" parent="Widget.MaterialComponents.Chip.Filter">
+        <item name="chipBackgroundColor">@color/primaryDarkColor</item>
+        <item name="android:textColor">@color/secondaryTextColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:checked">false</item>
     </style>
 
 

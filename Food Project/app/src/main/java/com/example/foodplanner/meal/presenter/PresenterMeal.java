@@ -4,12 +4,8 @@ import com.example.foodplanner.APIconnection.RemoteDataSource;
 import com.example.foodplanner.DBConnection.localdatabase.localdb.LocalDataSource;
 import com.example.foodplanner.Model.FavoriteMeal;
 import com.example.foodplanner.Model.Meal;
-import com.example.foodplanner.meal.OnViewClickFavorite;
-import com.example.foodplanner.searchresult.OnViewClickSearchPlan;
-import com.example.foodplanner.searchresult.presenter.CommunicationSearchResult;
-import com.example.foodplanner.searchresult.presenter.NetworkDelegateSearchResult;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class PresenterMeal implements NetworkDelegateMeal {
     RemoteDataSource remoteDataSource;
@@ -22,12 +18,9 @@ public class PresenterMeal implements NetworkDelegateMeal {
         this.localDataSource = localDataSource;
     }
 
-   /* public void getInstructions(String id) {
-        remoteDataSource.getInstructions(id,this);
-    }*/
-  public void onResponseMeal(Meal meal, String idMeal, String strMeal, String strMealThumb, String strMealCategory, ArrayList<String> strIngredients, ArrayList<String>  strMeasures,String[]  strInstructions,String strCountry,String strYouTube){
-       communicationMeal.setMeal(meal,idMeal,strMeal,strMealThumb,strMealCategory,strIngredients,strMeasures,strInstructions,strCountry,strYouTube);
-   }
+  public void onResponseMeal(Meal meal,Boolean isLocal ){
+       communicationMeal.setMeal(meal,isLocal);
+    }
     public void onFailure(String message){
         communicationMeal.setError(message);
 
@@ -39,13 +32,8 @@ public class PresenterMeal implements NetworkDelegateMeal {
     public void removeFromFav(FavoriteMeal meal) {
         localDataSource.removeFromFavorite(meal,this);
     }
-    public  void onResponseMealView(Meal meal){
-      communicationMeal.setMealView(meal);
-    }
 
-    public  void insertMeal(Meal meal) {
-        localDataSource.insertMeal(meal);
-    }
+
 
     public void getMeal(String id) {
         remoteDataSource.getMeal(id,this);
@@ -58,5 +46,17 @@ public class PresenterMeal implements NetworkDelegateMeal {
 
     public void onFailureToAdd( String message) {
         communicationMeal.onFailureToAdd( message);
+    }
+
+    public void getMealLocal(String id, String email) {
+      localDataSource.getMealPlan(id,email,this);
+    }
+
+    public void getMealLocalFav(String id, String email) {
+        localDataSource.getMealFav(id,email,this);
+    }
+
+    public void addToPlan(List<Meal> list) {
+        localDataSource.addMealsToPlan(list);
     }
 }

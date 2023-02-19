@@ -3,9 +3,7 @@ package com.example.foodplanner.DBConnection.localdatabase.localdb;
 import com.example.foodplanner.Model.FavoriteMeal;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.favorite.presenter.NetworkDelegateFavMeal;
-import com.example.foodplanner.favorite.presenter.PresenterFavoriteMeal;
 
-import com.example.foodplanner.meal.OnViewClickFavorite;
 import com.example.foodplanner.meal.presenter.NetworkDelegateMeal;
 import com.example.foodplanner.meal.presenter.PresenterMeal;
 import com.example.foodplanner.plan.dialog.favorite.presenter.NetworkDelegateFavDialog;
@@ -49,4 +47,11 @@ public interface LocalDataSource {
     void addToFavorite(FavoriteMeal tag, NetworkDelegateMeal networkDelegateMeal);
 
     void removeFromFavorite(FavoriteMeal meal, NetworkDelegateMeal networkDelegateMeal);
+
+
+    void getMealPlan(String id, String email, NetworkDelegateMeal networkDelegateMeal);
+
+    void getMealFav(String id, String email, NetworkDelegateMeal networkDelegateMeal);
+
+    void addMealsToPlan(List<Meal> list);
 }

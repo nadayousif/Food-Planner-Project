@@ -14,6 +14,7 @@ import com.example.foodplanner.searchresult.presenter.NetworkDelegateSearchResul
 import com.example.foodplanner.serach.presenter.NetworkDelegateSearch;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
@@ -149,6 +150,7 @@ public class RetrofitClient implements RemoteDataSource {
                         if (myObject.getList() != null) {
                             String[] names = myObject.getList().stream().map(Meal::getStrMeal).toArray(String[]::new);
                             networkDelegateSearch.onResponseSearch(names);
+
                         }
                     }
 
@@ -348,21 +350,8 @@ public class RetrofitClient implements RemoteDataSource {
 
                     @Override
                     public void onSuccess(@NonNull MyObject myObject) {
-                        if (myObject.getList() != null) {
-                            Meal meal = myObject.getList().get(0);
-
-                            String idMeal=meal.getIdMeal();
-                            String strMeal=meal.getStrMeal();
-                            String strMealThumb=meal.getStrMealThumb();
-                            String strMealCategory=meal.getStrCategory();
-                            ArrayList<String> strIngredients=meal.getIngredients();
-                            ArrayList<String> strMeasures=meal.getMeasures();
-                            String[] strInstructions=meal.getArrOfStrInstructions();
-                            String strCountry=meal.getStrArea();
-                            String strYouTube=meal.getStrYoutube();
-                            networkDelegateMeal.onResponseMealView(meal);
-
-                            networkDelegateMeal.onResponseMeal(meal,idMeal,strMeal,strMealThumb,strMealCategory,strIngredients,strMeasures,strInstructions,strCountry,strYouTube);
+                        if (myObject.getList() != null && myObject.getList().get(0) != null) {
+                            networkDelegateMeal.onResponseMeal(myObject.getList().get(0), false);
                         }
                     }
 

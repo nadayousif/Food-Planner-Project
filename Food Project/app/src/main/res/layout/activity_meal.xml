@@ -50,68 +50,84 @@
                     android:layout_height="?attr/actionBarSize">
 
 
+                    <View
+                        android:id="@+id/view2"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@drawable/backbround_button_image"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toStartOf="@+id/view4"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <ImageView
-                        style="@style/AppTheme.Components.ImageView.Button"
 
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
                         android:layout_gravity="end"
 
-                        android:layout_marginEnd="8dp"
-                        android:background="@drawable/backbround_button_image"
                         android:onClick="addToPLan"
+                        android:padding="8dp"
                         android:scaleType="center"
-                        android:theme="@style/AppTheme.Components.ImageView.Button"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toStartOf="@+id/iv_favorite_image_button"
-                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/view2"
+                        app:layout_constraintEnd_toEndOf="@+id/view2"
+                        app:layout_constraintStart_toStartOf="@+id/view2"
+                        app:layout_constraintTop_toTopOf="@+id/view2"
                         app:srcCompat="@drawable/add_circle_24" />
 
                     <ToggleButton
                         android:id="@+id/iv_favorite_image_button"
                         style="@style/toggleButton"
-                        android:layout_width="30dp"
+                        android:layout_width="0dp"
                         android:layout_height="30dp"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginEnd="8dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_marginEnd="4dp"
                         android:background="@drawable/ic_toggle_bg"
                         android:foregroundGravity="center_horizontal"
                         android:gravity="clip_horizontal|center|center_vertical"
-                        android:padding="8dp"
+                        android:padding="18dp"
                         app:layout_constraintBottom_toBottomOf="@+id/view4"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintEnd_toEndOf="@+id/view4"
+                        app:layout_constraintStart_toStartOf="@+id/view4"
+                        app:layout_constraintTop_toTopOf="@+id/view4" />
 
                     <View
                         android:id="@+id/view4"
                         android:layout_width="38dp"
                         android:layout_height="38dp"
                         android:layout_marginTop="8dp"
-                        android:layout_marginEnd="4dp"
+                        android:layout_marginEnd="16dp"
                         android:layout_marginBottom="8dp"
                         android:background="@drawable/backbround_button_image"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <View
+                        android:id="@+id/view5"
+                        android:layout_width="38dp"
+                        android:layout_height="38dp"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/backbround_button_image"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
                     <ImageView
                         android:id="@+id/imageView"
 
-                        style="@style/AppTheme.Components.ImageView.Button"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:layout_gravity="end"
-
-                        android:layout_marginStart="16dp"
-                        android:background="@drawable/backbround_button_image"
                         android:clickable="true"
                         android:onClick="finishActivity"
+                        android:padding="8dp"
                         android:scaleType="centerCrop"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintBottom_toBottomOf="@+id/view5"
+                        app:layout_constraintEnd_toEndOf="@+id/view5"
+                        app:layout_constraintStart_toStartOf="@+id/view5"
+                        app:layout_constraintTop_toTopOf="@+id/view5"
                         app:srcCompat="@drawable/arrow_back_wegith_24" />
 
 
@@ -162,7 +178,6 @@
                 android:id="@+id/tv_mael_name"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Chicken"
                 android:textColor="@color/secondaryTextColor"
                 android:textSize="34sp"
                 android:textStyle="bold"
@@ -175,7 +190,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="meat"
                 android:textSize="28sp"
                 app:layout_constraintEnd_toEndOf="@+id/tv_mael_name"
                 app:layout_constraintStart_toStartOf="@+id/tv_mael_name"
@@ -186,7 +200,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Egypt"
                 android:textSize="16sp"
                 app:layout_constraintEnd_toEndOf="@+id/tv_meal_category"
                 app:layout_constraintStart_toStartOf="@+id/tv_meal_category"
