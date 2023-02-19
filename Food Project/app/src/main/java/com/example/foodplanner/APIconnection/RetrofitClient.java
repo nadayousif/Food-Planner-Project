@@ -321,10 +321,8 @@ public class RetrofitClient implements RemoteDataSource {
                     public void onSuccess(@NonNull MyObject myObject) {
                         if (myObject.getList() != null) {
                             Meal randomMeal = myObject.getList().get(0);
-                            String idMeal = randomMeal.getIdMeal();
-                            String strMeal = randomMeal.getStrMeal();
-                            String strMealThumb = randomMeal.getStrMealThumb();
-                            networkDelegateRandomMeal.onResponseRandomMeal(idMeal, strMeal, strMealThumb);
+
+                            networkDelegateRandomMeal.onResponseRandomMeal(randomMeal);
                         }
                     }
 

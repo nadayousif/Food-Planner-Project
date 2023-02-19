@@ -38,6 +38,7 @@
         android:id="@+id/animationView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:visibility="gone"
         app:layout_constraintBottom_toTopOf="@+id/guideline5"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -45,9 +46,7 @@
         app:layout_constraintVertical_bias="0.497"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
-        android:visibility="gone"
-        app:lottie_rawRes="@raw/no_nternet"
-         />
+        app:lottie_rawRes="@raw/no_neternet" />
 
     <TextView
         android:id="@+id/textView4"
@@ -56,15 +55,18 @@
         android:layout_marginTop="32dp"
         android:text="Random Meal For Day"
         android:textColor="@color/secondaryTextColor"
-        android:textSize="20sp"
+        android:textSize="34sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
     <androidx.cardview.widget.CardView
+        android:id="@+id/cv_meal_home"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toTopOf="@+id/guideline5"
+        android:layout_marginTop="16dp"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="22dp"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
         app:layout_constraintTop_toBottomOf="@+id/textView4">
@@ -76,7 +78,7 @@
             <ImageView
                 android:id="@+id/imageView2"
                 android:layout_width="0dp"
-                android:layout_height="200dp"
+                android:layout_height="350dp"
                 android:scaleType="centerCrop"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -90,10 +92,33 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="80dp"
-                android:text="TextView"
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="24sp"
                 app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/imageView2"
                 app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+            <TextView
+                android:id="@+id/tv_country_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="TextView"
+                app:layout_constraintEnd_toEndOf="@+id/tv_name_meal_home"
+                app:layout_constraintStart_toStartOf="@+id/tv_name_meal_home"
+                app:layout_constraintTop_toBottomOf="@+id/tv_name_meal_home" />
+
+
+            <TextView
+                android:id="@+id/tv_catogary_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="6dp"
+                android:text="TextView"
+                app:layout_constraintEnd_toEndOf="@+id/tv_country_home"
+                app:layout_constraintStart_toStartOf="@+id/tv_country_home"
+                app:layout_constraintTop_toBottomOf="@+id/tv_country_home" />
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>
 
