@@ -39,9 +39,13 @@ import com.example.foodplanner.helper.MyUser;
 import com.example.foodplanner.meal.presenter.CommunicationMeal;
 import com.example.foodplanner.meal.presenter.PresenterMeal;
 
+import com.example.foodplanner.profile.FirebaseDataBase;
+import com.example.foodplanner.profile.MealFirebase;
+
 import com.example.foodplanner.plan.dialog.favorite.FavoriteDialog;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
+
 import com.google.android.material.snackbar.Snackbar;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
@@ -52,6 +56,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
+
+import java.util.stream.IntStream;
+
 
 public class MealActivity extends AppCompatActivity implements CommunicationMeal {
     private static final String TAG = "TAGG";
@@ -102,6 +109,52 @@ public class MealActivity extends AppCompatActivity implements CommunicationMeal
                         .show();
             }
             favoriteMeal.setOnClickListener(v -> {
+
+                        v.setEnabled(false);
+
+                        if (MyUser.getInstance().isLogin()) {
+                            meal.setEmail(MyUser.getInstance().getEmail());
+                            if (((ToggleButton) v).isChecked()) {
+                                Toast.makeText(this, "add to favorite", Toast.LENGTH_SHORT).show();
+                                presenterMeal.addToFav( Converter.convertMealToFav(meal));
+
+                                MealFirebase fireBaseRecord = new MealFirebase();
+                                fireBaseRecord.setIdMeal(meal.getIdMeal());
+                                fireBaseRecord.setDay(meal.getDay());
+                                fireBaseRecord.setEmail(meal.getEmail());
+                                fireBaseRecord.setStrArea(meal.getStrArea());
+                                fireBaseRecord.setStrCategory(meal.getStrCategory());
+                                fireBaseRecord.setStrMeal(meal.getStrMeal());
+                                fireBaseRecord.setStrIngredient(meal.getStrIngredient());
+                                fireBaseRecord.setStrInstructions(meal.getStrInstructions());
+                                fireBaseRecord.setStrMealThumb(meal.getStrMealThumb());
+                                fireBaseRecord.setStrYoutube(meal.getStrYoutube());
+                                fireBaseRecord.setIngredients(meal.getIngredients());
+                                fireBaseRecord.setMeasures(meal.getMeasures());
+                                fireBaseRecord.setImages(IntStream.range(0, meal.getImage().length).mapToObj(i -> (int) meal.getImage()[i]).collect(Collectors.toList()));
+
+
+                                FirebaseDataBase.addFavouriteToFirebase(this,fireBaseRecord);
+                            } else{
+                                presenterMeal.removeFromFav(Converter.convertMealToFav(meal));
+                            MealFirebase fireBaseRecord = new MealFirebase();
+                            fireBaseRecord.setIdMeal(meal.getIdMeal());
+                            fireBaseRecord.setDay(meal.getDay());
+                            fireBaseRecord.setEmail(meal.getEmail());
+                            fireBaseRecord.setStrArea(meal.getStrArea());
+                            fireBaseRecord.setStrCategory(meal.getStrCategory());
+                            fireBaseRecord.setStrMeal(meal.getStrMeal());
+                            fireBaseRecord.setStrIngredient(meal.getStrIngredient());
+                            fireBaseRecord.setStrInstructions(meal.getStrInstructions());
+                            fireBaseRecord.setStrMealThumb(meal.getStrMealThumb());
+                            fireBaseRecord.setStrYoutube(meal.getStrYoutube());
+                            fireBaseRecord.setIngredients(meal.getIngredients());
+                            fireBaseRecord.setMeasures(meal.getMeasures());
+                            fireBaseRecord.setImages(IntStream.range(0, meal.getImage().length).mapToObj(i -> (int) meal.getImage()[i]).collect(Collectors.toList()));
+                            FirebaseDataBase.removeFavouriteFromFirebase(this,fireBaseRecord);
+                            }
+                        }
+
                 if (MyUser.getInstance().isLogin()) {
                     v.setEnabled(false);
                     if (MyUser.getInstance().isLogin() && meal != null) {
@@ -110,6 +163,7 @@ public class MealActivity extends AppCompatActivity implements CommunicationMeal
                             presenterMeal.addToFav(Converter.convertMealToFav(meal));
                         } else
                             presenterMeal.removeFromFav(Converter.convertMealToFav(meal));
+
                     }
                 } else {
                     Snackbar.make(findViewById(android.R.id.content), "something wrong pls try again", Snackbar.LENGTH_LONG)

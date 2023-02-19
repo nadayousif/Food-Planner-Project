@@ -26,8 +26,12 @@ import com.example.foodplanner.plan.dialog.favorite.adapter.AdapterFavoriteDialo
 import com.example.foodplanner.plan.dialog.favorite.adapter.OnClickItem;
 import com.example.foodplanner.plan.dialog.favorite.presenter.CommunicationFavoriteDialog;
 import com.example.foodplanner.plan.dialog.favorite.presenter.PresenterFavoriteDialog;
+import com.example.foodplanner.profile.FirebaseDataBase;
+import com.example.foodplanner.profile.MealFirebase;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class FavoriteDialog extends DialogFragment implements CommunicationFavoriteDialog, OnClickItem {
     private static final String TAG = "TAGG";
@@ -99,6 +103,21 @@ public class FavoriteDialog extends DialogFragment implements CommunicationFavor
         Meal meal=Converter.convertFavToMeal(favoriteMeal);
         meal.setDay(day);
         presenterFavoriteDialog.deleteMealFromPlan(meal);
+        MealFirebase fireBaseRecord = new MealFirebase();
+        fireBaseRecord.setIdMeal(meal.getIdMeal());
+        fireBaseRecord.setDay(meal.getDay());
+        fireBaseRecord.setEmail(meal.getEmail());
+        fireBaseRecord.setStrArea(meal.getStrArea());
+        fireBaseRecord.setStrCategory(meal.getStrCategory());
+        fireBaseRecord.setStrMeal(meal.getStrMeal());
+        fireBaseRecord.setStrIngredient(meal.getStrIngredient());
+        fireBaseRecord.setStrInstructions(meal.getStrInstructions());
+        fireBaseRecord.setStrMealThumb(meal.getStrMealThumb());
+        fireBaseRecord.setStrYoutube(meal.getStrYoutube());
+        fireBaseRecord.setIngredients(meal.getIngredients());
+        fireBaseRecord.setMeasures(meal.getMeasures());
+        fireBaseRecord.setImages(IntStream.range(0, meal.getImage().length).mapToObj(i -> (int) meal.getImage()[i]).collect(Collectors.toList()));
+        FirebaseDataBase.removePlanFromFireBase(getContext(),fireBaseRecord);
     }
 
     @Override
@@ -106,5 +125,21 @@ public class FavoriteDialog extends DialogFragment implements CommunicationFavor
         Meal meal=Converter.convertFavToMeal(favoriteMeal);
         meal.setDay(day);
         presenterFavoriteDialog.addMealToPlan(meal);
+        MealFirebase fireBaseRecord = new MealFirebase();
+        fireBaseRecord.setIdMeal(meal.getIdMeal());
+        fireBaseRecord.setDay(meal.getDay());
+        fireBaseRecord.setEmail(meal.getEmail());
+        fireBaseRecord.setStrArea(meal.getStrArea());
+        fireBaseRecord.setStrCategory(meal.getStrCategory());
+        fireBaseRecord.setStrMeal(meal.getStrMeal());
+        fireBaseRecord.setStrIngredient(meal.getStrIngredient());
+        fireBaseRecord.setStrInstructions(meal.getStrInstructions());
+        fireBaseRecord.setStrMealThumb(meal.getStrMealThumb());
+        fireBaseRecord.setStrYoutube(meal.getStrYoutube());
+        fireBaseRecord.setIngredients(meal.getIngredients());
+        fireBaseRecord.setMeasures(meal.getMeasures());
+        fireBaseRecord.setImages(IntStream.range(0, meal.getImage().length).mapToObj(i -> (int) meal.getImage()[i]).collect(Collectors.toList()));
+        FirebaseDataBase.addPlanToFirebase(getContext(),fireBaseRecord);
+
     }
 }

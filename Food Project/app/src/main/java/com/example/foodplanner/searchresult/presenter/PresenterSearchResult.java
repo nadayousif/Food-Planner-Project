@@ -54,6 +54,7 @@ public class PresenterSearchResult implements NetworkDelegateSearchResult{
     @Override
     public void sus(OnViewClickSearchPlan onViewClickSearchPlan) {
         communicationSearchResult.susToAdd(onViewClickSearchPlan);
+
     }
 
     @Override
