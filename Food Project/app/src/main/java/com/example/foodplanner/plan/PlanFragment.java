@@ -102,6 +102,7 @@ public class PlanFragment extends Fragment implements OnClickItem, Communication
             Intent intent = new Intent(getActivity(), MealActivity.class);
             intent.putExtra(getString(R.string.mealID), idMeal);
             intent.putExtra(getString(R.string.isLocal), true);
+            intent.putExtra(getString(R.string.isFav), false);
             startActivity(intent);
         }
     }

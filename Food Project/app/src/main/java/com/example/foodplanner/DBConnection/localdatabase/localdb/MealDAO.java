@@ -13,6 +13,7 @@ import com.example.foodplanner.Model.Meal;
 import java.util.List;
 
 import io.reactivex.rxjava3.core.Completable;
+import io.reactivex.rxjava3.core.Observable;
 import io.reactivex.rxjava3.core.Single;
 
 @Dao
@@ -46,4 +47,8 @@ public interface MealDAO {
     Completable addMealPlan(Meal meal);
     @Delete
     Completable deleteMealPlan(Meal meal);
+@Query("select * from  favoritemeal  where idMeal =  :id and email = :email")
+    Single<FavoriteMeal> getFav(String id,String email);
+@Query("select * from  meal  where idMeal =  :id and email = :email")
+    Single<Meal> getMeal(String id, String email);
 }
