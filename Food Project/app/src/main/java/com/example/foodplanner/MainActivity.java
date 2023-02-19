@@ -43,47 +43,15 @@ public class MainActivity extends AppCompatActivity implements PopupMenu.OnMenuI
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-//         navHostFragment = (NavHostFragment) getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_activity_main);
-//         String s=navController.getCurrentDestination().toString();
-//        Toast.makeText(this, s, Toast.LENGTH_SHORT).show();
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(this, gso);
-
         navController = Navigation.findNavController(this, R.id.nav_host_fragment_activity_main);
-
         NavigationUI.setupWithNavController(binding.navView, navController);
 
-//        MyUser.getInstance().setEmail(MySharedPreference.getEmail(this));
-//        Toast.makeText(this, "" + MyUser.getInstance().getEmail(), Toast.LENGTH_SHORT).show();
-
-        /*GoogleSignInAccount acct = GoogleSignIn.getLastSignedInAccount(this);
-        if(acct!=null){
-            String personName = acct.getDisplayName();
-            personEmail = acct.getEmail();
-            System.out.println(personName);
-            System.out.println(personEmail);
-            login();
-
-        }*/
     }
 
-    /* public void login() {
-         SharedPreferences sharedPref = getPreferences(Context.MODE_PRIVATE);
-         SharedPreferences.Editor editor = sharedPref.edit();
-         editor.putString(getString(R.string.userEmail), personEmail);
-         editor.apply();
 
-     }*/
-    public void goToMeal(View view) {
 
-        if (view.getTag() != null) {
-            Intent intent = new Intent(this, MealActivity.class);
-
-            intent.putExtra(getString(R.string.mealID), view.getTag().toString());
-            intent.putExtra(getString(R.string.isLocal), false);
-            startActivity(intent);
-        }
-    }
 
 
     public void addFromFavToPlan(View view) {

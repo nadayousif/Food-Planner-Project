@@ -114,6 +114,7 @@ public class AdapterSearchResult extends RecyclerView.Adapter<AdapterSearchResul
 
         @Override
         public void undo() {
+            addToFav.setEnabled(true);
             addToFav.setChecked(false);
         }
     }

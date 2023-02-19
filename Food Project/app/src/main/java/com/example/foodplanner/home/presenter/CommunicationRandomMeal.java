@@ -5,7 +5,7 @@ import com.example.foodplanner.Model.Meal;
 import java.util.List;
 
 public interface CommunicationRandomMeal {
-    void setMeal(String idMeal,String strMeal,String strMealThumb);
+    void setMeal(Meal meal);
 
     void setError(String message);
 }
