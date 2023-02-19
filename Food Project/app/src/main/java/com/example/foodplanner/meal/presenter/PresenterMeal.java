@@ -2,7 +2,10 @@ package com.example.foodplanner.meal.presenter;
 
 import com.example.foodplanner.APIconnection.RemoteDataSource;
 import com.example.foodplanner.DBConnection.localdatabase.localdb.LocalDataSource;
+import com.example.foodplanner.Model.FavoriteMeal;
 import com.example.foodplanner.Model.Meal;
+import com.example.foodplanner.meal.OnViewClickFavorite;
+import com.example.foodplanner.searchresult.OnViewClickSearchPlan;
 import com.example.foodplanner.searchresult.presenter.CommunicationSearchResult;
 import com.example.foodplanner.searchresult.presenter.NetworkDelegateSearchResult;
 
@@ -29,6 +32,13 @@ public class PresenterMeal implements NetworkDelegateMeal {
         communicationMeal.setError(message);
 
     }
+    public void addToFav(FavoriteMeal tag) {
+        localDataSource.addToFavorite(tag,this);
+    }
+
+    public void removeFromFav(FavoriteMeal meal) {
+        localDataSource.removeFromFavorite(meal,this);
+    }
     public  void onResponseMealView(Meal meal){
       communicationMeal.setMealView(meal);
     }
@@ -39,5 +49,14 @@ public class PresenterMeal implements NetworkDelegateMeal {
 
     public void getMeal(String id) {
         remoteDataSource.getMeal(id,this);
+    }
+
+    public void sus() {
+        communicationMeal.susToAdd();
+    }
+
+
+    public void onFailureToAdd( String message) {
+        communicationMeal.onFailureToAdd( message);
     }
 }

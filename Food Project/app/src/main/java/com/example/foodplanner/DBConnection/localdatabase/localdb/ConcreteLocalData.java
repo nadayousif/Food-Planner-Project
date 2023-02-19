@@ -6,6 +6,8 @@ import com.example.foodplanner.Model.FavoriteMeal;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.favorite.presenter.NetworkDelegateFavMeal;
 
+import com.example.foodplanner.meal.OnViewClickFavorite;
+import com.example.foodplanner.meal.presenter.NetworkDelegateMeal;
 import com.example.foodplanner.plan.dialog.favorite.presenter.NetworkDelegateFavDialog;
 import com.example.foodplanner.plan.dialog.search.presenter.NetworkDelegateSearchPlan;
 import com.example.foodplanner.plan.presenter.NetworkDelegatePlan;
@@ -113,6 +115,27 @@ public class ConcreteLocalData implements LocalDataSource {
                     }
                 });
     }
+    @Override
+    public void deleteMealFromFavorite(String idMeal, String email, NetworkDelegateFavMeal networkDelegateFavMeal) {
+        dao.deletePlanMealFromFavorite(idMeal, email).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        disposable.add(d);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        networkDelegateFavMeal.onComplete();
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        networkDelegateFavMeal.onError(e.getMessage().toString());
+                    }
+                });
+    }
 
     @Override
     public void clear() {
@@ -159,6 +182,46 @@ public class ConcreteLocalData implements LocalDataSource {
                     @Override
                     public void onError(@NonNull Throwable e) {
                         networkDelegateSearchResult.onFailureToAdd(onViewClickSearchPlan, e.getMessage());
+                    }
+                });
+    }
+    @Override
+    public void addToFavorite(FavoriteMeal tag, NetworkDelegateMeal networkDelegateMeal) {
+        dao.addToFav(tag).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        disposable.add(disposable);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        networkDelegateMeal.sus();
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        networkDelegateMeal.onFailureToAdd( e.getMessage());
+                    }
+                });
+    }
+    @Override
+    public void removeFromFavorite(FavoriteMeal meal, NetworkDelegateMeal networkDelegateMeal) {
+        dao.removeFav(meal).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+                        disposable.add(disposable);
+                    }
+
+                    @Override
+                    public void onComplete() {
+                        networkDelegateMeal.sus();
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        networkDelegateMeal.onFailureToAdd( e.getMessage());
                     }
                 });
     }

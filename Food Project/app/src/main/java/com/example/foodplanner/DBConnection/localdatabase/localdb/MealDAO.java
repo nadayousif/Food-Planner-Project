@@ -27,7 +27,8 @@ public interface MealDAO {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     Completable insertMeal(Meal meal);
 
-
+    @Query("DELETE FROM FavoriteMeal WHERE idMeal = :ID and email = :email ")
+    Completable deletePlanMealFromFavorite(String ID, String email);
 
     @Query("DELETE FROM Meal WHERE idMeal = :ID and email = :email ")
     Completable deletePlanMeal(String ID, String email);
