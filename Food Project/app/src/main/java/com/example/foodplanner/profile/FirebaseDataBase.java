@@ -1,5 +1,6 @@
 package com.example.foodplanner.profile;
 import android.content.Context;
+import android.util.Log;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 
@@ -26,10 +27,10 @@ public class FirebaseDataBase {
                             public void onSuccess(Void unused) {
                                 Toast.makeText(context, "added to firebase", Toast.LENGTH_SHORT).show();
                             }
+
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
-
                             }
                         });
             }
@@ -48,10 +49,12 @@ public class FirebaseDataBase {
                             @Override
                             public void onSuccess(Void unused) {
                                 Toast.makeText(context, "added to firebase", Toast.LENGTH_SHORT).show();
+                                Log.i("TAGG", "onSuccess: firebase ");
                             }
                         }).addOnFailureListener(new OnFailureListener() {
                             @Override
                             public void onFailure(@NonNull Exception e) {
+                                Log.i("TAGG", "onFailure: "+e.getMessage());
 
                             }
                         });

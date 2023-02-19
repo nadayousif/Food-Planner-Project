@@ -148,7 +148,7 @@ PresenterSearchResult presenterSearchResult;
         fireBaseRecord.setIngredients(meal.getIngredients());
         fireBaseRecord.setMeasures(meal.getMeasures());
         fireBaseRecord.setImages(IntStream.range(0, meal.getImage().length).mapToObj(i -> (int) meal.getImage()[i]).collect(Collectors.toList()));
-        FirebaseDataBase.addFavouriteToFirebase(this,fireBaseRecord);
+        FirebaseDataBase.addPlanToFirebase(this,fireBaseRecord);
     }
 
     @Override

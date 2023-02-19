@@ -297,6 +297,25 @@ public class MealActivity extends AppCompatActivity implements CommunicationMeal
             meal1.setDay(i);
             return meal1;
         }).collect(Collectors.toList());
+
+        for (Meal meal : meals) {
+            MealFirebase fireBaseRecord = new MealFirebase();
+            fireBaseRecord.setIdMeal(meal.getIdMeal());
+            fireBaseRecord.setDay(meal.getDay());
+            fireBaseRecord.setEmail(meal.getEmail());
+            fireBaseRecord.setStrArea(meal.getStrArea());
+            fireBaseRecord.setStrCategory(meal.getStrCategory());
+            fireBaseRecord.setStrMeal(meal.getStrMeal());
+            fireBaseRecord.setStrIngredient(meal.getStrIngredient());
+            fireBaseRecord.setStrInstructions(meal.getStrInstructions());
+            fireBaseRecord.setStrMealThumb(meal.getStrMealThumb());
+            fireBaseRecord.setStrYoutube(meal.getStrYoutube());
+            fireBaseRecord.setIngredients(meal.getIngredients());
+            fireBaseRecord.setMeasures(meal.getMeasures());
+            fireBaseRecord.setImages(IntStream.range(0, meal.getImage().length).mapToObj(i -> (int) meal.getImage()[i]).collect(Collectors.toList()));
+            FirebaseDataBase.addPlanToFirebase(this, fireBaseRecord);
+        }
+
         presenterMeal.addToPlan(meals);
     }
 
