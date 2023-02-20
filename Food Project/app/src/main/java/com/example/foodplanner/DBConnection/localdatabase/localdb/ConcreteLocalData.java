@@ -297,6 +297,27 @@ public class ConcreteLocalData implements LocalDataSource {
                     });
     }
 
+    @Override
+    public void addToFavorite(FavoriteMeal meal1) {
+        dao.addToFav(meal1).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).
+                subscribe(new CompletableObserver() {
+                    @Override
+                    public void onSubscribe(@NonNull Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onComplete() {
+
+                    }
+
+                    @Override
+                    public void onError(@NonNull Throwable e) {
+                        Log.i(TAG, "onError: "+e.getMessage());
+                    }
+                });
+    }
+
 
     @Override
     public void removeFav(FavoriteMeal meal, OnViewClickSearchPlan onViewClickSearchPlan, NetworkDelegateSearchResult delegateSearchResult) {

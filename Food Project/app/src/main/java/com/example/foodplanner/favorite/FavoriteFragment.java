@@ -85,13 +85,14 @@ public class FavoriteFragment extends Fragment implements CommunicationFavoriteM
     }
 
 
-    public void onClick(String idMeal, boolean isClose) {
-        if (isClose)
-            presenterFavoriteMeal.deleteMeal(idMeal, MyUser.getInstance().getEmail());
-
+    public void onClick(FavoriteMeal  meal, boolean isClose) {
+        if (isClose) {
+            presenterFavoriteMeal.deleteMeal(meal.getIdMeal(), MyUser.getInstance().getEmail());
+            FirebaseDataBase.removeFavouriteFromFirebase(getContext(), Converter.mealFirebaseFav(meal));
+        }
         else {
             Intent intent = new Intent(getActivity(), MealActivity.class);
-            intent.putExtra(getString(R.string.mealID), idMeal);
+            intent.putExtra(getString(R.string.mealID), meal.getIdMeal());
             intent.putExtra(getString(R.string.isLocal), true);
             intent.putExtra(getString(R.string.isFav), true);
             startActivity(intent);

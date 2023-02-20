@@ -19,15 +19,12 @@ import com.example.foodplanner.R;
 import com.example.foodplanner.helper.Converter;
 
 import com.example.foodplanner.profile.FirebaseDataBase;
-
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdapter.MyViewHolder>{
     private static final String TAG = "MyAdapter";
     Context context;
-   // Meal[] meals;
 
     OnClickFavoriteItem onClickFavoriteItem;
     private List<FavoriteMeal> arr;
@@ -48,7 +45,7 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
 
     @NonNull
     @Override
-    public FavoriteMealsAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_favorite, parent, false);
 
         MyViewHolder vh = new MyViewHolder(view);
@@ -57,30 +54,20 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FavoriteMealsAdapter.MyViewHolder holder, int position) {
-       /* Meal current = meals[position];
-        holder.name.setText(current.getStrMeal());
-        //holder.thumbnails.setImageResource(current.getStrMealThumb());
-        Glide.with(context).load(current.getStrMealThumb()).into(holder.getThumbnails());
-        holder.layout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(context,current.getStrMeal(),Toast.LENGTH_SHORT).show();
-            }
-        });*/
-        holder.name.setText(arr.get(position).getStrMeal());
+    public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
+        holder.name.setText(arr.get(holder.getAbsoluteAdapterPosition()).getStrMeal());
         holder.layout.setOnClickListener((i) -> {
-            onClickFavoriteItem.onClick(arr.get(position).getIdMeal(), false);
+            onClickFavoriteItem.onClick(arr.get(holder.getAbsoluteAdapterPosition()), false);
 
         });
-        if(arr.get(position).getImage() !=null){
-            Bitmap bmp = BitmapFactory.decodeByteArray(arr.get(position).getImage(), 0, arr.get(position).getImage().length);
+        if(arr.get(holder.getAbsoluteAdapterPosition()).getImage() !=null){
+            Bitmap bmp = BitmapFactory.decodeByteArray(arr.get(holder.getAbsoluteAdapterPosition()).getImage(), 0, arr.get(holder.getAbsoluteAdapterPosition()).getImage().length);
             holder.thumbnails.setImageBitmap(bmp);
             holder.close.setOnClickListener(i -> {
-                onClickFavoriteItem.onClick(arr.get(position).getIdMeal(), true);
-                FirebaseDataBase.removeFavouriteFromFirebase(context, Converter.mealFirebaseFav(arr.get(position)));
-                arr.remove(position);
-                notifyItemChanged(position);
+                onClickFavoriteItem.onClick(arr.get(holder.getAbsoluteAdapterPosition()), true);
+                arr.remove(holder.getAbsoluteAdapterPosition());
+                notifyDataSetChanged();
+
             });
         }
 
@@ -114,6 +101,7 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
             name = itemView.findViewById(R.id.text_id);
             thumbnails = itemView.findViewById(R.id.image_favorite);
             close = itemView.findViewById(R.id.iv_button_close_favorite);
+
         }
     }
 }

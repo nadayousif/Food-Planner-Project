@@ -190,8 +190,6 @@ public class RetrofitClient implements RemoteDataSource {
                         if (meals!=null)
                             networkDelegateSearchResult.onResponse(meals);
                     }
-
-
                     @Override
                     public void onError(@NonNull Throwable e) {
                         Log.i(TAG, "onError: " + e.getMessage());

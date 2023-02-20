@@ -1,5 +1,7 @@
 package com.example.foodplanner.favorite;
 
+import com.example.foodplanner.Model.FavoriteMeal;
+
 public interface OnClickFavoriteItem {
-    void onClick(String idMeal, boolean b);
+    void onClick(FavoriteMeal idMeal, boolean b);
 }
