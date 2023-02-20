@@ -54,7 +54,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
         android:text="Random Meal For Day"
-        android:textColor="@color/secondaryTextColor"
+        android:textColor="@color/primaryColor"
         android:textSize="34sp"
         app:layout_constraintEnd_toStartOf="@+id/guideline2"
         app:layout_constraintStart_toStartOf="@+id/guideline"
@@ -105,6 +105,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="TextView"
+                android:textColor="@color/secondaryTextColor"
+                android:textColorHighlight="@color/primaryColor"
                 app:layout_constraintEnd_toEndOf="@+id/tv_name_meal_home"
                 app:layout_constraintStart_toStartOf="@+id/tv_name_meal_home"
                 app:layout_constraintTop_toBottomOf="@+id/tv_name_meal_home" />
@@ -116,6 +118,9 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
                 android:text="TextView"
+                android:textColor="@color/secondaryTextColor"
+                android:textColorHighlight="@color/primaryColor"
+                android:textColorHint="@color/primaryColor"
                 app:layout_constraintEnd_toEndOf="@+id/tv_country_home"
                 app:layout_constraintStart_toStartOf="@+id/tv_country_home"
                 app:layout_constraintTop_toBottomOf="@+id/tv_country_home" />

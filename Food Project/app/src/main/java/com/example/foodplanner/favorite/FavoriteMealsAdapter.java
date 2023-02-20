@@ -16,6 +16,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodplanner.Model.FavoriteMeal;
 import com.example.foodplanner.R;
 
+import com.example.foodplanner.helper.Converter;
+
+import com.example.foodplanner.profile.FirebaseDataBase;
 import java.util.ArrayList;
 import java.util.List;
 
