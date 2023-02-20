@@ -109,7 +109,7 @@ public class MealActivity extends AppCompatActivity implements CommunicationMeal
                 if (MyUser.getInstance().isLogin()) {
                     meal.setEmail(MyUser.getInstance().getEmail());
                     if (((ToggleButton) v).isChecked()) {
-                        Toast.makeText(this, "add to favorite", Toast.LENGTH_SHORT).show();
+                        Log.i(TAG, "onCreate: add to firebase");
                         presenterMeal.addToFav(Converter.convertMealToFav(meal));
                         FirebaseDataBase.addFavouriteToFirebase(this, Converter.mealFirebasePlan(meal));
                     } else {
@@ -129,7 +129,7 @@ public class MealActivity extends AppCompatActivity implements CommunicationMeal
 
                     }
                 } else {
-                    Snackbar.make(findViewById(android.R.id.content), "something wrong pls try again", Snackbar.LENGTH_LONG)
+                    Snackbar.make(findViewById(android.R.id.content), "pleas create account to save meals and add meals to plan", Snackbar.LENGTH_LONG)
                             .setAction(R.string.create_account, i -> {
                                 Intent intent = new Intent(this, WelcomeActivity.class);
                                 intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);

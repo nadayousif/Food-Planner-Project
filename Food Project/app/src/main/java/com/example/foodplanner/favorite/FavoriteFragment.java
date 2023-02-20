@@ -59,12 +59,7 @@ public class FavoriteFragment extends Fragment implements CommunicationFavoriteM
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-//        recycleView= (RecyclerView) view.findViewById(R.id.RV_Id);
-//        layoutManager = new LinearLayoutManager(getContext());
-//        layoutManager.setOrientation(RecyclerView.VERTICAL);
-//        recycleView.setLayoutManager(layoutManager);
-//        myAdapter = new FavoriteMealsAdapter(getContext() , meals);
-//        recycleView.setAdapter(myAdapter);
+
     }
 
     @Override

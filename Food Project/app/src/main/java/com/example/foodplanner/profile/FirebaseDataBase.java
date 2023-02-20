@@ -32,15 +32,16 @@ public class FirebaseDataBase {
         FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
 
         if (firebaseAuth.getCurrentUser() == null) {
-            Toast.makeText(context, "you\re not logged in", Toast.LENGTH_SHORT).show();
+            Log.i(TAG, "addFavouriteToFirebase: user not login ");
         } else {
+
 
             DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Food Planner's Users");
             ref.child(firebaseAuth.getUid()).child("Favorites").child(meal.getStrMeal()).setValue(meal)
                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                         @Override
                         public void onSuccess(Void unused) {
-                            Toast.makeText(context, "added to firebase", Toast.LENGTH_SHORT).show();
+                            Log.i(TAG, "onSuccess: addFavouriteToFirebase");
                         }
 
                     }).addOnFailureListener(new OnFailureListener() {
@@ -92,8 +93,7 @@ public class FirebaseDataBase {
                             MealFirebase meal = dataSnapshot.getValue(MealFirebase.class);
                             try {
                                 FavoriteMeal meal1 = Converter.getFavFroMeaLFirebase(meal);
-                                meal.setEmail(MyUser.getInstance().getEmail());
-                                Toast.makeText(context, MyUser.getInstance().getEmail(), Toast.LENGTH_SHORT).show();
+                                meal1.setEmail(MyUser.getInstance().getEmail());
                                 localDataSource.addToFavorite(meal1);
                             } catch (IOException e) {
                                 throw new RuntimeException(e);

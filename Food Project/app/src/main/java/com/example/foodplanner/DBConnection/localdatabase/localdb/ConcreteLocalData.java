@@ -313,7 +313,7 @@ public class ConcreteLocalData implements LocalDataSource {
 
                     @Override
                     public void onError(@NonNull Throwable e) {
-                        Log.i(TAG, "onError: "+e.getMessage());
+                        Log.i(TAG, "onError: addToFavorite "+e.getMessage());
                     }
                 });
     }
