@@ -54,4 +54,6 @@ public interface LocalDataSource {
     void getMealFav(String id, String email, NetworkDelegateMeal networkDelegateMeal);
 
     void addMealsToPlan(List<Meal> list);
+
+    void addToFavorite(FavoriteMeal meal1);
 }

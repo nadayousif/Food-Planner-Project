@@ -9,6 +9,7 @@ import androidx.annotation.Nullable;
 
 import com.example.foodplanner.DBConnection.localdatabase.localdb.ConcreteLocalData;
 import com.example.foodplanner.DBConnection.localdatabase.localdb.LocalDataSource;
+import com.example.foodplanner.Model.FavoriteMeal;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.helper.Converter;
 import com.example.foodplanner.helper.MyUser;
@@ -20,6 +21,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+
+import java.io.IOException;
 
 public class FirebaseDataBase {
 
@@ -87,7 +90,12 @@ public class FirebaseDataBase {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             MealFirebase meal = dataSnapshot.getValue(MealFirebase.class);
-//                            Meal meal1 = Converter.getMealFroMeaLFirebase(meal);
+                            try {
+                                FavoriteMeal meal1 = Converter.getFavFroMeaLFirebase(meal);
+                                localDataSource.addToFavorite(meal1);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
                             Log.i(TAG, "onDataChange: " + meal.getStrMeal());
                         }
                     }
@@ -104,7 +112,14 @@ public class FirebaseDataBase {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             MealFirebase meal = dataSnapshot.getValue(MealFirebase.class);
-                            Log.i("TAGG", meal.getStrMeal());
+                            try {
+                                Meal meal1 = Converter.getMealFroMeaLFirebase(meal);
+                                meal.setDay("Saturday");
+                                localDataSource.addToPlan(meal1);
+
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
                         }
                     }
 
@@ -119,7 +134,13 @@ public class FirebaseDataBase {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             MealFirebase meal = dataSnapshot.getValue(MealFirebase.class);
-                            Log.i("TAGG", meal.getStrMeal());
+                            try {
+                                Meal meal1 = Converter.getMealFroMeaLFirebase(meal);
+                                meal.setDay("Sunday");
+                                localDataSource.addToPlan(meal1);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
                         }
                     }
 
@@ -134,7 +155,13 @@ public class FirebaseDataBase {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             MealFirebase meal = dataSnapshot.getValue(MealFirebase.class);
-                            Log.i("TAGG", meal.getStrMeal());
+                            try {
+                                Meal meal1 = Converter.getMealFroMeaLFirebase(meal);
+                                meal.setDay("Monday");
+                                localDataSource.addToPlan(meal1);
+                            } catch (IOException e) {
+                                throw new RuntimeException(e);
+                            }
                         }
                     }
 
@@ -149,7 +176,14 @@ public class FirebaseDataBase {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             MealFirebase meal = dataSnapshot.getValue(MealFirebase.class);
-                            Log.i("TAGG", meal.getStrMeal());
+                            try {
+                                Meal meal1 = Converter.getMealFroMeaLFirebase(meal);
+                                meal.setDay("Tuesday");
+                                localDataSource.addToPlan(meal1);
+                            } catch (IOException e) {
+
+                                throw new RuntimeException(e);
+                            }
                         }
                     }
 
@@ -165,7 +199,14 @@ public class FirebaseDataBase {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             MealFirebase meal = dataSnapshot.getValue(MealFirebase.class);
-                            Log.i("TAGG", meal.getStrMeal());
+                            try {
+                                Meal meal1 = Converter.getMealFroMeaLFirebase(meal);
+                                meal.setDay("Wednesday");
+                                localDataSource.addToPlan(meal1);
+                            } catch (IOException e) {
+
+                                throw new RuntimeException(e);
+                            }
                         }
                     }
 
@@ -181,7 +222,14 @@ public class FirebaseDataBase {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             MealFirebase meal = dataSnapshot.getValue(MealFirebase.class);
-                            Log.i("TAGG", meal.getStrMeal());
+                            try {
+                                Meal meal1 = Converter.getMealFroMeaLFirebase(meal);
+                                meal.setDay("Thursday");
+                                localDataSource.addToPlan(meal1);
+                            } catch (IOException e) {
+
+                                throw new RuntimeException(e);
+                            }
                         }
                     }
 
@@ -196,7 +244,14 @@ public class FirebaseDataBase {
                     public void onDataChange(@NonNull DataSnapshot snapshot) {
                         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                             MealFirebase meal = dataSnapshot.getValue(MealFirebase.class);
-                            Log.i("TAGG", meal.getStrMeal());
+                           try {
+                                Meal meal1 = Converter.getMealFroMeaLFirebase(meal);
+                                meal.setDay("Friday");
+                                localDataSource.addToPlan(meal1);
+                            } catch (IOException e) {
+
+                                throw new RuntimeException(e);
+                            }
                         }
                     }
 
@@ -208,46 +263,7 @@ public class FirebaseDataBase {
 
     }
 
-      /*  public static void getFavouriteFromFirebase(Context context, MyUser user) {
 
-            DatabaseReference rootFav = FirebaseDatabase.getInstance().getReference().child("Food Planner's Users").child(user.getUid()).child("Favorites");
-            rootFav.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren() ){
-                        MealFirebase meal = dataSnapshot.getValue(Meal.class);
-                        GeneralRepository repo =  GeneralRepository.getInstance(MealClient.getInstance(), DataBaseRepository.getInstance(context),context);
-                        repo.insert(meal);
-                        Log.i("finaaaaaaaal",meal.getStrMeal()+""+meal.getIdMeal());
-                    }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Log.i("test",error.getMessage());
-                }
-            });
-        }
-
-
-        public static void getPlanFromFireBase(Context context, MyUser user , String day ) {
-            DatabaseReference rootPlan = FirebaseDatabase.getInstance().getReference().child("Food Planner's Users").child(user.getUid()).child("Plan").child(day);
-            rootPlan.addValueEventListener(new ValueEventListener() {
-                @Override
-                public void onDataChange(@NonNull DataSnapshot snapshot) {
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren() ) {
-                        Meal meal = dataSnapshot.getValue(Meal.class);
-                        GeneralRepository repo =  GeneralRepository.getInstance(MealClient.getInstance(), DataBaseRepository.getInstance(context),context);
-                        repo.insert(meal);
-                        Log.i("finaaaaaaaal",meal.getStrMeal()+""+meal.getIdMeal());
-                    }
-                }
-                @Override
-                public void onCancelled(@NonNull DatabaseError error) {
-                    Log.i("test",error.getMessage());
-                }
-            });
-
-        }*/
 
 
     public static void removeFavouriteFromFirebase(Context context, MealFirebase meal) {
@@ -290,17 +306,6 @@ public class FirebaseDataBase {
                         }
                     });
         }
-    }
-
-    public static void delete() {
-        FirebaseAuth firebaseAuth = FirebaseAuth.getInstance();
-        DatabaseReference ref = FirebaseDatabase.getInstance().getReference("Food Planner's Users");
-        ref.child(firebaseAuth.getUid()).removeValue(new DatabaseReference.CompletionListener() {
-            @Override
-            public void onComplete(@Nullable DatabaseError error, @NonNull DatabaseReference ref) {
-                Log.i(TAG, "onComplete: "+error.getMessage());
-            }
-        });
     }
 
 

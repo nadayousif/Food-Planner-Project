@@ -87,7 +87,7 @@ public class ProfileFragment extends Fragment {
 
 
         backup.setOnClickListener(i -> {
-        FirebaseDataBase.readData(getContext());
+            FirebaseDataBase.readData(getContext());
         });
 
         return view;
