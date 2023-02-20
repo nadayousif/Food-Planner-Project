@@ -35,7 +35,8 @@
 <h2>Permissions</h2>
 
 - Network Permission.
-- Wifi states access.
+- Wifi States Access.
+- gms Permission.
 
 
 <hr>
