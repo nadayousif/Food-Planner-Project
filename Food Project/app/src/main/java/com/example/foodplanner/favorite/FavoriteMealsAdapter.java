@@ -16,7 +16,10 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodplanner.Model.FavoriteMeal;
 import com.example.foodplanner.R;
 
+<<<<<<< Updated upstream
 import com.example.foodplanner.helper.Converter;
+=======
+>>>>>>> Stashed changes
 import com.example.foodplanner.profile.FirebaseDataBase;
 
 
