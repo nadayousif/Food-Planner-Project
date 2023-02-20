@@ -8,12 +8,14 @@ import android.os.Handler;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.example.foodplanner.R;
+import com.google.firebase.database.FirebaseDatabase;
 
 public class SplashActivity extends AppCompatActivity {
 LottieAnimationView food;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        FirebaseDatabase.getInstance().setPersistenceEnabled(true);
         setContentView(R.layout.activity_splash);
         food = findViewById(R.id.splash);
         food.animate().translationX(2000).setDuration(2000).setStartDelay(2900);

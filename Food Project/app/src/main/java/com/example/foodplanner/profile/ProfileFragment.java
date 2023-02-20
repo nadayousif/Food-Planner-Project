@@ -93,7 +93,8 @@ public class ProfileFragment extends Fragment {
 
         backup.setOnClickListener(i -> {
 //            localDataSource.deleteAll(MyUser.getInstance().getEmail());
-            FirebaseDataBase.readData(getContext());
+            if (MyUser.getInstance().isLogin())
+                FirebaseDataBase.readData(getContext());
         });
 
 
