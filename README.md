@@ -60,7 +60,7 @@
 
 - Nada Youssef [linkedin](https://www.linkedin.com/in/nada-youssef-abdel-fattah/)
 
-- Ammar AlArabi [linkedin](https://www.linkedin.com/in/moamen-gomaa-150695/)
+- Ammar AlArabi [linkedin](https://www.linkedin.com/in/ammar-elriyali-2371121b3/)
 
 <hr>
 
