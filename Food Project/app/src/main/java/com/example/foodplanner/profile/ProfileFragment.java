@@ -14,6 +14,8 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.foodplanner.DBConnection.localdatabase.localdb.ConcreteLocalData;
+import com.example.foodplanner.DBConnection.localdatabase.localdb.LocalDataSource;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
 import com.example.foodplanner.Welcome.WelcomeActivity;
@@ -36,6 +38,8 @@ public class ProfileFragment extends Fragment {
     GoogleSignInOptions gso;
     private DatabaseReference mDatabase;
 
+    LocalDataSource localDataSource;
+
     // Write a message to the database
 
 
@@ -50,6 +54,7 @@ public class ProfileFragment extends Fragment {
         gsc = GoogleSignIn.getClient(getContext(), gso);
         logout = view.findViewById(R.id.b_logout);
         Button backup = view.findViewById(R.id.b_backup);
+        localDataSource= ConcreteLocalData.getInstance(getContext());
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -87,8 +92,10 @@ public class ProfileFragment extends Fragment {
 
 
         backup.setOnClickListener(i -> {
+            localDataSource.deleteAll(MyUser.getInstance().getEmail());
             FirebaseDataBase.readData(getContext());
         });
+
 
         return view;
 

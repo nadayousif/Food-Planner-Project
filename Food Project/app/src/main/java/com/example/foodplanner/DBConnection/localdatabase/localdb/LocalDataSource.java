@@ -56,4 +56,7 @@ public interface LocalDataSource {
     void addMealsToPlan(List<Meal> list);
 
     void addToFavorite(FavoriteMeal meal1);
+
+    void deleteAll(String email);
+
 }
