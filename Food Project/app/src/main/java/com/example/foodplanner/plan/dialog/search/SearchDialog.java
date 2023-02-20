@@ -22,6 +22,7 @@ import com.example.foodplanner.MainActivity;
 import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
 import com.example.foodplanner.helper.CheckConnection;
+import com.example.foodplanner.helper.Converter;
 import com.example.foodplanner.helper.MySharedPreference;
 import com.example.foodplanner.helper.MyUser;
 import com.example.foodplanner.plan.dialog.CommunicationWithDailog;
@@ -32,14 +33,12 @@ import com.example.foodplanner.plan.dialog.search.presenter.presenterSearchDialo
 import com.example.foodplanner.plan.dialog.search.searchresult.AdapterSearchDialog;
 import com.example.foodplanner.plan.dialog.search.searchresult.OnClickItem;
 import com.example.foodplanner.profile.FirebaseDataBase;
-import com.example.foodplanner.profile.MealFirebase;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class SearchDialog extends DialogFragment implements  OnClickItemHistory, CommunicationSearchDialog , OnClickItem {
 
@@ -213,21 +212,7 @@ public class SearchDialog extends DialogFragment implements  OnClickItemHistory,
         meal.setEmail(MyUser.getInstance().getEmail());
         meal.setDay(day);
         presenterSearchDialog.saveMealToPlan(meal);
-        MealFirebase fireBaseRecord = new MealFirebase();
-        fireBaseRecord.setIdMeal(meal.getIdMeal());
-        fireBaseRecord.setDay(meal.getDay());
-        fireBaseRecord.setEmail(meal.getEmail());
-        fireBaseRecord.setStrArea(meal.getStrArea());
-        fireBaseRecord.setStrCategory(meal.getStrCategory());
-        fireBaseRecord.setStrMeal(meal.getStrMeal());
-        fireBaseRecord.setStrIngredient(meal.getStrIngredient());
-        fireBaseRecord.setStrInstructions(meal.getStrInstructions());
-        fireBaseRecord.setStrMealThumb(meal.getStrMealThumb());
-        fireBaseRecord.setStrYoutube(meal.getStrYoutube());
-        fireBaseRecord.setIngredients(meal.getIngredients());
-        fireBaseRecord.setMeasures(meal.getMeasures());
-        fireBaseRecord.setImages(IntStream.range(0, meal.getImage().length).mapToObj(i -> (int) meal.getImage()[i]).collect(Collectors.toList()));
-        FirebaseDataBase.addPlanToFirebase(getContext(),fireBaseRecord);
+        FirebaseDataBase.addPlanToFirebase(getContext(), Converter.mealFirebasePlan(meal));
 
     }
 
@@ -236,20 +221,7 @@ public class SearchDialog extends DialogFragment implements  OnClickItemHistory,
         meal.setEmail(MyUser.getInstance().getEmail());
         meal.setDay(day);
         presenterSearchDialog.removeMealToPlan(meal);
-        MealFirebase fireBaseRecord = new MealFirebase();
-        fireBaseRecord.setIdMeal(meal.getIdMeal());
-        fireBaseRecord.setDay(meal.getDay());
-        fireBaseRecord.setEmail(meal.getEmail());
-        fireBaseRecord.setStrArea(meal.getStrArea());
-        fireBaseRecord.setStrCategory(meal.getStrCategory());
-        fireBaseRecord.setStrMeal(meal.getStrMeal());
-        fireBaseRecord.setStrIngredient(meal.getStrIngredient());
-        fireBaseRecord.setStrInstructions(meal.getStrInstructions());
-        fireBaseRecord.setStrMealThumb(meal.getStrMealThumb());
-        fireBaseRecord.setStrYoutube(meal.getStrYoutube());
-        fireBaseRecord.setIngredients(meal.getIngredients());
-        fireBaseRecord.setMeasures(meal.getMeasures());
-        fireBaseRecord.setImages(IntStream.range(0, meal.getImage().length).mapToObj(i -> (int) meal.getImage()[i]).collect(Collectors.toList()));
-        FirebaseDataBase.removePlanFromFireBase(getContext(),fireBaseRecord);
+
+        FirebaseDataBase.addPlanToFirebase(getContext(), Converter.mealFirebasePlan(meal));
     }
 }

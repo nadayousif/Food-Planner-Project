@@ -3,7 +3,6 @@ package com.example.foodplanner.favorite;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,14 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.foodplanner.Model.FavoriteMeal;
 import com.example.foodplanner.R;
 
+import com.example.foodplanner.helper.Converter;
 import com.example.foodplanner.profile.FirebaseDataBase;
-import com.example.foodplanner.profile.MealFirebase;
 
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdapter.MyViewHolder>{
     private static final String TAG = "MyAdapter";
@@ -80,22 +77,9 @@ public class FavoriteMealsAdapter extends RecyclerView.Adapter<FavoriteMealsAdap
             holder.thumbnails.setImageBitmap(bmp);
             holder.close.setOnClickListener(i -> {
                 onClickFavoriteItem.onClick(arr.get(position).getIdMeal(), true);
-                MealFirebase fireBaseRecord = new MealFirebase();
-                fireBaseRecord.setIdMeal(arr.get(position).getIdMeal());
-                fireBaseRecord.setEmail(arr.get(position).getEmail());
-                fireBaseRecord.setStrArea(arr.get(position).getStrArea());
-                fireBaseRecord.setStrCategory(arr.get(position).getStrCategory());
-                fireBaseRecord.setStrMeal(arr.get(position).getStrMeal());
-                fireBaseRecord.setStrIngredient(arr.get(position).getStrIngredient());
-                fireBaseRecord.setStrInstructions(arr.get(position).getStrInstructions());
-                fireBaseRecord.setStrMealThumb(arr.get(position).getStrMealThumb());
-                fireBaseRecord.setStrYoutube(arr.get(position).getStrYoutube());
-                fireBaseRecord.setIngredients(arr.get(position).getIngredients());
-                fireBaseRecord.setMeasures(arr.get(position).getMeasures());
-                fireBaseRecord.setImages(IntStream.range(0, arr.get(position).getImage().length).mapToObj(e -> (int) arr.get(position).getImage()[e]).collect(Collectors.toList()));
-                FirebaseDataBase.removeFavouriteFromFirebase(context,fireBaseRecord);
+                FirebaseDataBase.removeFavouriteFromFirebase(context, Converter.mealFirebaseFav(arr.get(position)));
                 arr.remove(position);
-                notifyDataSetChanged();
+                notifyItemChanged(position);
             });
         }
 

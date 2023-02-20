@@ -1,7 +1,11 @@
 package com.example.foodplanner.profile;
 
+import com.example.foodplanner.Model.Meal;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public class MealFirebase {
 
@@ -503,25 +507,8 @@ public class MealFirebase {
         public void setStrMealThumb(String strMealThumb) {
             this.strMealThumb = strMealThumb;
         }
-        public List<String> ingredients;
-        public List<String> measures;
+
         public List<Integer> images;
-
-    public List<String> getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(List<String> ingredients) {
-        this.ingredients = ingredients;
-    }
-
-    public List<String> getMeasures() {
-        return measures;
-    }
-
-    public void setMeasures(List<String> measures) {
-        this.measures = measures;
-    }
 
     public List<Integer> getImages() {
         return images;
@@ -530,4 +517,5 @@ public class MealFirebase {
     public void setImages(List<Integer> images) {
         this.images = images;
     }
+
 }

@@ -18,7 +18,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,9 +39,7 @@ import com.example.foodplanner.meal.presenter.CommunicationMeal;
 import com.example.foodplanner.meal.presenter.PresenterMeal;
 
 import com.example.foodplanner.profile.FirebaseDataBase;
-import com.example.foodplanner.profile.MealFirebase;
 
-import com.example.foodplanner.plan.dialog.favorite.FavoriteDialog;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipGroup;
 
@@ -51,13 +48,10 @@ import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.YouTubePlayer
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.listeners.AbstractYouTubePlayerListener;
 import com.pierfrancescosoffritti.androidyoutubeplayer.core.player.views.YouTubePlayerView;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.stream.Collectors;
-
-import java.util.stream.IntStream;
 
 
 public class MealActivity extends AppCompatActivity implements CommunicationMeal {
@@ -117,41 +111,10 @@ public class MealActivity extends AppCompatActivity implements CommunicationMeal
                     if (((ToggleButton) v).isChecked()) {
                         Toast.makeText(this, "add to favorite", Toast.LENGTH_SHORT).show();
                         presenterMeal.addToFav(Converter.convertMealToFav(meal));
-
-                        MealFirebase fireBaseRecord = new MealFirebase();
-                        fireBaseRecord.setIdMeal(meal.getIdMeal());
-                        fireBaseRecord.setDay(meal.getDay());
-                        fireBaseRecord.setEmail(meal.getEmail());
-                        fireBaseRecord.setStrArea(meal.getStrArea());
-                        fireBaseRecord.setStrCategory(meal.getStrCategory());
-                        fireBaseRecord.setStrMeal(meal.getStrMeal());
-                        fireBaseRecord.setStrIngredient(meal.getStrIngredient());
-                        fireBaseRecord.setStrInstructions(meal.getStrInstructions());
-                        fireBaseRecord.setStrMealThumb(meal.getStrMealThumb());
-                        fireBaseRecord.setStrYoutube(meal.getStrYoutube());
-                        fireBaseRecord.setIngredients(meal.getIngredients());
-                        fireBaseRecord.setMeasures(meal.getMeasures());
-                        fireBaseRecord.setImages(IntStream.range(0, meal.getImage().length).mapToObj(i -> (int) meal.getImage()[i]).collect(Collectors.toList()));
-
-
-                        FirebaseDataBase.addFavouriteToFirebase(this, fireBaseRecord);
+                        FirebaseDataBase.addFavouriteToFirebase(this, Converter.mealFirebasePlan(meal));
                     } else {
                         presenterMeal.removeFromFav(Converter.convertMealToFav(meal));
-                        MealFirebase fireBaseRecord = new MealFirebase();
-                        fireBaseRecord.setIdMeal(meal.getIdMeal());
-                        fireBaseRecord.setDay(meal.getDay());
-                        fireBaseRecord.setEmail(meal.getEmail());
-                        fireBaseRecord.setStrArea(meal.getStrArea());
-                        fireBaseRecord.setStrCategory(meal.getStrCategory());
-                        fireBaseRecord.setStrMeal(meal.getStrMeal());
-                        fireBaseRecord.setStrIngredient(meal.getStrIngredient());
-                        fireBaseRecord.setStrInstructions(meal.getStrInstructions());
-                        fireBaseRecord.setStrMealThumb(meal.getStrMealThumb());
-                        fireBaseRecord.setStrYoutube(meal.getStrYoutube());
-                        fireBaseRecord.setIngredients(meal.getIngredients());
-                        fireBaseRecord.setMeasures(meal.getMeasures());
-                        fireBaseRecord.setImages(IntStream.range(0, meal.getImage().length).mapToObj(i -> (int) meal.getImage()[i]).collect(Collectors.toList()));
-                        FirebaseDataBase.removeFavouriteFromFirebase(this, fireBaseRecord);
+                        FirebaseDataBase.removeFavouriteFromFirebase(this, Converter.mealFirebasePlan(meal));
                     }
                 }
 
@@ -293,27 +256,13 @@ public class MealActivity extends AppCompatActivity implements CommunicationMeal
     public void updateDB(List<String> list) {
         meal.setEmail(MyUser.getInstance().getEmail());
         List<Meal> meals = list.stream().map(i -> {
-            Meal meal1=Converter.createMeal(meal);
+            Meal meal1 = Converter.createMeal(meal);
             meal1.setDay(i);
             return meal1;
         }).collect(Collectors.toList());
 
         for (Meal meal : meals) {
-            MealFirebase fireBaseRecord = new MealFirebase();
-            fireBaseRecord.setIdMeal(meal.getIdMeal());
-            fireBaseRecord.setDay(meal.getDay());
-            fireBaseRecord.setEmail(meal.getEmail());
-            fireBaseRecord.setStrArea(meal.getStrArea());
-            fireBaseRecord.setStrCategory(meal.getStrCategory());
-            fireBaseRecord.setStrMeal(meal.getStrMeal());
-            fireBaseRecord.setStrIngredient(meal.getStrIngredient());
-            fireBaseRecord.setStrInstructions(meal.getStrInstructions());
-            fireBaseRecord.setStrMealThumb(meal.getStrMealThumb());
-            fireBaseRecord.setStrYoutube(meal.getStrYoutube());
-            fireBaseRecord.setIngredients(meal.getIngredients());
-            fireBaseRecord.setMeasures(meal.getMeasures());
-            fireBaseRecord.setImages(IntStream.range(0, meal.getImage().length).mapToObj(i -> (int) meal.getImage()[i]).collect(Collectors.toList()));
-            FirebaseDataBase.addPlanToFirebase(this, fireBaseRecord);
+            FirebaseDataBase.addPlanToFirebase(this, Converter.mealFirebasePlan(meal));
         }
 
         presenterMeal.addToPlan(meals);
@@ -341,7 +290,7 @@ public class MealActivity extends AppCompatActivity implements CommunicationMeal
                             List<String> list = chipGroup.getCheckedChipIds().stream()
                                     .map(i ->
                                             ((Chip) view.findViewById(i)).getTag().toString()).collect(Collectors.toList());
-                            Log.i(TAG, "onClick: "+list.size());
+                            Log.i(TAG, "onClick: " + list.size());
                             communicationMeal.updateDB(list);
 
                         }

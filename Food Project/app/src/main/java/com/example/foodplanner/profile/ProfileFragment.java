@@ -1,5 +1,6 @@
 package com.example.foodplanner.profile;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -13,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.foodplanner.Model.Meal;
 import com.example.foodplanner.R;
 import com.example.foodplanner.Welcome.WelcomeActivity;
 import com.example.foodplanner.helper.MySharedPreference;
@@ -28,7 +30,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 public class ProfileFragment extends Fragment {
-    private static final String TAG = "TAGG" ;
+    private static final String TAG = "TAGG";
     Button logout;
     GoogleSignInClient gsc;
     GoogleSignInOptions gso;
@@ -42,12 +44,12 @@ public class ProfileFragment extends Fragment {
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_profile,
                 container, false);
-        TextView textView=view.findViewById(R.id.tv_profile);
+        TextView textView = view.findViewById(R.id.tv_profile);
         textView.setText(MyUser.getInstance().getEmail());
         gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestEmail().build();
         gsc = GoogleSignIn.getClient(getContext(), gso);
-        logout =  view.findViewById(R.id.b_logout);
-        Button backup=view.findViewById(R.id.b_backup);
+        logout = view.findViewById(R.id.b_logout);
+        Button backup = view.findViewById(R.id.b_backup);
 
         logout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -55,7 +57,7 @@ public class ProfileFragment extends Fragment {
                 MySharedPreference.clear(getActivity());
                 gsc.signOut();
                 LoginManager.getInstance().logOut();
-                startActivity(new Intent(getActivity(),WelcomeActivity.class));
+                startActivity(new Intent(getActivity(), WelcomeActivity.class));
                 getActivity().finish();
 
             }
@@ -84,10 +86,10 @@ public class ProfileFragment extends Fragment {
         });*/
 
 
-        backup.setOnClickListener(i->{
-
-
+        backup.setOnClickListener(i -> {
+        FirebaseDataBase.readData(getContext());
         });
+
         return view;
 
 

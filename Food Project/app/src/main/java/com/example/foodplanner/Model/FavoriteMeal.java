@@ -15,8 +15,12 @@ public class FavoriteMeal {
         @NonNull
         private String idMeal;
 
+    public FavoriteMeal() {
 
-        @NonNull
+    }
+
+
+    @NonNull
     public String getEmail() {
         return email;
     }

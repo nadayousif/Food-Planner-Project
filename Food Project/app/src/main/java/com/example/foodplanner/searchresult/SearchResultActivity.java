@@ -21,14 +21,11 @@ import com.example.foodplanner.helper.Converter;
 import com.example.foodplanner.helper.MyUser;
 import com.example.foodplanner.meal.MealActivity;
 import com.example.foodplanner.profile.FirebaseDataBase;
-import com.example.foodplanner.profile.MealFirebase;
 import com.example.foodplanner.searchresult.presenter.CommunicationSearchResult;
 import com.example.foodplanner.searchresult.presenter.PresenterSearchResult;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 public class SearchResultActivity extends AppCompatActivity implements OnClickItem, CommunicationSearchResult {
     private static final String TAG = "TAGG";
@@ -96,20 +93,7 @@ PresenterSearchResult presenterSearchResult;
         FavoriteMeal meal=Converter.convertMealToFav(tag);
         meal.setEmail(MyUser.getInstance().getEmail());
         presenterSearchResult.removeFromFav(meal,onViewClickSearchPlan);
-        MealFirebase fireBaseRecord = new MealFirebase();
-        fireBaseRecord.setIdMeal(meal.getIdMeal());
-        fireBaseRecord.setEmail(meal.getEmail());
-        fireBaseRecord.setStrArea(meal.getStrArea());
-        fireBaseRecord.setStrCategory(meal.getStrCategory());
-        fireBaseRecord.setStrMeal(meal.getStrMeal());
-        fireBaseRecord.setStrIngredient(meal.getStrIngredient());
-        fireBaseRecord.setStrInstructions(meal.getStrInstructions());
-        fireBaseRecord.setStrMealThumb(meal.getStrMealThumb());
-        fireBaseRecord.setStrYoutube(meal.getStrYoutube());
-        fireBaseRecord.setIngredients(meal.getIngredients());
-        fireBaseRecord.setMeasures(meal.getMeasures());
-        fireBaseRecord.setImages(IntStream.range(0, meal.getImage().length).mapToObj(i -> (int) meal.getImage()[i]).collect(Collectors.toList()));
-        FirebaseDataBase.removeFavouriteFromFirebase(this,fireBaseRecord);
+        FirebaseDataBase.removeFavouriteFromFirebase(this, Converter.mealFirebasePlan(tag));
     }
 
     @Override
@@ -134,21 +118,7 @@ PresenterSearchResult presenterSearchResult;
     @Override
     public void susToAdd(OnViewClickSearchPlan onViewClickSearchPlan) {
         onViewClickSearchPlan.setEnable();
-        MealFirebase fireBaseRecord = new MealFirebase();
-        fireBaseRecord.setIdMeal(meal.getIdMeal());
-        fireBaseRecord.setDay(meal.getDay());
-        fireBaseRecord.setEmail(meal.getEmail());
-        fireBaseRecord.setStrArea(meal.getStrArea());
-        fireBaseRecord.setStrCategory(meal.getStrCategory());
-        fireBaseRecord.setStrMeal(meal.getStrMeal());
-        fireBaseRecord.setStrIngredient(meal.getStrIngredient());
-        fireBaseRecord.setStrInstructions(meal.getStrInstructions());
-        fireBaseRecord.setStrMealThumb(meal.getStrMealThumb());
-        fireBaseRecord.setStrYoutube(meal.getStrYoutube());
-        fireBaseRecord.setIngredients(meal.getIngredients());
-        fireBaseRecord.setMeasures(meal.getMeasures());
-        fireBaseRecord.setImages(IntStream.range(0, meal.getImage().length).mapToObj(i -> (int) meal.getImage()[i]).collect(Collectors.toList()));
-        FirebaseDataBase.addPlanToFirebase(this,fireBaseRecord);
+        FirebaseDataBase.addFavouriteToFirebase(this, Converter.mealFirebasePlan(meal));
     }
 
     @Override

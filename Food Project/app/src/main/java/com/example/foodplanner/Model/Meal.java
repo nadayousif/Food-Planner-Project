@@ -18,6 +18,10 @@ public class Meal {
     @NonNull
     private String day;
 
+    public Meal() {
+
+    }
+
 
     @NonNull
     public String getEmail() {

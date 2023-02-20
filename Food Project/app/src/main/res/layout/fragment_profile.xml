@@ -37,7 +37,7 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="@string/backUp"
+        android:text="Download Data"
         android:textAlignment="textStart"
         android:textSize="20sp"
         app:icon="@drawable/baseline_backup_24"
