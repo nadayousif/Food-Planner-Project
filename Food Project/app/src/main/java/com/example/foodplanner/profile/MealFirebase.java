@@ -11,7 +11,7 @@ public class MealFirebase {
 
         private String strMeal;
         private String strMealThumb;
-        private String strArea;
+    private String strArea;
         private  String day;
 
         public String getDay() {

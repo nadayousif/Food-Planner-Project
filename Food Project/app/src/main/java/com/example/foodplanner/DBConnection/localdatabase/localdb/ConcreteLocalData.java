@@ -361,10 +361,7 @@ public class ConcreteLocalData implements LocalDataSource {
                 });
     }
 
-    @Override
-    public void deleteAllMeal(String email) {
 
-    }
 
 
     @Override

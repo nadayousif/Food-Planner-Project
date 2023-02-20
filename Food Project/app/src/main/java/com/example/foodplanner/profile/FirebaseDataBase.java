@@ -92,6 +92,8 @@ public class FirebaseDataBase {
                             MealFirebase meal = dataSnapshot.getValue(MealFirebase.class);
                             try {
                                 FavoriteMeal meal1 = Converter.getFavFroMeaLFirebase(meal);
+                                meal.setEmail(MyUser.getInstance().getEmail());
+                                Toast.makeText(context, MyUser.getInstance().getEmail(), Toast.LENGTH_SHORT).show();
                                 localDataSource.addToFavorite(meal1);
                             } catch (IOException e) {
                                 throw new RuntimeException(e);

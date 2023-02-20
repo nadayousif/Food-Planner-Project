@@ -54,9 +54,9 @@ public interface MealDAO {
     @Query("select * from  meal  where idMeal =  :id and email = :email")
     Single<Meal> getMeal(String id, String email);
 
-    @Query("select * from meal where email = :email")
+    @Query("delete  from meal where email = :email")
     Completable deletePlan(String email);
 
-    @Query("select * from favoritemeal where email = :email")
+    @Query("delete  from favoritemeal where email = :email")
     Completable deleteFav(String email);
 }
