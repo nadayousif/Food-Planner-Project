@@ -1,6 +1,7 @@
 # FoodPlannerProject
 <h2>Food Planner</h2>
-- Native Mobile Android Application to set weekly food plan, open source and free,using design architecture MVP, java rx, room ,fire base"authentication(google,facbook,coustem emails)", retrofit , retrofi adapter for rxjava , glide , material design , lottie animation , youtube .
+- Native Mobile Android Application to set weekly food plan, open source and free,using design architecture MVP, java rx, room ,fire base"authentication(google,facebook,custom emails)", retrofit , retrofit adapter for rxjava , glide , material design , lottie animation , youtube .
+
 
 <h2>Features :</h2>
 
